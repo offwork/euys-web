@@ -1,0 +1,318 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="kusurForm">
+  <div class="grid grid-cols-3 justify-items-stretch gap-x-10 gap-y-4 pt-2">
+    <div class="p-fluid">
+      <p-dropdown
+        [options]="kusurList"
+        optionLabel="kusurKodu"
+        optionValue="kusurKodu"
+        [filter]="true"
+        filterBy="kusurKodu"
+        [showClear]="true"
+        placeholder="Kayıt Getir"
+        inputId="kusurList"
+        (onChange)="kayitGetir($event)"
+        (onClear)="resetForm()"
+        [(ngModel)]="kusurKodu"
+        [ngModelOptions]="{standalone: true}"
+        [virtualScroll]="true"
+        [itemSize]="30"
+      ></p-dropdown>
+    </div>
+    <div class="p-fluid col-span-2" formGroupName="kkKusur">
+      <span class="p-float-label">
+        <input
+          id="kusurTanim"
+          type="text"
+          pInputText
+          formControlName="kusurTanim"
+          maxlength="130"
+        />
+        <label for="kusurTanim">Kusur Tanımı *</label>
+      </span>
+      <small
+        *ngIf="
+          kusurForm.get(['kkKusur', 'kusurTanim']).hasError('required') &&
+          (kusurForm.get(['kkKusur', 'kusurTanim']).dirty ||
+            kusurForm.get(['kkKusur', 'kusurTanim']).touched)
+        "
+        id="kusurTanim-help"
+        class="p-error"
+      >
+        Kusur Tanımı zorunludur.
+      </small>
+    </div>
+
+    <div
+      class="
+        col-span-3
+        grid grid-cols-8
+        justify-items-stretch
+        gap-x-2 gap-y-10
+        pt-2
+      "
+    >
+      <div class="p-fluid" formGroupName="kkKusur">
+        <p-dropdown
+          [options]="kusurSinifiList"
+          optionLabel="kusurSinifiTanim"
+          optionValue="kusurSinifiNo"
+          formControlName="kusurSinifiNo"
+          [filter]="true"
+          filterBy="kusurSinifiTanim"
+          [showClear]="true"
+          placeholder="Kusur Sınıfı *"
+          inputId="kusurSinifi"
+          [virtualScroll]="true"
+          [itemSize]="30"
+        ></p-dropdown>
+        <small
+          *ngIf="
+            kusurForm.get(['kkKusur', 'kusurSinifiNo']).hasError('required') &&
+            (kusurForm.get(['kkKusur', 'kusurSinifiNo']).dirty ||
+              kusurForm.get(['kkKusur', 'kusurSinifiNo']).touched)
+          "
+          id="kusurSinifi-help"
+          class="p-error"
+        >
+          Kusur Sınıfı seçimi zorunludur.
+        </small>
+      </div>
+      <div class="p-fluid" formGroupName="kkKusur">
+        <p-dropdown
+          [options]="kusurAnaList"
+          optionLabel="anaKusurKodu"
+          optionValue="anaKusurKodu"
+          formControlName="anaKusurKodu"
+          [filter]="true"
+          filterBy="anaKusurKodu"
+          filterPlaceholder="Ana Kusur Kodu"
+          [showClear]="true"
+          placeholder="Ana Kusur Kodu *"
+          inputId="anaKusurKodu"
+          [virtualScroll]="true"
+          [itemSize]="30"
+        ></p-dropdown>
+        <small
+          *ngIf="
+            kusurForm.get(['kkKusur', 'anaKusurKodu']).hasError('required') &&
+            (kusurForm.get(['kkKusur', 'anaKusurKodu']).dirty ||
+              kusurForm.get(['kkKusur', 'anaKusurKodu']).touched)
+          "
+          id="anaKusurKodu-help"
+          class="p-error"
+        >
+          Ana Kusur Kodu Seçimi zorunludur.
+        </small>
+      </div>
+      <div class="p-fluid" formGroupName="yeniAnaKusur">
+        <span class="p-float-label">
+          <input
+            id="yeniAnaKusurKodu"
+            type="text"
+            pInputText
+            formControlName="anaKusurKodu"
+            maxlength="3"
+          />
+          <label for="yeniAnaKusurKodu">Ana Kusur Kodu *</label>
+        </span>
+        <small
+          *ngIf="
+            kusurForm
+              .get(['yeniAnaKusur', 'anaKusurKodu'])
+              .hasError('required') &&
+            (kusurForm.get(['yeniAnaKusur', 'anaKusurKodu']).dirty ||
+              kusurForm.get(['yeniAnaKusur', 'anaKusurKodu']).touched)
+          "
+          id="yeniAnaKusurKodu-help"
+          class="p-error"
+        >
+          Ana Kusur Kodu zorunludur.
+        </small>
+        <small
+          *ngIf="
+            kusurForm.get(['yeniAnaKusur', 'anaKusurKodu']).hasError('alreadyExists') &&
+            (kusurForm.get(['yeniAnaKusur', 'anaKusurKodu']).dirty ||
+              kusurForm.get(['yeniAnaKusur', 'anaKusurKodu']).touched)
+          "
+          id="kusurKodu-help"
+          class="p-error"
+        >
+          Ana Kusur Kodu zaten kayıtlıdır.
+        </small>
+      </div>
+      <div class="p-fluid" formGroupName="yeniAnaKusur">
+        <span class="p-float-label">
+          <input
+            id="yeniAnaKusurTanim"
+            type="text"
+            pInputText
+            formControlName="anaKusurTanim"
+            maxlength="30"
+          />
+          <label for="yeniAnaKusurKodu">Ana Kusur Tanım *</label>
+        </span>
+        <small
+          *ngIf="
+            kusurForm
+              .get(['yeniAnaKusur', 'anaKusurTanim'])
+              .hasError('required') &&
+            (kusurForm.get(['yeniAnaKusur', 'anaKusurTanim']).dirty ||
+              kusurForm.get(['yeniAnaKusur', 'anaKusurTanim']).touched)
+          "
+          id="yeniAnaKusurKodu-help"
+          class="p-error"
+        >
+          Ana Kusur Tanımı zorunludur.
+        </small>
+      </div>
+
+      <div class="p-fluid" formGroupName="kkKusur">
+        <span class="p-float-label">
+          <input
+            id="kusurKodu"
+            type="text"
+            pInputText
+            formControlName="kusurKodu"
+            minlength="3"
+            maxlength="3"
+          />
+          <label for="kusurKodu">Kusur Kodu *</label>
+        </span>
+        <small
+          *ngIf="
+            kusurForm.get(['kkKusur', 'kusurKodu']).hasError('required') &&
+            (kusurForm.get(['kkKusur', 'kusurKodu']).dirty ||
+              kusurForm.get(['kkKusur', 'kusurKodu']).touched)
+          "
+          id="kusurKodu-help"
+          class="p-error"
+        >
+          Kusur Kodu zorunludur.
+        </small>
+        <small
+          *ngIf="
+            kusurForm.get(['kkKusur', 'kusurKodu']).hasError('minlength') &&
+            (kusurForm.get(['kkKusur', 'kusurKodu']).dirty ||
+              kusurForm.get(['kkKusur', 'kusurKodu']).touched)
+          "
+          id="kusurKodu-help"
+          class="p-error"
+        >
+          Kusur Kodu 3 karakter olmalıdır.
+        </small>
+        <small
+          *ngIf="
+            kusurForm.get(['kkKusur', 'kusurKodu']).hasError('alreadyExists') &&
+            (kusurForm.get(['kkKusur', 'kusurKodu']).dirty ||
+              kusurForm.get(['kkKusur', 'kusurKodu']).touched)
+          "
+          id="kusurKodu-help"
+          class="p-error"
+        >
+          Kusur Kodu zaten kayıtlıdır.
+        </small>
+      </div>
+      <div class="p-fluid col-span-2" formGroupName="kkKusur">
+        <span class="p-float-label">
+          <input
+            id="kusurAciklama"
+            type="text"
+            pInputText
+            formControlName="kusurAciklama"
+            maxlength="130"
+          />
+          <label for="kusurAciklama">Kusur Kodu Açıklaması *</label>
+        </span>
+        <small
+          *ngIf="
+            kusurForm.get(['kkKusur', 'kusurAciklama']).hasError('required') &&
+            (kusurForm.get(['kkKusur', 'kusurAciklama']).dirty ||
+              kusurForm.get(['kkKusur', 'kusurAciklama']).touched)
+          "
+          id="kusurAciklama-help"
+          class="p-error"
+        >
+          Kusur Kodu Açıklaması zorunludur.
+        </small>
+      </div>
+      <div class="grid grid-cols-2 gap-x-2">
+        <div class="p-fluid" formGroupName="kkKusur">
+          <p-dropdown
+            [options]="aktifPasifList"
+            formControlName="aktifPasif"
+            placeholder="Statü"
+            inputId="aktifPasif"
+          ></p-dropdown>
+          <small
+            *ngIf="
+              kusurForm.get(['kkKusur', 'aktifPasif']).hasError('required') &&
+              (kusurForm.get(['kkKusur', 'aktifPasif']).dirty ||
+                kusurForm.get(['kkKusur', 'aktifPasif']).touched)
+            "
+            id="kusurSinifi-help"
+            class="p-error"
+          >
+            Statü seçimi zorunludur.
+          </small>
+        </div>
+        <div class="flex items-center dropdown-height" formGroupName="kkKusur">
+          <p-checkbox
+            formControlName="hurdaMi"
+            label="Hurda"
+            [binary]="true"
+            inputId="hurdaMi"
+            trueValue="E"
+            falseValue="H"
+          ></p-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-span-3">
+      <euys-table-multi-select
+        [options]="hatList"
+        [style.width]="'100%'"
+        formControlName="kkKusurAktifHatList"
+        optionLabel="hatAdi"
+        [compareFn]="compareFn"
+        id="kkKusurAktifHatList"
+      >
+        <ng-template euysTableMultiSelectItem let-option>
+          {{ option.hatKodu }}
+        </ng-template>
+      </euys-table-multi-select>
+      <small
+        id="hatlar2-help"
+        class="p-error"
+        *ngIf="
+          kusurForm.get('kkKusurAktifHatList').hasError('required') &&
+          (kusurForm.get('kkKusurAktifHatList').touched ||
+            kusurForm.get('kkKusurAktifHatList').dirty)
+        "
+      >
+        Hat Seçimi Zorunludur!
+      </small>
+    </div>
+
+    <div class="col-span-3 flex justify-start gap-2">
+      <button
+        pButton
+        pRipple
+        type="submit"
+        label="Kaydet "
+        icon="pi pi-save"
+        class="p-button-rounded"
+        [disabled]="!kusurForm.valid"
+      ></button>
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Temizle "
+        icon="pi pi-trash"
+        class="p-button-rounded"
+        (click)="resetForm()"
+      ></button>
+    </div>
+  </div>
+</form>

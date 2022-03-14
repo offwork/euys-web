@@ -1,0 +1,23 @@
+# Add files here to ignore them from prettier formatting
+# Ignore artifacts:
+/dist
+/coverage
+/docs
+
+# dependencies
+/node_modules
+
+# IDE - VSCode
+.vscode/*
+
+# Ignore all JS files:
+*.js
+# Ignore all JSON files:
+*.json
+# Ignore all Spec files:
+*.spec.ts
+
+
+# System Files
+.DS_Store
+Thumbs.db

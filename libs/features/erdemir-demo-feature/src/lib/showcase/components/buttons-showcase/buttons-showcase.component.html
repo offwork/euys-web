@@ -1,0 +1,89 @@
+<p-table
+  [columns]="cols"
+  [value]="data"
+  [dataKey]="'id'"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngFor="let col of cols">
+        {{col.header}}
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr>
+      <td *ngFor="let col of cols">
+        <div [ngSwitch]="col.id">
+          <div *ngSwitchCase="'id'">
+            {{rowData['id'] | uppercase}}
+          </div>
+          <div *ngSwitchCase="'primary'">
+            <button pButton pRipple type="button" [label]="rowData.primary" class="p-button-rounded" [disabled]="rowData['id'] === 'disabled'"></button>
+          </div>
+          <div *ngSwitchCase="'secondary'">
+            <button pButton pRipple type="button" [label]="rowData.secondary" class="p-button-rounded p-button-secondary" [disabled]="rowData['id'] === 'disabled'"></button>
+          </div>
+          <div *ngSwitchCase="'outlined'">
+            <button pButton pRipple type="button" [label]="rowData[col.id]" class="p-button-outlined p-button-rounded" [disabled]="rowData['id'] === 'disabled'"></button>
+          </div>
+          <div *ngSwitchCase="'text'">
+            <button pButton pRipple type="button" [label]="rowData.text" class="p-button-text" [disabled]="rowData['id'] === 'disabled'"></button>
+          </div>
+          <div *ngSwitchCase="'withIcon'">
+            <button pButton pRipple type="button" label="{{rowData.withIcon}} " icon="pi pi-plus" class="p-button-rounded" [disabled]="rowData['id'] === 'disabled'">
+            </button>
+          </div>
+          <div *ngSwitchCase="'onay'">
+            <button pButton pRipple type="button" label="{{rowData.onay}} " icon="pi pi-check" class="p-button-rounded" [disabled]="rowData['id'] === 'disabled'">
+            </button>
+          </div>
+          <div *ngSwitchCase="'red'">
+            <button pButton pRipple type="button" label="{{rowData.red}} " icon="pi pi-times" class="p-button-outlined p-button-rounded" [disabled]="rowData['id'] === 'disabled'">
+            </button>
+          </div>
+          <div *ngSwitchCase="'geri'">
+            <button pButton pRipple type="button" label="{{rowData.geri}} " icon="pi pi-arrow-left" class="p-button-outlined p-button-rounded" [disabled]="rowData['id'] === 'disabled'">
+            </button>
+          </div>
+          <div *ngSwitchCase="'ileri'">
+            <button pButton pRipple type="button" label="{{rowData.ileri}} " icon="pi pi-arrow-right" class="p-button-rounded" [disabled]="rowData['id'] === 'disabled'">
+            </button>
+          </div>
+          <div *ngSwitchDefault></div>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-divider></p-divider>
+
+<p-panel header="Select Button">
+  <p-table [value]="selectButtonData" [dataKey]="'id'" [columns]="['state', 'content']">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>
+          State
+        </th>
+        <th>
+          Content
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData>
+      <tr>
+        <td>{{rowData.id | uppercase}}</td>
+        <td>
+          <p-selectButton
+            [options]="selectOptions"
+            [(ngModel)]="selectedOption"
+            optionLabel="label"
+            optionValue="value"
+            optionDisabled="disabled"
+            [disabled]="rowData.disabled"
+          ></p-selectButton>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-panel>

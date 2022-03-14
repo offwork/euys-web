@@ -1,0 +1,29 @@
+<div
+  [euysClickOut]="!expandedSidenav"
+  (clickOut)="clickOut()"
+  class="sidenav-container"
+>
+  <euys-navs-search
+    [collapsed]="!expandedSidenav"
+    (navsFilterHandler)="navsFilterHandler($event)"
+    (toggleSidenav)="toggleSidenavHandler()"
+    [filterActive]="filterActive"
+  ></euys-navs-search>
+
+  <euys-vertical-navs-container
+    [navs]="navsFiltered"
+    [collapsed]="!expandedSidenav"
+    [activeList]="activeList"
+    (activeListSetter)="activeListHandler($event)"
+    [sideNavProps]="sideNavProps"
+    [filterActive]="filterActive"
+    [filterValue]="filterValue"
+  >
+  </euys-vertical-navs-container>
+
+  <euys-toggle-button
+    [collapsed]="!expandedSidenav"
+    (toggleSidenavClick)="toggleSidenavHandler()"
+  >
+  </euys-toggle-button>
+</div>

@@ -1,0 +1,366 @@
+<p-toast></p-toast>
+<p-dialog
+  header="Kusurlu İstif İptal"
+  [(visible)]="showIptalDialog"
+  [style]="{ width: '22vw' }"
+  [baseZIndex]="10000"
+  [formGroup]="iptalForm"
+>
+  <p>
+    <strong
+      >Paket No:
+      {{
+        selectedRow !== undefined && selectedRow !== null
+          ? selectedRow.kusurluIstifPaket
+          : ''
+      }}
+      Hat Kodu:
+      {{
+        selectedRow !== undefined && selectedRow !== null
+          ? selectedRow.hatKodu
+          : ''
+      }}
+      olan kayıt iptal edilsin mi?'</strong
+    >
+  </p>
+  <br />
+  <h4>
+    <strong><span style="color: red">*</span>İptal Nedeni Giriniz:</strong>
+  </h4>
+  <textarea
+    [rows]="5"
+    [cols]="30"
+    pInputTextarea
+    formControlName="iptalNedeni"
+  ></textarea>
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="iptalEtConfirm()"
+      label="Evet"
+      styleClass="p-button-text"
+    ></p-button>
+    <p-button
+      icon="pi pi-times"
+      (click)="iptalEtCancel()"
+      label="Hayır"
+    ></p-button>
+  </ng-template>
+</p-dialog>
+<p-toolbar styleClass="mb-5">
+  <div class="p-toolbar-group-left">
+    <button
+      (click)="goBack()"
+      *ngIf="(visible$ | async) !== Visible.GORUNTULEME"
+      pButton
+      pRipple
+      type="button"
+      label="Geri"
+      icon="pi pi-arrow-left"
+      class="p-button-rounded p-button-secondary mr-5"
+    ></button>
+    <h3>Kusurlu İstif Paketi Oluşturma/İptal</h3>
+  </div>
+</p-toolbar>
+
+<!-- SORGULAMA FORM -->
+<p-card *ngIf="(visible$ | async) === Visible.GORUNTULEME">
+  <form
+    [formGroup]="sorgulamaForm"
+    class="grid grid-cols-3 w-1/3 gap-3 items-center"
+  >
+    <h2>Statü</h2>
+    <p-dropdown
+      formControlName="kusurluIstifStatu"
+      class="col-span-2 flex"
+      styleClass="flex-1"
+      inputId="kusurluIstifStatu"
+      [options]="kusurluIstifStatus"
+      optionLabel="value"
+      optionValue="id"
+      placeholder="Statü Seçiniz"
+      [showClear]="false"
+    ></p-dropdown>
+    <h2>Hat Kodu</h2>
+    <p-dropdown
+      formControlName="hatKodu"
+      class="col-span-2 flex"
+      styleClass="flex-1"
+      inputId="hatKodu"
+      [options]="hatKoduListesi"
+      optionLabel="hatKoduTanim"
+      optionValue="hatKodu"
+      placeholder="Hat Kodu Seçiniz"
+      [showClear]="false"
+    >
+      <ng-template let-hatKodu pTemplate="selectedItem">
+        <div>
+          <div>{{ hatKodu.hatKodu + '-' + hatKodu.hatKoduTanim }}</div>
+        </div>
+      </ng-template>
+      <ng-template let-hatKodu pTemplate="item">
+        <div>
+          <div>{{ hatKodu.hatKodu + '-' + hatKodu.hatKoduTanim }}</div>
+        </div>
+      </ng-template></p-dropdown
+    >
+    <h2>Aktif-Pasif</h2>
+    <p-dropdown
+      formControlName="aktifPasif"
+      class="col-span-2 flex"
+      styleClass="flex-1"
+      inputId="aktifPasif"
+      [options]="aktifPasif"
+      optionLabel="value"
+      optionValue="id"
+      placeholder="Aktif Pasif Seçiniz"
+      [showClear]="false"
+      (onChange)="tarihDisableOrEnableCtrlForStatu($event)"
+    ></p-dropdown>
+    <ng-container *ngIf="showCalendars">
+      <h2>Başlangıç Tarihi</h2>
+      <p-calendar
+        dateFormat="dd.mm.yy"
+        appendTo="body"
+        formControlName="baslangicTarihi"
+        placeholder="Başlangıç Tarihi"
+        [showButtonBar]="true"
+        [readonlyInput]="true"
+      ></p-calendar>
+      <br />
+      <h2>Bitiş Tarihi</h2>
+      <p-calendar
+        dateFormat="dd.mm.yy"
+        appendTo="body"
+        formControlName="bitisTarihi"
+        placeholder="Bitiş Tarihi"
+        [showButtonBar]="true"
+        [readonlyInput]="true"
+      ></p-calendar
+    ></ng-container>
+  </form>
+  <button
+    (click)="sorgula()"
+    pButton
+    pRipple
+    type="button"
+    label="Sorgula"
+    icon="pi pi-search"
+    class="p-button-rounded p-button-secondary mb-5 mt-5"
+  ></button>
+  <button
+    pButton
+    pRipple
+    type="button"
+    label="Temizle"
+    icon="pi pi-trash"
+    iconPos="left"
+    class="p-button-raised p-button-rounded p-button-danger p-button-text mb-5 mt-5"
+    (click)="sorgulaFormTemizle()"
+  ></button>
+</p-card>
+
+<!-- Liste Goruntuleme-->
+<p-table
+  *ngIf="(visible$ | async) === Visible.GORUNTULEME"
+  [value]="data$ | async | filterIslemTarihi: islemTarihi"
+  styleClass="p-datatable-gridlines"
+  responsiveLayout="scroll"
+  [paginator]="true"
+  [rows]="7"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th rowspan="2"></th>
+      <!-- <th>Tarih Baslangıç</th> -->
+      <th>Paket No</th>
+      <th>Hat Kodu</th>
+      <th>Paket Ağırlığı</th>
+      <th>Statü</th>
+      <th>Yarı Mamul No</th>
+      <th>Kalite</th>
+      <th pSortableColumn="islemTarihiDate">
+        Üretim Tarih <p-sortIcon field="islemTarihiDate"></p-sortIcon>
+      </th>
+      <th>Personel No</th>
+      <th>İptal Nedeni</th>
+    </tr>
+    <tr>
+      <th>
+        <p-columnFilter type="text" field="kusurluIstifPaket"></p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter field="hatKodu" matchMode="in" [showMenu]="false">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <p-multiSelect
+              styleClass="w-38"
+              [ngModel]="value"
+              [options]="hatKoduListesi"
+              placeholder="Ara"
+              (onChange)="filter($event.value)"
+              optionLabel="hatKodu"
+              optionValue="hatKodu"
+            >
+              <ng-template let-option pTemplate="item">
+                <div class="p-multiselect-representative-option">
+                  <span class="p-ml-1"
+                    >{{ option.hatKodu }} {{ option.hatKoduTanim }}</span
+                  >
+                </div>
+              </ng-template>
+            </p-multiSelect>
+          </ng-template>
+        </p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter type="text" field="paketAgirlik"></p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter
+          type="text"
+          field="kusurluIstifStatuTanim"
+        ></p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter type="text" field="bobinNo"></p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter
+          type="text"
+          field="kusurluIstifKaliteTanim"
+        ></p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter
+          field="islemTarihi"
+          matchMode="dateBefore"
+          [showMenu]="false"
+        >
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <p-calendar
+              dateFormat="dd.mm.yy"
+              appendTo="body"
+              [(ngModel)]="islemTarihi"
+              placeholder="Hepsi"
+              [showButtonBar]="true"
+              selectionMode="range"
+              inputId="range"
+              [readonlyInput]="true"
+            >
+            </p-calendar>
+          </ng-template>
+        </p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter type="text" field="islemYapanKisi"></p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter type="text" field="iptalNedeni"></p-columnFilter>
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-row>
+    <tr>
+      <td class="!text-center" width="60">
+        <button
+          id="iptalEt"
+          pButton
+          (click)="iptalEt(row)"
+          type="button"
+          icon="pi pi-times-circle"
+          title="İptal Et"
+          class="p-button-lg p-button-text p-button-danger !py-0"
+          [disabled]="row['aktifPasif'] === 'P' ? true : false"
+        ></button>
+      </td>
+      <td class="!text-center">{{ row.kusurluIstifPaket }}</td>
+      <td class="!text-center">{{ row.hatKodu }}-{{ row.hatTanim }}</td>
+      <td class="!text-center">{{ row.paketAgirlik }}</td>
+      <td class="!text-center">{{ row.kusurluIstifStatuTanim }}</td>
+      <td class="!text-center">{{ row.bobinNo }}</td>
+      <td class="!text-center">{{ row.kusurluIstifKaliteTanim }}</td>
+      <td class="!text-center">{{ row.islemTarihi | date: 'dd.MM.yyyy' }}</td>
+      <td class="!text-center">{{ row.islemYapanKisi }}</td>
+      <td class="!text-center">{{ row.iptalNedeni }}</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p>
+  <button
+    (click)="goToSave()"
+    *ngIf="(visible$ | async) === Visible.GORUNTULEME"
+    pButton
+    pRipple
+    type="button"
+    label="Yeni Kayıt"
+    icon="pi pi-save"
+    class="p-button-rounded p-button-secondary mt-5 mb-5"
+  ></button>
+</p>
+
+<!-- KAYIT FORM -->
+<p-card *ngIf="(visible$ | async) === Visible.GUNCELLEME_KAYIT">
+  <form [formGroup]="form" class="grid grid-cols-3 w-1/3 gap-3 items-center">
+    <h2><span style="color: red">*</span> Kalite</h2>
+    <p-dropdown
+      formControlName="kusurluIstifKalite"
+      class="col-span-2 flex"
+      styleClass="flex-1"
+      inputId="kusurluIstifKalite"
+      [options]="kusurIstifKaliteListesi$ | async"
+      optionLabel="kusurluIstifKaliteTanim"
+      optionValue="kusurluIstifKalite"
+      placeholder="Kalite Seçiniz"
+      [showClear]="false"
+      (onChange)="hatKoduGetir($event)"
+    ></p-dropdown>
+
+    <h2><span style="color: red">*</span> Hat Kodu</h2>
+    <p-dropdown
+      formControlName="hatKodu"
+      class="col-span-2 flex"
+      styleClass="flex-1"
+      inputId="hatKodu"
+      [options]="hatKoduCombo"
+      optionLabel="hatKodu"
+      optionValue="hatKodu"
+      placeholder="Hat Kodu Seçiniz"
+      [showClear]="false"
+    ></p-dropdown>
+
+    <h2><span style="color: red">*</span> Paket Ağırlığı</h2>
+    <span class="p-float-label">
+      <p-inputNumber
+        inputId="integeronly"
+        formControlName="paketAgirlik"
+      ></p-inputNumber
+      ><br />
+      <small id="username2-help" class="p-invalid" *ngIf="paketAgirlikKontrolu"
+        ><span style="color: red"
+          >500 ile 10000 arasında değer giriniz</span
+        ></small
+      > </span
+    ><br />
+
+    <h2>Bobin No</h2>
+    <span class="p-float-label">
+      <input
+        id="float-input"
+        type="text"
+        pInputText
+        formControlName="bobinNo"
+      /> </span
+    ><br />
+  </form>
+  <button
+    (click)="save()"
+    pButton
+    pRipple
+    type="button"
+    label="Kaydet"
+    icon="pi pi-save"
+    class="p-button-rounded p-button-secondary mb-5 mt-5"
+  ></button>
+</p-card>

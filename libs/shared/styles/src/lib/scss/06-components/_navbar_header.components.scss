@@ -1,0 +1,76 @@
+.euys-navbar {
+  .p-toolbar {
+    background: $app-header-background !important;
+    border: 0;
+
+    .p-toolbar-group-left {
+      background: $surface-0;
+      padding: 0.5rem;
+
+      /* stylelint-disable-next-line selector-max-compound-selectors */
+      .euys-navbar-logo-container {
+        height: $light-navbar-logo-container--height;
+        left: 0;
+        position: relative;
+        top: 0;
+        width: $light-navbar-logo-container--width;
+
+        /* stylelint-disable-next-line selector-max-compound-selectors */
+        .navbar-logo {
+          left: 0;
+          position: absolute;
+          top: 0;
+
+          /* stylelint-disable-next-line selector-max-compound-selectors */
+          &:before {
+            background-image: $logo-oyak;
+            background-size:
+              $light-navbar-logo-container--width
+              $light-navbar-logo-container--height;
+            content: ' ';
+            display: block;
+            height: $light-navbar-logo-container--height;
+            width: $light-navbar-logo-container--width;
+          }
+        }
+      }
+    }
+
+    .lefnav-toggle {
+      margin-left: 1rem;
+
+      /* stylelint-disable-next-line selector-max-compound-selectors */
+      button {
+        background-color: $surface-b;
+        border-color: transparent;
+        color: $text-color;
+        /* stylelint-disable-next-line selector-max-compound-selectors */
+        &:focus {
+          box-shadow: none;
+        }
+
+        /* stylelint-disable-next-line selector-max-compound-selectors */
+        &:hover {
+          background-color: $surface-300;
+        }
+
+        /* stylelint-disable-next-line selector-max-compound-selectors */
+        .pi {
+          font-size: 1.5rem;
+          font-weight: bold;
+        }
+      }
+    }
+
+    .p-toolbar-group-right {
+      /* stylelint-disable-next-line selector-max-compound-selectors */
+      .euys-right-menu-container {
+        height: $euys-right-menu-container--height;
+        position: relative;
+        right: 0;
+        top: 0;
+        width: $light-navbar-logo-container--width;
+      }
+    }
+  }
+}

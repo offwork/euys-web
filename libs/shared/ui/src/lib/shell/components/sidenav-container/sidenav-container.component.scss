@@ -1,0 +1,17 @@
+.euys-sidenav-container {
+  height: calc(100% - 2.75rem);
+
+  .euys-sidenav {
+    background-color: var(--surface-b);
+  }
+
+  .euys-sidenav-profile {
+    background-color: var(--surface-a);
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .euys-feature {
+    margin-left: 2.75rem;
+  }
+}

@@ -1,0 +1,65 @@
+<p-card styleClass="!mb-4">
+  <div class="flex gap-4 items-center">
+    <label>Kapasite Grubu / Rapor Grubu :* </label>
+    <p-dropdown
+      placeholder="Seçiniz"
+      [formControl]="kapasiteRaporControl"
+      [options]="['KAPASİTE', 'RAPOR']"
+      (onChange)="reset()"
+    ></p-dropdown>
+
+    <button
+      pButton
+      type="button"
+      label="Devam"
+      class="p-button p-button-raised p-button-rounded w-32"
+      [disabled]="kapasiteRaporControl.invalid"
+      (click)="kapasiteRaporTanimFormVisible = true"
+    ></button>
+  </div>
+</p-card>
+<p-card *ngIf="kapasiteRaporTanimFormVisible" styleClass="!mb-4">
+  <form
+    [formGroup]="kapasiteRaporTanimFormGroup"
+    class="flex flex-col gap-4 items-start"
+  >
+    <div class="flex gap-4 items-center">
+      <label>Ürün Grubu :* </label>
+      <p-dropdown
+        placeholder="Seçiniz"
+        formControlName="urunGrubu"
+        [options]="['Teneke', 'Sıcak', 'Galvaniz']"
+        (onChange)="loadRumuzList()"
+      ></p-dropdown>
+
+      <label>Kapasite Grubu Adı :* </label>
+      <input type="text" pInputText formControlName="grupAdi" />
+
+      <label>Sıra No :* </label>
+      <input type="text" pInputText formControlName="siraNo" />
+    </div>
+
+    <p-pickList
+      [showTargetControls]="false"
+      [showSourceControls]="false"
+      [source]="rumuzSourceList"
+      [targetStyle]="{ width: '360px', height: '480px' }"
+      [target]="rumuzTargetList"
+      [sourceStyle]="{ width: '360px', height: '480px' }"
+    >
+      <ng-template let-rumuz pTemplate="item">
+        <span>
+          {{ rumuz }}
+        </span>
+      </ng-template>
+    </p-pickList>
+
+    <button
+      pButton
+      type="button"
+      label="Kaydet"
+      class="p-button p-button-raised p-button-rounded w-32"
+      (click)="save()"
+    ></button>
+  </form>
+</p-card>

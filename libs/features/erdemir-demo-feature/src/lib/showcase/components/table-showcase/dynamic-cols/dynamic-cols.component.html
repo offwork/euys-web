@@ -1,0 +1,67 @@
+<div class="w-full">
+  <p-dropdown
+    [options]="dropdownOptions"
+    [formControl]="dropdown"
+    optionLabel="label"
+    optionValue="value"
+  ></p-dropdown>
+</div>
+
+<p-divider></p-divider>
+
+<div class="w-full" *ngIf="cols$ | async">
+  <p-table
+    responsiveLayout="scroll"
+    [value]="values$ | async"
+    styleClass="p-datatable-gridlines p-datatable-sm"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let col of cols$ | async">{{col.header}}</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row>
+      <tr>
+        <td *ngFor="let col of cols$ | async">
+          <a
+            *ngIf="col.field !== 'kalinlik' && col.field !== 'kalite'"
+            [routerLink]=""
+            (click)="onClickCell($event, col.field, row, op)"
+          >
+            {{row[col.field]}}
+          </a>
+          <span *ngIf="col.field === 'kalinlik' || col.field === 'kalite'">
+            {{row[col.field]}}
+          </span>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+  <ng-template pTemplate>
+      <p-table
+        [value]="mlnData$ | async"
+        selectionMode="single"
+        responsiveLayout="scroll"
+        [loading]="loading$ | async"
+      >
+          <ng-template pTemplate="header">
+            <tr>
+              <th *ngFor="let column of mlnCols" [pSortableColumn]="column.field">
+                {{column.header}}
+                <p-sortIcon [field]="column.field"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-mlnRow>
+            <tr>
+              <td *ngFor="let column of mlnCols">{{mlnRow[column.field]}}</td>
+            </tr>
+          </ng-template>
+      </p-table>
+  </ng-template>
+</p-overlayPanel>
+
+

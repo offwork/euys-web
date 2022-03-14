@@ -1,0 +1,14 @@
+<p-table [columns]="urunKoduColumns" [value]="urunKodlari">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Ürün Kodu</th>
+      <th>Rumuzu</th>
+    </tr>
+  </ng-template>
+  <ng-template let-urunKoduItem pTemplate="body" let-columns="urunKoduColumns">
+    <tr>
+      <td>{{ urunKoduItem.urunKodu }}</td>
+      <td>{{ urunKoduItem.rumuz }}</td>
+    </tr>
+  </ng-template>
+</p-table>

@@ -1,0 +1,86 @@
+<p-card styleClass="!mb-4">
+  <div class="flex gap-4 items-center">
+    <label>Ay / Yıl : </label>
+    <p-calendar
+      view="month"
+      dateFormat="mm/yy"
+      inputId="yilAy"
+      [formControl]="yilAy"
+    ></p-calendar>
+
+    <button
+      pButton
+      [loading]="loading$ | async"
+      (click)="load()"
+      type="button"
+      label="Devam"
+      class="p-button p-button-raised p-button-rounded w-32"
+    ></button>
+  </div>
+</p-card>
+
+<p-card *ngIf="yupAylikAnaModel$ | async">
+  <p-table
+    [value]="yupAylikUretimPlaniModelList$ | async"
+    rowGroupMode="subheader"
+    groupRowsBy="hatSiraHatGrupTanim"
+    responsiveLayout="scroll"
+    styleClass="p-datatable-gridlines p-datatable-sm w-1/2"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Hatlar</th>
+        <th>YÜP (Bütçe)</th>
+        <th>AYLIK PLAN</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="groupheader" let-item>
+      <tr pRowGroupHeader class="!bg-gray-100">
+        <td colspan="3">
+          {{ item.hatSiraHatGrupTanim }}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+      <tr>
+        <td>{{ item.hatSiraHatTanim }}</td>
+        <td class="!text-right">{{ item.yupButce | number }}</td>
+        <td class="!text-right">{{ item.uretimHedefMiktar | number }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-table
+    [value]="yupAylikNihaiMamulModelList$ | async"
+    responsiveLayout="scroll"
+    rowGroupMode="subheader"
+    groupRowsBy="aylikMamulGrupTanim"
+    styleClass="p-datatable-gridlines p-datatable-sm w-1/2"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>NİHAİ ÜRÜN ÜRETİMİ</th>
+        <th>Rapor Grubu</th>
+        <th>YÜP (Bütçe)</th>
+        <th>AYLIK PLAN</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="groupfooter" let-item>
+      <tr pRowGroupHeader class="!bg-gray-100">
+        <td colspan="3">Toplam {{ item.aylikMamulGrupTanim }}</td>
+        <td class="!text-right">
+          {{ getTotal(item.aylikMamulGrupTanim) | async }}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-index="rowIndex">
+      <tr>
+        <td *ngIf="item.isSpan" [rowSpan]="item.spanSize">
+          {{ item.aylikMamulGrupTanim }}
+        </td>
+        <td>{{ item.aylikMamulTanim }}</td>
+        <td class="!text-right">{{ item.yupButce | number }}</td>
+        <td class="!text-right">{{ item.uretimHedefMiktar | number }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>

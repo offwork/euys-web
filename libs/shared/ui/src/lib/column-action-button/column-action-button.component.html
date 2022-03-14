@@ -1,0 +1,13 @@
+<div *ngIf="isReady === true; else loadingBlock">
+  <button
+    [disabled]="disabled"
+    pButton
+    pRipple
+    icon="{{ icon }}"
+    class="p-button-rounded p-button-success p-mr-2"
+    (click)="expandColumnData($event)"
+  ></button>
+</div>
+<ng-template #loadingBlock>
+  <i class="pi pi-spin pi-spinner"></i>
+</ng-template>

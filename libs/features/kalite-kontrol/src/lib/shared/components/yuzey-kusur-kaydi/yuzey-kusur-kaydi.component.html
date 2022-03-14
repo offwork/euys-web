@@ -1,0 +1,199 @@
+<div
+  class="card"
+  *ngIf="!readOnly; else readOnlyTemplate"
+  [formGroup]="formGroup"
+>
+  <p-table styleClass="p-datatable-gridlines" [value]="formArray.controls">
+    <ng-template pTemplate="header">
+      <tr>
+        <th colspan="12" style="text-align: center">YÜZEY KUSUR KAYDI</th>
+      </tr>
+      <tr>
+        <th class="text-center" *ngFor="let head of heads">{{ head }}</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-group let-i="rowIndex">
+      <tr [formGroup]="group">
+        <td class="p-fluid">
+          <p-dropdown
+            [options]="aktifKusur$ | async"
+            [optionLabel]="'adi'"
+            [optionValue]="'kodu'"
+            formControlName="yuzeyKusuruKodu"
+            [showClear]="!dispoze || group !== defaultForm"
+            placeholder="Seçiniz"
+            [readonly]="dispoze && group === defaultForm"
+          >
+          </p-dropdown>
+        </td>
+        <td>
+          <p-dropdown
+            [options]="
+              defaultForm === group
+                ? dereceOptions
+                : [1, 2, 3, 4, 5, 6, 7, 8, 9]
+            "
+            [optionLabel]="defaultForm === group ? 'derece' : undefined"
+            [optionValue]="defaultForm === group ? 'derece' : undefined"
+            [optionDisabled]="defaultForm === group ? 'disabled' : undefined"
+            id="yuzeyKusuruDerecesi"
+            formControlName="yuzeyKusuruDerecesi"
+            placeholder="Seçiniz"
+            (onBlur)="reorderForms()"
+          ></p-dropdown>
+        </td>
+        <td>
+          <p-inputNumber
+            prefix="%"
+            [min]="0"
+            [max]="100"
+            (onBlur)="yeniDeger()"
+            [maxlength]="4"
+          ></p-inputNumber>
+        </td>
+        <td class="p-fluid">
+          <p-dropdown
+            [options]="[1, 2, 3]"
+            id="yuzeyKusuruSiraNo_{{ i }}"
+            formControlName="yuzeyKusuruSiraNo"
+            (onBlur)="reorderForms()"
+          ></p-dropdown>
+        </td>
+
+        <td>
+          <input
+            id="yuzeyKusuruBaslNoktasi_{{ i }}"
+            type="text"
+            [maxlength]="5"
+            pInputText
+            formControlName="yuzeyKusuruBaslNoktasi"
+          />
+        </td>
+        <td>
+          <input
+            class="float-right"
+            id="yuzeyKusuruBitisNoktasi_{{ i }}"
+            type="text"
+            [maxlength]="5"
+            pInputText
+            formControlName="yuzeyKusuruBitisNoktasi"
+          />
+        </td>
+
+        <td>
+          <p-dropdown
+            [options]="yuzeyKusurYeriOptions"
+            id="yuzeyKusuruYeri_{{ i }}_dropdown"
+            inputId="yuzeyKusuruYeri_{{ i }}"
+            formControlName="yuzeyKusuruYeri"
+            placeholder="Seçiniz"
+            (onBlur)="yeniDeger()"
+          >
+            <ng-template pTemplate="item" let-option>
+              {{ option | euysEnum }}
+            </ng-template>
+            <ng-template pTemplate="selectedItem" let-option>
+              {{ option | euysEnum }}
+            </ng-template>
+
+          </p-dropdown>
+        </td>
+        <td>
+          <p-dropdown
+            [options]="kusurBuHattaMiOptions"
+            inputId="yuzeyKusuruBuHattaMi_{{ i }}"
+            id="yuzeyKusuruBuHattaMi_{{ i }}_dropdown"
+            formControlName="yuzeyKusuruBuHattaMi"
+            (onChange)="onChangeKusurBuHattaMi($event, group)"
+            (onBlur)="yeniDeger()"
+            placeholder="Seçiniz"
+          >
+            <ng-template pTemplate="item" let-option>
+              {{ option | euysEnum }}
+            </ng-template>
+            <ng-template pTemplate="selectedItem" let-option>
+              {{ option | euysEnum }}
+            </ng-template>
+          </p-dropdown>
+        </td>
+        <td>
+          <span class="p-float-label">
+            <p-inputNumber
+              inputId="yuzeyKusuruHatKodu_{{ i }}"
+              formControlName="yuzeyKusuruHatKodu"
+              mode="decimal"
+              [maxlength]="3"
+              inputStyleClass="w-32"
+              (onBlur)="yeniDeger()"
+            ></p-inputNumber>
+          </span>
+        </td>
+        <td>
+          <button
+            id="temizleBtn_form_{{ i }}"
+            pButton
+            pRipple
+            type="button"
+            label="Temizle"
+            icon="pi pi-trash"
+            iconPos="left"
+            class="p-button-raised p-button-rounded p-button-danger p-button-text"
+            (click)="clearForm(group)"
+            [disabled]="group === defaultForm"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<ng-template #readOnlyTemplate>
+  <div class="card">
+    <p-table
+      styleClass="p-datatable-gridlines"
+      [value]="yuzeyKusurKaydiList$ | async"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th colspan="12" style="text-align: center">YÜZEY KUSUR KAYDI</th>
+        </tr>
+        <tr>
+          <th class="text-center" *ngFor="let head of heads">{{ head }}</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-kusur>
+        <tr>
+          <td>
+            {{ kusur.yuzeyKusuruKodu }}
+          </td>
+          <td>
+            {{ kusur.yuzeyKusuruDerecesi }}
+          </td>
+          <td>
+            {{ kusur.yuzeyKusuruYuzdesi }}
+          </td>
+          <td>
+            {{ kusur.yuzeyKusuruSiraNo }}
+          </td>
+
+          <td>
+            {{ kusur.yuzeyKusuruBaslNoktasi }}
+          </td>
+          <td>
+            {{ kusur.yuzeyKusuruBitisNoktasi }}
+          </td>
+
+          <td>
+            {{ kusur.yuzeyKusuruYeri }}
+          </td>
+          <td>
+            {{ kusur.yuzeyKusuruBuHattaMi }}
+          </td>
+          <td>
+            {{ kusur.yuzeyKusuruHatKodu }}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</ng-template>

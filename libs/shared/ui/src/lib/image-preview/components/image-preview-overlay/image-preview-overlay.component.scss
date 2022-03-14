@@ -1,0 +1,28 @@
+:host {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.overlay-content {
+  flex: 1 1 0%;
+  width: 70%;
+
+  .close-btn {
+    margin-right: 1rem;
+    margin-top: 1rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    .pi {
+      color: var(--surface-a);
+      font-size: 1.2rem;
+    }
+  }
+
+  img {
+    height: auto;
+    width: 100%;
+  }
+}

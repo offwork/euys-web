@@ -1,0 +1,31 @@
+<table *ngIf="data">
+  <tr>
+    <th rowspan="3"></th>
+    <th colspan="12">İŞGÜCÜ VERİM</th>
+  </tr>
+  <tr>
+    <th colspan="12">İşçilik Saati / Üretim - (Saat/Ton)</th>
+  </tr>
+  <tr>
+    <th *ngFor="let month of months">
+      {{ month.value | uppercase }}
+    </th>
+  </tr>
+
+  <tr *ngFor="let plant of plants; let i = index">
+    <td class="plant">
+      {{ plant.value }}
+    </td>
+    <td *ngFor="let month of months; let ix = index" class="grid-input">
+      <input
+        #valInput
+        class="validate"
+        euysDigitOnly
+        [placeholder]="valid ? '' : (data | placeholder: month.id)"
+        type="text"
+        [value]="data | manpower: year:month.id:plant.field"
+        (blur)="onInput(valInput.value, plant.field, year, month.id)"
+      />
+    </td>
+  </tr>
+</table>

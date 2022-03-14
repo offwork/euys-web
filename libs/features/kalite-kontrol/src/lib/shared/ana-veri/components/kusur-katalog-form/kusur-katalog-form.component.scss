@@ -1,0 +1,12 @@
+.img-container {
+  margin: 20px;
+  overflow: visible;
+  padding: 15px;
+  position: relative;
+
+  .remove-btn {
+    position: absolute;
+    right: -5px;
+    top: -5px;
+  }
+}

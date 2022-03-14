@@ -1,0 +1,19 @@
+<euys-filter-bar 
+  [isRecord]="true"
+  [formFields]="filterFormFields" 
+  (startSearching)="clickOnContinue($event)">
+</euys-filter-bar>
+
+<ng-container *ngIf="loaded$ | async">
+  <euys-data-table-gecikme [header]="monthDescriptionSoguk1" [data]="aylikSoguk1Gecikme$"></euys-data-table-gecikme>
+  <p-divider class="table-divider"></p-divider>
+  <euys-data-table-gecikme [header]="yearDescriptionSoguk1" [data]="yillikSoguk1Gecikme$"></euys-data-table-gecikme>
+  <p-divider class="table-divider"></p-divider>
+  <euys-data-table-gecikme [header]="monthDescriptionIkmal" [data]="aylikIkmalGecikme$"></euys-data-table-gecikme>
+  <p-divider class="table-divider"></p-divider>
+  <euys-data-table-gecikme [header]="yearDescriptionIkmal" [data]="yillikIkmalGecikme$"></euys-data-table-gecikme>
+  <p-divider class="table-divider"></p-divider>
+  <euys-data-table-gecikme [header]="monthDescriptionSoguk2" [data]="aylikSoguk2Gecikme$"></euys-data-table-gecikme>
+  <p-divider class="table-divider"></p-divider>
+  <euys-data-table-gecikme [header]="yearDescriptionSoguk2" [data]="yillikSoguk2Gecikme$"></euys-data-table-gecikme>
+</ng-container>

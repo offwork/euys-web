@@ -1,0 +1,204 @@
+<form [formGroup]="form" #katalogForm="ngForm" (ngSubmit)="onSubmit()">
+  <div class="grid grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 gap-2">
+      <div class="p-fluid" formGroupName="kkKusurKtlgHat">
+        <p-dropdown
+          [options]="hatList"
+          [filter]="true"
+          placeholder="HatKodu"
+          formControlName="hatKodu"
+          [virtualScroll]="true"
+          [itemSize]="30"
+        >
+        </p-dropdown>
+        <small
+          class="p-error"
+          *ngIf="
+            form.get(['kkKusurKtlgHat', 'hatKodu']).errors?.required &&
+            form.get(['kkKusurKtlgHat', 'hatKodu']).touched
+          "
+        >
+          Hat kodu zorunludur
+        </small>
+      </div>
+      <div>
+        <euys-grid-list
+          [label]="'Kaynak Kök Sebep: '"
+          [mappingFn]="kokNedenMappingFn"
+          formControlName="kkKusurKtlgKokNedenList"
+          [field]="'kokNedenAciklama'"
+          [maxRecords]="6"
+          class="border rounded"
+        >
+        </euys-grid-list>
+      </div>
+      <div>
+        <p-pickList
+          [source]="kaliteList$ | async"
+          sourceHeader="Yassı Kaliteler"
+          targetHeader="Yatkın Kaliteler"
+          filterBy="celikKalitesi"
+          filterMatchMode="startsWith"
+          [trackBy]="kaliteTrackBy"
+          [responsive]="true"
+          euysPicklistFormControl
+          [compareFn]="kaliteCompareFn"
+          styleClass="border rounded pt-2"
+          formControlName="kkKusurKtlgYatkinKalitelerList"
+          [style]="{ 'max-height': '100%', 'padding-bottom': '1rem' }"
+          [sourceStyle]="{ 'max-height': '10rem', 'overflow-y': 'scroll' }"
+          [targetStyle]="{ 'max-height': '10rem', 'overflow-y': 'scroll' }"
+        >
+          <ng-template let-kalite pTemplate="item">
+            <span>
+              {{ kalite.celikKalitesi }}
+            </span>
+          </ng-template>
+        </p-pickList>
+      </div>
+      <div>
+        <euys-grid-list
+          [label]="'Proses Önlemleri: '"
+          [mappingFn]="prosesOnlemMappingFn"
+          formControlName="kkKusurKtlgOnlemlerList"
+          [field]="'onlemAciklama'"
+          [maxRecords]="6"
+          class="border rounded"
+        >
+        </euys-grid-list>
+      </div>
+    </div>
+    <div class="col-span-2 grid grid-cols-1 gap-2">
+      <div class="grid grid-cols-4 gap-1 justify-self-stretch">
+        <h5 class="text-center">KUSUR ŞİDDETİ</h5>
+        <h5 class="text-center col-span-3">TANIM</h5>
+      </div>
+
+      <ng-container formArrayName="kkKusurKtlgSiddetTanimList">
+        <div
+          class="grid grid-cols-4 gap-1"
+          *ngFor="let siddet of kusurSiddetleri; index as i"
+          [formGroupName]="i"
+        >
+          <div>
+            <label
+              class="p-2"
+              for="{{ kusurSiddeti[siddet] }}_KusurSiddetTanim_{{
+                kusurKatalog.kkKusurKtlgHat.hatKodu
+              }}"
+            >
+              {{ kusurSiddeti[siddet] }}
+            </label>
+          </div>
+          <div class="col-span-3 p-fluid">
+            <input
+              id="{{ kusurSiddeti[siddet] }}_KusurSiddetTanim_{{
+                kusurKatalog.kkKusurKtlgHat.hatKodu
+              }}"
+              type="text"
+              pInputText
+              formControlName="kusurSiddetTanim"
+            />
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="grid grid-cols-4 gap-1">
+        <h5 class="text-center">KUSUR YOĞUNLUĞU</h5>
+        <h5 class="col-span-3 text-center">TANIM</h5>
+      </div>
+      <ng-container formArrayName="kkKusurKtlgYogunlukTanimList">
+        <div
+          class="grid grid-cols-4 gap-1"
+          *ngFor="let yogunluk of kusurYogunluklari; index as i"
+          [formGroupName]="i"
+        >
+          <label
+            class="p-2"
+            for="{{ kusurYogunlugu[yogunluk] }}_KusurYogunlukTanim_{{
+              kusurKatalog.kkKusurKtlgHat.hatKodu
+            }}"
+          >
+            {{ kusurYogunlugu[yogunluk] }}
+          </label>
+          <div class="col-span-3 p-fluid">
+            <input
+              id="{{ kusurYogunlugu[yogunluk] }}_KusurYogunlukTanim_{{
+                kusurKatalog.kkKusurKtlgHat.hatKodu
+              }}"
+              type="text"
+              pInputTextarea
+              formControlName="kusurYogunlukTanim"
+              class="col-span-3"
+            />
+          </div>
+        </div>
+      </ng-container>
+
+      <euys-muh-operator-yorum
+        class="border rounded"
+        *ngIf="urunListLoaded$ | async"
+        [urunList]="urunList$ | async"
+        [idKusurHat]="kusurKatalog.kkKusurKtlgHat?.id"
+        formControlName="kkKusurKtlgMuhOprYorumList"
+      ></euys-muh-operator-yorum>
+
+      <euys-image-preview
+        [imageList]="gorselList$ | async"
+        [originalSource]="originalSource$ | async"
+        (deleteThumb)="deleteImage($event)"
+        (clickOnThumb)="showImage($event)"
+      ></euys-image-preview>
+
+      <div class="grid grid-cols-3">
+        <div class="col-span-2 flex justify-center gap-2">
+          <p-fileUpload
+            name="myfile[]"
+            chooseLabel="Fotoğraf Ekle"
+            [customUpload]="true"
+            mode="basic"
+            accept="image/*"
+            (uploadHandler)="uploadImage($event)"
+            #uploader
+            [disabled]="!kusurKatalog?.kkKusurKtlgHat?.id"
+          ></p-fileUpload>
+          <p-button
+            type="button"
+            icon="pi pi-trash"
+            [disabled]="!uploader._files?.length"
+            (click)="uploader.clear()"
+          ></p-button>
+        </div>
+        <div class="flex justify-end gap-2">
+          <div>
+            <button
+              pButton
+              pRipple
+              type="submit"
+              label="Kaydet "
+              icon="pi pi-save"
+              iconPos="left"
+              class="p-button-raised p-button-rounded"
+              [disabled]="katalogForm.invalid"
+            ></button>
+          </div>
+          <div>
+            <button
+              pButton
+              pRipple
+              type="button"
+              label="Temizle"
+              icon="pi pi-trash"
+              iconPos="left"
+              class="
+                p-button-raised p-button-rounded p-button-danger p-button-text
+              "
+              (click)="clearForm()"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<p-confirmPopup></p-confirmPopup>

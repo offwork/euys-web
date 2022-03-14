@@ -1,0 +1,56 @@
+<euys-styled-panel [toggleable]="toggleable">
+  <!-- ACTION MENU -->
+  <ng-container icons>
+    <button
+      pButton
+      class="p-panel-header-icon p-link"
+      icon="pi pi-cog"
+      (click)="menu.toggle($event)"
+    ></button>
+    <p-menu #menu id="config_menu" [model]="items" [popup]="true"></p-menu>
+  </ng-container>
+
+  <!-- HEADER -->
+  <ng-container header>
+    <euys-free-header textToRender="1. Sıcak Haddehane QC Kayıt Onay Listesi">
+    </euys-free-header>
+  </ng-container>
+
+  <!-- CONTENT -->
+  <ng-container content>
+    <euys-hsm-bobin-list
+      (selectionChangeEventEmitter$)="onSelectionChangeEventHandler($event)"
+      [hsmBobinList$]="hsmBobinList$"
+      [hsmBobinListLoaded$]="hsmBobinListLoaded$"
+    ></euys-hsm-bobin-list>
+  </ng-container>
+
+  <!-- FOOTER -->
+  <ng-container footer>
+    <div class="flex flex-row align-middle justify-end">
+      <button
+        (click)="topluKayit()"
+        [disabled]="
+          !this.selectedBobinList?.length || this.selectedBobinList?.length < 2
+        "
+        [icon]="'pi pi-save'"
+        [label]="'TOPLU KAYIT'"
+        class="p-mr-2 bg-red-600 border border-transparent rounded-md py-1 px-2 font-medium text-white hover:bg-red-700"
+        pButton
+        pRipple
+        type="button"
+      ></button>
+
+      <button
+        [disabled]="this.selectedBobinList?.length !== 1"
+        [icon]="'pi pi-arrow-circle-right'"
+        [label]="'DEVAM'"
+        (click)="goToSecondPage()"
+        class="p-mr-2 bg-blue-600 border border-transparent rounded-md py-1 px-2 font-medium text-white hover:bg-blue-700"
+        pButton
+        pRipple
+        type="button"
+      ></button>
+    </div>
+  </ng-container>
+</euys-styled-panel>

@@ -1,0 +1,41 @@
+table {
+  border-collapse: collapse;
+}
+/* stylelint-disable */
+th,
+td {
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  height: 30px;
+  padding-inline: 4px;
+
+  &.grid-input {
+    background-color: rgba(220, 224, 230, 0.3);
+    padding-right: 8px;
+
+    input {
+      background-color: transparent;
+      border-style: none;
+      height: 30px;
+      margin-top: 0;
+      max-height: 30px;
+      outline: none;
+      text-align: right;
+      text-anchor: end;
+      width: 100%;
+    }
+  }
+
+  &.plant {
+    min-width: 9em;
+  }
+}
+
+input.validate:not(:focus)::placeholder {
+  color: rgb(255, 0, 0);
+  font-style: italic;
+}
+
+input.validate:focus::placeholder {
+  color: transparent;
+}
+/* stylelint-enable */

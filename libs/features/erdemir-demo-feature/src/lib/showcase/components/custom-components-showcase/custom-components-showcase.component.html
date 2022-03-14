@@ -1,0 +1,74 @@
+<p-panel header="Using Option Value">
+  <form id="pageForm" [formGroup]="sampleForm" (ngSubmit)="submitForm()">
+    <div class="grid grid-cols-1 gap-2 mb-1">
+      <euys-table-multi-select
+        [options]="items"
+        [style.width]="'100%'"
+        formControlName="hatlar"
+        optionLabel="name"
+        optionValue="value"
+        id="hatlar"
+      >
+      </euys-table-multi-select>
+      <small
+        id="hatlar-help"
+        class="p-error"
+        *ngIf="sampleForm.get('hatlar').errors?.required && (sampleForm.get('hatlar').touched || sampleForm.get('hatlar').dirty)"
+      >
+        Hat Seçimi Zorunludur!
+      </small>
+    </div>
+
+    <div class="grid grid-cols-6">
+      <button pButton id="pageForm_submit" type="submit" class="p-button p-button-rounded w-full" [disabled]="!sampleForm.valid">
+        <i class="pi pi-save mr-2"></i> Kaydet
+      </button>
+    </div>
+  </form>
+</p-panel>
+
+<euys-code-showcase class="my-2" [fragments]="fragments12"></euys-code-showcase>
+
+<p-panel header="Using Option Objects">
+  <form id="pageForm2" class="mt-4" [formGroup]="sampleForm2" (ngSubmit)="submitForm2()">
+    <div class="grid grid-cols-1 gap-2 mb-1">
+      <euys-table-multi-select
+        [options]="items"
+        [style.width]="'100%'"
+        formControlName="hatlar"
+        optionLabel="name"
+        [compareFn]="compareFn"
+        id="hatlar2"
+      >
+        <ng-template euysTableMultiSelectItem let-option>
+          {{option.value}}
+        </ng-template>
+      </euys-table-multi-select>
+      <small
+        id="hatlar2-help"
+        class="p-error"
+        *ngIf="sampleForm2.get('hatlar').errors?.required && (sampleForm2.get('hatlar').touched || sampleForm2.get('hatlar').dirty)"
+      >
+        Hat Seçimi Zorunludur!
+      </small>
+    </div>
+
+    <div class="grid grid-cols-6">
+      <button pButton id="pageForm2_submit" type="submit" class="p-button p-button-rounded w-full" [disabled]="!sampleForm2.valid">
+        <i class="pi pi-save mr-2"></i> Kaydet
+      </button>
+    </div>
+  </form>
+</p-panel>
+
+<euys-code-showcase class="my-2" [fragments]="fragments13"></euys-code-showcase>
+
+<p-panel header="Empty Option List">
+  <euys-table-multi-select
+    [options]="[]"
+    [style.width]="'100%'"
+    optionLabel="name"
+    [compareFn]="compareFn"
+    id="hatlar2"
+  ></euys-table-multi-select>
+</p-panel>

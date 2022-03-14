@@ -1,0 +1,35 @@
+// @import '../../../../../../styles/src/lib/scss/06-components/app_shell.component';
+
+.app-shell {
+  .app-header {
+    position: relative;
+    z-index: 4;
+  }
+
+  .euys-sidenav-container {
+    position: relative;
+    z-index: 1;
+
+    .euys-sidenav {
+      float: left;
+      position: relative;
+      z-index: 3;
+    }
+
+    .euys-sidenav-profile {
+      float: right;
+      position: relative;
+      z-index: 3;
+    }
+
+    .euys-feature {
+      bottom: 0;
+      left: 0;
+      overflow-y: auto;
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 2;
+    }
+  }
+}

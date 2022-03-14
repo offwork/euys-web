@@ -1,0 +1,21 @@
+<euys-filter-bar
+  [isRecord]="true"
+  [formFields]="filterFormFields"
+  (startSearching)="clickOnContinue($event)">
+  <button pButton pRipple
+    type="button"
+    label="Kaydet"
+    class="p-button-rounded p-button-secondary"
+    icon="pi pi-save" [disabled]="(loaded$ | async) === false"
+    (click)="clickOnSave()"></button>
+</euys-filter-bar>
+
+<ng-container *ngIf="loaded$ | async">
+  <div class="p-card"><!-- [style.overflow-y]="'auto'" -->
+    <euys-hedefler-grid
+      [columnsDef]="columnsDef"
+      [treeList]="leftTitleList$"
+      [gridDataSource]="gridDataSource$"
+      (calcPercentage)="calculatePercentage($event)"></euys-hedefler-grid>
+  </div>
+</ng-container>

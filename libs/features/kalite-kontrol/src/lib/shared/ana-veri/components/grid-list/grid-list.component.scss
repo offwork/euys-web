@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  flex-grow: 1;
+  height: 310px;
+}
+
+.action {
+  flex: 0 0 100px !important;
+  width: 100px !important;
+}
+
+p-table {
+  height: 300px !important;
+}
+
+.p-datatable.p-datatable-sm {
+  tr > th,
+  tr > td {
+    padding-block: 0.45rem !important;
+  }
+}

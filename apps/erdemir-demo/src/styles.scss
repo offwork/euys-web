@@ -1,0 +1,35 @@
+@import 'index';
+
+@include euys-core-theme();
+
+html,
+body {
+  /* stylelint-disable */
+  font-family: Source Sans Pro !important;
+  /* stylelint-enable */
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* stylelint-disable */
+td.p-editable-column.p-cell-editing
+  > p-celleditor
+  > p-inputnumber
+  > span
+  > input {
+  width: 5em;
+}
+/* stylelint-enable */
+
+.input-card {
+  .p-card-content {
+    padding: 0;
+  }
+}
+
+.table {
+  .p-dropdown-label {
+    padding: 0 0.5rem;
+  }
+}

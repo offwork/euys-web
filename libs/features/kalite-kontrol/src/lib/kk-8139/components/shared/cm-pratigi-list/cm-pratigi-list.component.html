@@ -1,0 +1,239 @@
+<div *ngIf="(cmPratigiListLoaded$ | async) === true; else loading">
+  <p-table
+    [value]="cmPratigiList"
+    groupRowsBy="spanKey"
+    responsiveLayout="scroll"
+    rowGroupMode="rowspan"
+    selectionMode="multiple"
+    styleClass="p-datatable-gridlines p-datatable-striped table-header-text-center"
+  >
+    <ng-template pTemplate="caption"> CM Bilgileri </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Pratik Adı</th>
+        <th>Yer Adı</th>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4</th>
+        <th>5</th>
+        <th>6</th>
+        <th>7</th>
+        <th>8</th>
+        <th>9</th>
+      </tr>
+    </ng-template>
+    <ng-template
+      pTemplate="body"
+      let-pratik
+      let-rowIndex="rowIndex"
+      let-rowgroup="rowgroup"
+      let-rowspan="rowspan"
+    >
+      <tr>
+        <td *ngIf="rowgroup" [attr.rowspan]="rowspan">
+          <span class="p-text-bold p-ml-2">{{ pratik.pratikAdi.text }}</span>
+        </td>
+        <td>{{ pratik.ozellikAdi.text }}</td>
+        <td
+          [ngStyle]="{
+            'text-align': pratik.deger1.badge ? 'center' : 'right'
+          }"
+        >
+          <span *ngIf="pratik.deger1.badge" class="p-column-title">1</span>
+          <span
+            *ngIf="pratik.deger1.badge"
+            [class]="'euys-badge status-' + pratik.deger1.cssIndicator"
+            >{{ pratik.deger1.text }}</span
+          >
+          <span class="text-right font-bold" *ngIf="!pratik.deger1.badge">{{
+            pratik.deger1.text
+          }}</span>
+        </td>
+        <td
+          [ngStyle]="{
+            'text-align': pratik.deger2.badge ? 'center' : 'right'
+          }"
+        >
+          <span *ngIf="pratik.deger2.badge" class="p-column-title">1</span>
+          <span
+            *ngIf="pratik.deger2.badge"
+            [class]="'euys-badge status-' + pratik.deger2.cssIndicator"
+            >{{ pratik.deger2.text }}</span
+          >
+          <span class="font-bold" *ngIf="!pratik.deger2.badge">{{
+            pratik.deger2.text
+          }}</span>
+        </td>
+        <td
+          [ngStyle]="{
+            'text-align': pratik.deger3.badge ? 'center' : 'right'
+          }"
+        >
+          <span *ngIf="pratik.deger3.badge" class="p-column-title">1</span>
+          <span
+            *ngIf="pratik.deger3.badge"
+            [class]="'euys-badge status-' + pratik.deger3.cssIndicator"
+            >{{ pratik.deger3.text }}</span
+          >
+          <span class="font-bold" *ngIf="!pratik.deger3.badge">{{
+            pratik.deger3.text
+          }}</span>
+        </td>
+        <td
+          [ngStyle]="{
+            'text-align': pratik.deger4.badge ? 'center' : 'right'
+          }"
+          class="text-center"
+        >
+          <span *ngIf="pratik.deger4.badge" class="p-column-title">1</span>
+          <span
+            *ngIf="pratik.deger4.badge"
+            [class]="'euys-badge status-' + pratik.deger4.cssIndicator"
+            >{{ pratik.deger4.text }}</span
+          >
+          <span class="font-bold" *ngIf="!pratik.deger4.badge">{{
+            pratik.deger4.text
+          }}</span>
+        </td>
+        <td
+          [ngStyle]="{
+            'text-align': pratik.deger5.badge ? 'center' : 'right'
+          }"
+        >
+          <span *ngIf="pratik.deger5.badge" class="p-column-title">1</span>
+          <span
+            *ngIf="pratik.deger5.badge"
+            [class]="'euys-badge status-' + pratik.deger5.cssIndicator"
+            >{{ pratik.deger5.text }}</span
+          >
+          <span class="font-bold" *ngIf="!pratik.deger5.badge">{{
+            pratik.deger5.text
+          }}</span>
+        </td>
+        <td
+          [ngStyle]="{
+            'text-align': pratik.deger6.badge ? 'center' : 'right'
+          }"
+        >
+          <span *ngIf="pratik.deger6.badge" class="p-column-title">1</span>
+          <span
+            *ngIf="pratik.deger6.badge"
+            [class]="'euys-badge status-' + pratik.deger6.cssIndicator"
+            >{{ pratik.deger6.text }}</span
+          >
+          <span class="font-bold" *ngIf="!pratik.deger6.badge">{{
+            pratik.deger6.text
+          }}</span>
+        </td>
+        <td
+          [ngStyle]="{
+            'text-align': pratik.deger7.badge ? 'center' : 'right'
+          }"
+        >
+          <span *ngIf="pratik.deger7.badge" class="p-column-title">1</span>
+          <span
+            *ngIf="pratik.deger7.badge"
+            [class]="'euys-badge status-' + pratik.deger7.cssIndicator"
+            >{{ pratik.deger7.text }}</span
+          >
+          <span class="font-bold" *ngIf="!pratik.deger7.badge">{{
+            pratik.deger7.text
+          }}</span>
+        </td>
+        <td
+          [ngStyle]="{
+            'text-align': pratik.deger8.badge ? 'center' : 'right'
+          }"
+        >
+          <span *ngIf="pratik.deger8.badge" class="p-column-title">1</span>
+          <span
+            *ngIf="pratik.deger8.badge"
+            [class]="'euys-badge status-' + pratik.deger8.cssIndicator"
+            >{{ pratik.deger8.text }}</span
+          >
+          <span class="font-bold" *ngIf="!pratik.deger8.badge">{{
+            pratik.deger8.text
+          }}</span>
+        </td>
+        <td
+          [ngStyle]="{
+            'text-align': pratik.deger9.badge ? 'center' : 'right'
+          }"
+        >
+          <span *ngIf="pratik.deger9.badge" class="p-column-title">1</span>
+          <span
+            *ngIf="pratik.deger9.badge"
+            [class]="'euys-badge status-' + pratik.deger9.cssIndicator"
+            >{{ pratik.deger9.text }}</span
+          >
+          <span class="font-bold" *ngIf="!pratik.deger9.badge">{{
+            pratik.deger9.text
+          }}</span>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<ng-template #loading>
+  <p-table
+    styleClass="p-datatable-gridlines p-datatable-striped table-header-text-center"
+    class="skeleton-table"
+    [value]="dummyList"
+    responsiveLayout="scroll"
+  >
+    <ng-template pTemplate="caption"> CM Bilgileri </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="text-center">Pratik Adı</th>
+        <th class="text-center">Yer Adı</th>
+        <th class="text-center">1</th>
+        <th class="text-center">2</th>
+        <th class="text-center">3</th>
+        <th class="text-center">4</th>
+        <th class="text-center">5</th>
+        <th class="text-center">6</th>
+        <th class="text-center">7</th>
+        <th class="text-center">8</th>
+        <th class="text-center">9</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-dummy>
+      <tr>
+        <td>
+          <p-skeleton></p-skeleton>
+        </td>
+        <td>
+          <p-skeleton></p-skeleton>
+        </td>
+        <td>
+          <p-skeleton></p-skeleton>
+        </td>
+        <td>
+          <p-skeleton></p-skeleton>
+        </td>
+        <td>
+          <p-skeleton></p-skeleton>
+        </td>
+        <td>
+          <p-skeleton></p-skeleton>
+        </td>
+        <td>
+          <p-skeleton></p-skeleton>
+        </td>
+        <td>
+          <p-skeleton></p-skeleton>
+        </td>
+        <td>
+          <p-skeleton></p-skeleton>
+        </td>
+        <td>
+          <p-skeleton></p-skeleton>
+        </td>
+        <td>
+          <p-skeleton></p-skeleton>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</ng-template>

@@ -1,0 +1,65 @@
+<p-table
+  [columns]="cplHattiColumnDef"
+  styleClass="p-datatable-gridlines p-datatable-sm p-datatable-striped table-header-text-center"
+  [value]="cplHatti$ | async"
+>
+  <ng-template pTemplate="caption">
+    <div class="w-full text-center">CPL Hattı QC Karar/Kayıt</div>
+  </ng-template>
+  <ng-template pTemplate="header" let-rowData let-columns>
+    <tr>
+      <th [attr.colspan]="7">Asitleme Proses Bilgisi</th>
+      <th style="text-align: center" [attr.colspan]="2">CHK</th>
+      <th>2</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th [attr.colspan]="3">Sıcaklık</th>
+      <th [attr.colspan]="3">HCL Yoğunluk</th>
+      <th [attr.colspan]="3">FE+2 Yoğunluk</th>
+    </tr>
+    <tr>
+      <th *ngFor="let col of columns" [attr.colspan]="col.colspan">
+        {{ col.header }}
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr>
+      <td *ngFor="let col of columns" [attr.colspan]="col.colspan">
+        {{ rowData[col.field] }}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<p-table
+  [columns]="cplHattiDurulamaDef"
+  styleClass="p-datatable-gridlines p-datatable-sm p-datatable-striped table-header-text-center"
+  [value]="cplHatti$ | async"
+>
+  <ng-template pTemplate="header" let-rowData let-columns>
+    <tr>
+      <th [attr.colspan]="7">Durulama Proses Bilgisi</th>
+      <th style="text-align: center" [attr.colspan]="3">CHK</th>
+      <th>1</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th [attr.colspan]="3">Sıcaklık</th>
+      <th [attr.colspan]="2">Online İletkenlik</th>
+      <th [attr.colspan]="8">Laboratuvar Sonuçları</th>
+    </tr>
+    <tr>
+      <th *ngFor="let col of columns" [attr.colspan]="col.colspan">
+        {{ col.header }}
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr>
+      <td *ngFor="let col of columns" [attr.colspan]="col.colspan">
+        {{ rowData[col.field] }}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

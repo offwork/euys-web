@@ -1,0 +1,97 @@
+<p-card>
+  <div class="flex gap-4 items-center">
+    <label>Ay / Yıl : </label>
+    <p-calendar
+      view="month"
+      dateFormat="mm/yy"
+      inputId="yilAy"
+      [formControl]="yilAy"
+      (onInput)="dateChange()"
+    ></p-calendar>
+
+    <button
+      pButton
+      [loading]="loading$ | async"
+      (click)="load()"
+      type="button"
+      label="Devam"
+      class="p-button p-button-raised p-button-rounded w-32"
+    ></button>
+
+  <div class="w-full flex justify-end">
+    <button
+    *ngIf="yupAylikAnaModel$ | async"
+    pButton
+    [loading]="progress$ | async"
+    (click)="save()"
+    type="button"
+    label="Kaydet"
+    class="p-button p-button-raised p-button-rounded w-32"
+  ></button>
+  </div>
+
+
+  </div>
+</p-card>
+<form *ngIf="yupAylikAnaModel$ | async" [formGroup]="aylikUretimPlaniForm">
+  <p-tabView >
+    <p-tabPanel header="Hat Üretimleri">
+      <p-table
+        [value]="formArrayAylikUretimPlani"
+        styleClass="p-datatable-gridlines p-datatable-sm w-1/2"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Hatlar</th>
+            <th>YÜP (Bütçe)</th>
+            <th>APASS Miktar</th>
+            <th>AYLIK PLAN</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-formGroup>
+          <tr [formGroup]="formGroup">
+            <td>{{ formGroup.controls.hatSiraHatTanim.value }}</td>
+            <td class="!text-right">{{ formGroup.controls.yupButce.value }}</td>
+            <td class="!text-right">
+                <input pInputText formControlName="apassMiktar" />
+            </td>
+            <td class="!text-right">
+                <input pInputText formControlName="uretimHedefMiktar" />
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-tabPanel>
+
+    <p-tabPanel header="Nihai Ürün Üretimi">
+      <p-table
+        [value]="formArrayAylikNihaiMamul"
+        styleClass=" p-datatable-gridlines p-datatable-sm w-1/2"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>NİHAİ ÜRÜN ÜRETİMİ</th>
+            <th>Rapor Grubu</th>
+            <th>YÜP (Bütçe)</th>
+            <th>APASS(CAP)</th>
+            <th>AYLIK PLAN</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-formGroup let-index="rowIndex">
+          <tr [formGroup]="formGroup">
+            <td>{{ formGroup.controls.aylikMamulGrupTanim.value }}</td>
+            <td>{{ formGroup.controls.aylikMamulTanim.value }}</td>
+            <td class="!text-right">{{ formGroup.controls.yupButce.value }}</td>
+            <td class="!text-right">
+                <input pInputText formControlName="apassMiktar" />
+            </td>
+            <td class="!text-right">
+                <input pInputText formControlName="uretimHedefMiktar" />
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-tabPanel>
+  </p-tabView>
+</form>

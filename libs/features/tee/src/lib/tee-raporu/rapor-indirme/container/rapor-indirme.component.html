@@ -1,0 +1,42 @@
+<p-card header="Rapor İndirme">
+  <p-divider></p-divider>
+  <form [formGroup]="downloadReportFormGroup" (ngSubmit)="submit()">
+    <div class="p-fluid grid gap-8">
+      <euys-date-input
+        [euysOverrideFormFieldValidators]="dateCtrlValidators"
+        [inputId]="'tarih'"
+        [horizontal]="false"
+        [formControl]="getFormControl('tarih')"
+        [label]="'Rapor İndirme Tarihi'"
+        [maxDate]="maxDate"
+        [yearNavigator]="true"
+        [yearRange]="'2000:2030'"
+        (changes)="tarihDegisti($event)">
+        <euys-form-field-error
+          [errorMessage]="downloadReportFormGroup.controls.tarih!.errors | overrideError: 'Tarih alanı boş olamaz!'">
+        </euys-form-field-error>
+      </euys-date-input>
+      <euys-dropdown-input
+        [inputId]="'haftaAy'"
+        [formControl]="getFormControl('haftaAy')"
+        [horizontal]="false"
+        [label]="'Aylık - Haftalık'"
+        [options]="weekMonthOpts"
+        [optionLabel]="'label'"
+        [optionValue]="'value'"
+        [showClear]="true"></euys-dropdown-input>
+      <euys-dropdown-input
+        *ngIf="downloadReportFormGroup.controls.tarih.touched && downloadReportFormGroup.controls.haftaAy.value === 'HAFTALIK'"
+        [euysOverrideFormFieldValidators]="weekCtrlValidators"
+        [inputId]="'hafta'"
+        [formControl]="getFormControl('hafta')"
+        [horizontal]="false"
+        [label]="'Hafta'"
+        [options]="haftaSayilari"
+        [showClear]="true">
+        <euys-form-field-error [errorMessage]="downloadReportFormGroup.controls.hafta!.errors | overrideError: 'Hafta alanı boş olamaz!'"></euys-form-field-error>
+      </euys-dropdown-input>
+      <button pButton class="block" type="submit">Download</button>
+    </div>
+  </form>
+</p-card>

@@ -1,0 +1,105 @@
+<euys-styled-panel [toggleable]="toggleable">
+  <!-- ACTION MENU -->
+  <ng-container icons>
+    <button
+      pButton
+      class="p-panel-header-icon p-link"
+      icon="pi pi-cog"
+      (click)="menu.toggle($event)"
+    ></button>
+    <p-menu #menu id="config_menu" [model]="items" [popup]="true"></p-menu>
+  </ng-container>
+
+  <!-- HEADER -->
+  <ng-container header>
+    <euys-free-header textToRender="---TESTING AREA FOR PAGE COMPONENTS---">
+    </euys-free-header>
+  </ng-container>
+
+  <!-- CONTENT -->
+  <ng-container content>
+    <euys-yuzey-kusur-kaydi
+      [yuzeyKusurKaydiList$]="yuzeyKusurKaydiList$"
+      [aktifKusur$]="aktifKusurList$"
+      [defaultYuzeyKusurKodu]="defaultYuzeyKusurKodu$ | async"
+      [dispoze]="dispoze$ | async"
+      [hatKodu]="'331'"
+      [minDerece]="minDerece$ | async"
+    ></euys-yuzey-kusur-kaydi>
+
+    <euys-tcr-list
+      [qcKayitBilgileri$]="qcKayitBilgileri$"
+      [qcKayitBilgileriLoaded$]="qcKayitBilgileriLoaded$"
+      [tcrBilgileriList$]="tcrBilgileriList$"
+    ></euys-tcr-list>
+    <p-messages
+      styleClass="p-md-6"
+      [(value)]="bagimsizNumunelistesiInfo"
+      [enableService]="false"
+    ></p-messages>
+    <!-- <euys-bagimsiz-numune-list
+      [loading$]="loading$"
+      [bagimsizNumune$]="bagimsizNumune$"
+    >
+    </euys-bagimsiz-numune-list> -->
+  </ng-container>
+
+  <!-- FOOTER -->
+  <ng-container footer>
+    <div class="flex flex-row align-middle justify-center">
+      <button
+        pButton
+        pRipple
+        [icon]="'pi pi-ellipsis-v'"
+        [label]="'CM DIALOG!'"
+        class="p-mr-2 bg-red-600 border border-transparent rounded-md py-1 px-2 font-medium text-white hover:bg-red-900"
+        type="button"
+        (click)="openCmDialog()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        [icon]="'pi pi-ellipsis-v'"
+        [label]="'SM DIALOG!'"
+        class="p-mr-2 bg-gray-800 border border-transparent rounded-md py-1 px-2 font-medium text-white hover:bg-black"
+        type="button"
+        (click)="openSmDialog()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        [icon]="'pi pi-ellipsis-v'"
+        [label]="'BAĞIMSIZ NUMUNE DIALOG!'"
+        class="p-mr-2 bg-blue-600 border border-transparent rounded-md py-1 px-2 font-medium text-white hover:bg-blue-700"
+        type="button"
+        (click)="bagimsizNumuneDialog('C2110000070000')"
+      ></button>
+      <button
+        pButton
+        pRipple
+        [icon]="'pi pi-ellipsis-v'"
+        label="BAĞIMSIZ MESAJLAR DİALOG!"
+        class="p-mr-2 bg-gray-200 border border-transparent rounded-md py-1 px-2 font-semibold text-gray-800 hover:bg-gray-300"
+        type="button"
+        (click)="openBagimsizMesajDialog('C2110000070000')"
+      ></button>
+      <button
+        pButton
+        pRipple
+        [icon]="'pi pi-ellipsis-v'"
+        [label]="'MFS DIALOG!'"
+        class="p-mr-2 bg-blue-600 border border-transparent rounded-md py-1 px-2 font-medium text-white hover:bg-blue-900"
+        type="button"
+        (click)="mfsDialog()"
+      ></button>
+    </div>
+  </ng-container>
+</euys-styled-panel>
+
+<p-toast></p-toast>
+<p-toast
+  *ngFor="let toast of toasts"
+  [position]="toast.position"
+  [key]="toast.key"
+></p-toast>
+<p-confirmPopup></p-confirmPopup>

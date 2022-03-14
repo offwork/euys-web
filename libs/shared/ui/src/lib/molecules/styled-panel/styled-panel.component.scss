@@ -1,0 +1,23 @@
+/* stylelint-disable */
+euys-styled-panel {
+  .p-panel {
+    padding-top: 0;
+    .p-panel-header {
+      margin-bottom: 0.5rem;
+      euys-free-header {
+        margin-left: 1.5rem;
+      }
+    }
+    .p-panel-content {
+      padding: 0;
+      border: none;
+    }
+    .p-panel-footer {
+      border: none;
+    }
+    .p-paginator-bottom {
+      border: none;
+    }
+  }
+}
+/* stylelint-enable */

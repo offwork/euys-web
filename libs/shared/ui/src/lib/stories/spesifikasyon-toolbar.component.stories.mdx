@@ -1,0 +1,100 @@
+import { moduleMetadata } from '@storybook/angular';
+import { CommonModule } from '@angular/common';
+import { RouterTestingModule } from "@angular/router/testing";
+import { Meta, Story, Canvas, Source } from '@storybook/addon-docs';
+import { withKnobs, text, boolean } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
+import { DesignSystemModule } from '../design-system/design-system.module';
+import { SpesifikasyonToolbarComponent } from '../spesifikasyon-toolbar/components/spesifikasyon-toolbar/spesifikasyon-toolbar.component';
+
+export const getSpesifikasyonToolbarProps = (overrides = {}) =>
+  Object.assign(
+    {},
+    {
+      title: text('Title', '1. Sıcak Haddehane İkmal Sıcaklığı Spesifikasyonu Ana Tablo'),
+      addClick: action('addClick'),
+      updateClick: action('updateClick'),
+      goBackClick: action('goBackClick'),
+      reloadClick: action('reloadClick'),
+    },
+    overrides
+  );
+
+<Meta
+  title="Euys/UI/SpesifikasyonToolbarModule"
+  decorators={[
+    withKnobs,
+    moduleMetadata({
+      imports: [CommonModule, DesignSystemModule, RouterTestingModule],
+      declarations: [SpesifikasyonToolbarComponent],
+    }),
+  ]}
+/>
+
+# Spesifikasyon Toolbar Module
+
+
+Spesifikasyon Toolbar Modülü, Kalite Tasarım Spesifikasyon ekranlarında kullanıcının eylemlerini yönetecek araç çubuğunu oluşturmak için kullanılır.
+
+> **`<euys-spesifikasyon-toolbar>`** bileşenini kullanabilmek için modülünüze, SharedUiModule dahil etmelisiniz.
+
+<Source language="typescript" dark code={`import { SharedUiModule } from '@euys/shared/ui';
+@NgModule({
+  declarations: [Kt1201Component],
+  imports: [
+    // ...
+    SharedUiModule,
+  ]
+})
+export class Kt1201Module {}`} />
+
+## Temel özellikler ile Spesifikasyon Toolbar
+
+> Spesifikasyon ekranlarında gerekli olan **Yenileme**, **Güncelleme** ve **Kayıt** işlemleri buttonlarını göstermek ve ilgili işleme göre başlığı yenilemek için gereken en genel kullanımı bu şekildedir.
+
+<Canvas>
+  <Story name="Temel">
+    {{
+      template: `
+        <euys-spesifikasyon-toolbar
+            [title]="title"
+            [updateDisabled]="updateDisabled"
+            [isFormVisible]="isFormVisible"
+            [isUpdate]="isUpdate"
+            (addClick)="addClick()"
+            (updateClick)="updateClick()"
+            (goBackClick)="goBackClick()"
+            (reloadClick)="reloadClick()"
+        >
+        </euys-spesifikasyon-toolbar>
+      `,
+      props: getSpesifikasyonToolbarProps({
+        updateDisabled: boolean('Update Disabled', false),
+        isFormVisible: boolean('Form Mode', false),
+        isUpdate: boolean('Update', false),
+      }),
+    }}
+  </Story>
+</Canvas>
+
+## Sadece görüntüleme işlemi yapılacak durumlar için Spesifikasyon Toolbar
+
+> Kayıt ve güncelleme buttonlarının gösterilmemesi istendiğinde **`hideAdd`** ve **`hideUpdate`** **Input** değerleri _true_ verilebilir.
+> Bu durumda güncelleme ve kayıt işlemler ile ilgili olan **Input** ve **Output** değerlerinin verilmesi gerekmez.
+
+<Canvas>
+  <Story name="Sadece Görüntüleme">
+    {{
+      template: `
+        <euys-spesifikasyon-toolbar
+            [title]="title"
+            [hideAdd]="true"
+            [hideUpdate]="true"
+            (reloadClick)="reloadClick()"
+        >
+        </euys-spesifikasyon-toolbar>
+      `,
+      props: getSpesifikasyonToolbarProps(),
+    }}
+  </Story>
+</Canvas>

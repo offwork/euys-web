@@ -1,0 +1,113 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="operatorForm">
+  <div class="grid grid-cols-1 gap-2">
+    <div class="grid grid-cols-12">
+      <label> Müşteri: </label>
+      <div class="p-fluid col-span-4">
+        <input
+          id="musteri"
+          type="text"
+          pInputText
+          class="col-span-4"
+          formControlName="musteri"
+        />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-12">
+      <label> MPC: </label>
+      <div class="p-fluid col-span-4">
+        <input id="mpc" type="text" pInputText formControlName="mpc" />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-12">
+      <label> Kalite: </label>
+      <div class="p-fluid col-span-4">
+        <input
+          id="kalite"
+          type="text"
+          pInputText
+          formControlName="celikKalitesi"
+        />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-12">
+      <label> Ürün: </label>
+      <div class="p-fluid col-span-4">
+        <input id="urun" type="text" pInputText formControlName="urunKodu" />
+      </div>
+    </div>
+    <div class="grid grid-cols-12">
+      <label>Uyarı Metni:</label>
+      <div class="p-fluid col-span-8">
+        <textarea
+          name=""
+          cols="30"
+          rows="3"
+          id="aciklama"
+          type="text"
+          pInputText
+          placeholder="Uyarı Metni "
+          formControlName="operatorBilgilendirme"
+          class="col-span-4"
+        ></textarea>
+      </div>
+    </div>
+    <div class="grid grid-cols-3">
+      <div>
+        <button
+          pButton
+          pRipple
+          type="button"
+          label="Geri "
+          icon="pi pi-arrow-left"
+          iconPos="left"
+          class="p-button-raised p-button-rounded"
+          (click)="geriButtonClicked()"
+          style="margin-right: 5px; margin-top: 5px"
+        ></button>
+        &nbsp;
+        <button
+          pButton
+          pRipple
+          icon="pi pi-save"
+          iconPos="left"
+          type="submit"
+          class="p-button-rounded p-button-raised"
+          label=" Kaydet "
+          style="margin-right: 5px; margin-top: 5px"
+        ></button>
+      </div>
+    </div>
+    <div>
+      <euys-image-preview
+        [imageList]="oprGorselList$ | async"
+        [originalSource]="originalSource$ | async"
+        (deleteThumb)="deleteImage($event)"
+        (clickOnThumb)="showImage($event)"
+      ></euys-image-preview>
+    </div>
+    <div class="flex gap-4">
+      <p-fileUpload
+        name="myfile[]"
+        chooseLabel="Fotoğraf Ekle"
+        [customUpload]="true"
+        mode="basic"
+        accept="image/*"
+        (uploadHandler)="uploadImage($event)"
+        #uploader
+      ></p-fileUpload>
+
+      <p-button
+        type="button"
+        icon="pi pi-trash"
+        iconPos="left"
+        class="p-button-rounded p-button-raised"
+        label="Temizle"
+        [disabled]="!uploader._files?.length"
+        (click)="uploader.clear()"
+      ></p-button>
+    </div>
+  </div>
+</form>

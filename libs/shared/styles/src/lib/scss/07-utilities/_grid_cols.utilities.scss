@@ -1,0 +1,30 @@
+/**
+ * TODO:
+ * isimlendirme ITCSS metodoloji yapısına uygun olmalı!
+ * class, mixin, function yanısıra scss dosyasınında
+ * bulunduğu klasöre göre isimle sonlandırılmalı!
+ *
+ * Deneysel kod geliştirmeleri belkide başka git
+ * branch'larında gerçekleştirilmeli.
+ */
+@for $i from 1 through 12 {
+  .grid-cols-fit-#{$i} {
+    grid-template-columns: repeat(#{$i}, fit-content(100%));
+  }
+}
+
+@screen sm {
+  @for $i from 1 through 12 {
+    .sm\:grid-cols-fit-#{$i} {
+      grid-template-columns: repeat(#{$i}, fit-content(100%));
+    }
+  }
+}
+
+@screen md {
+  @for $i from 1 through 12 {
+    .md\:grid-cols-fit-#{$i} {
+      grid-template-columns: repeat(#{$i}, fit-content(100%));
+    }
+  }
+}

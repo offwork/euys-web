@@ -1,0 +1,149 @@
+import { CommonModule } from '@angular/common';
+import { moduleMetadata } from '@storybook/angular';
+import {
+  ReactiveFormsModule,
+  FormGroup,
+  FormArray,
+  FormControl,
+  Validators,
+} from '@angular/forms';
+import { Meta, Story, Canvas, Source, ArgsTable } from '@storybook/addon-docs';
+import { DesignSystemModule } from '../design-system/design-system.module';
+import { MessageComponent } from '../messages/components/message.component';
+import { ValidationMessageDirective } from '../messages/directives/validation-message.directive';
+
+export const getValidationMessageProps = (overrides = {}) => {
+  const list = [
+    {
+      id: 'Item 1',
+      tuketimMiktar: 1000,
+      uretimMiktar: 1000,
+      oran: 1000,
+      maxSicaklik: 1000,
+    },
+    {
+      id: 'Item 2',
+      tuketimMiktar: 1000,
+      uretimMiktar: 1000,
+      oran: 1000,
+      maxSicaklik: 1000,
+    },
+    {
+      id: 'Item 3',
+      tuketimMiktar: 1000,
+      uretimMiktar: 1000,
+      oran: 1000,
+      maxSicaklik: 1000,
+    },
+    {
+      id: 'Item 4',
+      tuketimMiktar: 1000,
+      uretimMiktar: 1000,
+      oran: 1000,
+      maxSicaklik: 1000,
+    },
+  ];
+  const groupList = list.map(
+    item =>
+      new FormGroup({
+        id: new FormControl(item.id),
+        test1: new FormControl(item.tuketimMiktar, Validators.required),
+        test2: new FormControl(item.uretimMiktar, Validators.min(3)),
+        test3: new FormControl(item.oran, Validators.max(3)),
+        test4: new FormControl(item.maxSicaklik, Validators.minLength(3)),
+      })
+  );
+  const formArray = new FormArray(groupList);
+  const formArrayControls = formArray.controls;
+  return Object.assign(
+    {},
+    {
+      form: new FormGroup({
+        test1: new FormControl('', Validators.required),
+        test1: new FormControl('', Validators.required),
+        test2: new FormControl('', Validators.min(3)),
+        test3: new FormControl('', Validators.max(3)),
+        test4: new FormControl('', Validators.minLength(3)),
+      }),
+      formArray: formArrayControls,
+    },
+    overrides
+  );
+};
+
+# ValidationMessageDirective
+
+## Grid Form Örneği
+
+<Meta
+  title="Euys/UI/ValidationMessageDirective"
+  decorators={[
+    moduleMetadata({
+      imports: [CommonModule, DesignSystemModule, ReactiveFormsModule],
+      declarations: [MessageComponent, ValidationMessageDirective],
+    }),
+  ]}
+/>
+
+<Canvas>
+  <Story name="GridForm">
+    {{
+      template: `
+        <form [formGroup]="form" class="grid grid-cols-fit-2 md:grid-cols-fit-4 items-center gap-x-4 gap-y-8">
+          <label class="text-right" for="test1" euysValidationMessage>Üretim Miktarı :</label>
+          <input pInputText id="test1" formControlName="test1" />
+          <label class="text-right" for="test2" euysValidationMessage>Tüketim Miktarı :</label>
+          <input pInputText id="test2" formControlName="test2" />
+          <label class="text-right" for="test3" euysValidationMessage>Oran :</label>
+          <input pInputText id="test3" formControlName="test3" />
+          <label class="text-right" for="test4" euysValidationMessage>Maximum Sıcaklık :</label>
+          <input pInputText id="test4" formControlName="test4" />
+        </form>
+      `,
+      props: getValidationMessageProps(),
+    }}
+  </Story>
+</Canvas>
+
+## Tablo İçerisendeki Form Örneği
+
+<Canvas>
+  <Story name="Table">
+    {{
+      template: `
+      <p-table
+        [value]="formArray"
+        styleClass=" p-datatable-gridlines p-datatable-striped "
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Başlık</th>
+            <th>Tüketim Miktarı</th>
+            <th>Üretim Miktarı</th>
+            <th>Oran</th>
+            <th>Maximum Sıcaklık</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr [formGroup]="item">
+            <td>{{ item.controls.id.value }}</td>
+            <td for="test1" validationLabel="Tüketim Miktarı" euysValidationMessage >
+              <input pInputText formControlName="test1" />
+            </td>
+            <td for="test2" validationLabel="Üretim Miktarı" euysValidationMessage>
+              <input pInputText formControlName="test2" />
+            </td>
+            <td for="test3" validationLabel="Oran" euysValidationMessage>
+              <input pInputText formControlName="test3" />
+            </td>
+            <td for="test4" validationLabel="Maximum Sıcaklık" euysValidationMessage>
+              <input pInputText formControlName="test4" />
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+      `,
+      props: getValidationMessageProps(),
+    }}
+  </Story>
+</Canvas>

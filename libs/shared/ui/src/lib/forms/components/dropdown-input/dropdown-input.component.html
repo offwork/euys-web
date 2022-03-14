@@ -1,0 +1,12 @@
+<div [ngClass]="horizontal ? 'h-align-content' : 'v-align-content'">
+  <span>{{ label }}<span>:</span></span>
+  <p-dropdown
+    [inputId]="inputId"
+    [placeholder]="placeholder"
+    [formControl]="formControl"
+    [options]="options"
+    [showClear]="showClear"
+    [optionLabel]="optionLabel"
+    [optionValue]="optionValue"></p-dropdown>
+  <ng-content></ng-content>
+</div>

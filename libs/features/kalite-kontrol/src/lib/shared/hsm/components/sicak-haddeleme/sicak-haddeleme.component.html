@@ -1,0 +1,105 @@
+<div *ngIf="(qcKayitBilgileriLoaded$ | async) === true; else loading">
+  <p-table
+    [value]="['']"
+    styleClass="p-datatable-gridlines border p-datatable-sm"
+    responsiveLayout="scroll"
+  >
+    <ng-template pTemplate="header"> </ng-template>
+
+    <ng-template pTemplate="body">
+      <tr>
+        <td class="font-bold">Üretim Tarihi :</td>
+        <td>{{ qcKayitBilgileri.uretimZamani | date: 'mediumDate' }}</td>
+        <td class="font-bold">Dökum Numarası :</td>
+        <td>{{ qcKayitBilgileri.dokumNo }}</td>
+        <td class="font-bold">Döküm Kalitesi :</td>
+        <td>{{ qcKayitBilgileri.dokumCelikKalitesi }}</td>
+        <td class="font-bold">Çelik Kalitesi Standartı :</td>
+        <td>{{ qcKayitBilgileri.celikKaliteStandardi }}</td>
+        <td class="font-bold">QC Kayıt Tarihi :</td>
+        <td>{{ qcKayitDate | date: 'mediumDate' }}</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Üretim Zamanı :</td>
+        <td>{{ qcKayitBilgileri.uretimZamani | date: 'HH:mm' }}</td>
+        <td class="font-bold">Slab Numarası :</td>
+        <td>{{ qcKayitBilgileri.slabNo }}</td>
+        <td class="font-bold">Erdemir Çelik Kalitesi :</td>
+        <td>{{ qcKayitBilgileri.erdemirCelikKalitesi }}</td>
+        <td class="font-bold">Y/I :</td>
+        <td>{{ qcKayitBilgileri.yerliIhracKodu | euysEnum }}</td>
+        <td class="font-bold">QC Kayıt Zamanı :</td>
+        <td>{{ qcKayitDate | date: 'HH:mm' }}</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Hat Numarası :</td>
+        <td>{{ qcKayitBilgileri.hatNo }}</td>
+        <td class="font-bold">Bob Numarası :</td>
+        <td>{{ qcKayitBilgileri.bobinNo }}</td>
+        <td class="font-bold">Uluslararası Çelik Kalitesi :</td>
+        <td
+          class="text-ellipsis overflow-hidden"
+          [title]="qcKayitBilgileri.uluslararasiCelikKalitesi"
+        >
+          {{ qcKayitBilgileri.uluslararasiCelikKalitesi }}
+        </td>
+        <td class="font-bold">Ürün :</td>
+        <td>{{ qcKayitBilgileri.urun }}</td>
+        <td class="font-bold">QC Kayıt Operatör :</td>
+        <td>{{ 'Kullanıcı Adı' }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<ng-template #loading>
+  <p-table
+    styleClass="p-datatable-gridlines border p-datatable-sm"
+    responsiveLayout="scroll"
+  >
+    <ng-template pTemplate="header"> </ng-template>
+
+    <ng-template pTemplate="body">
+      <tr>
+        <td class="font-bold">Üretim Tarihi :</td>
+        <td>{{ qcKayitBilgileri.uretimZamani | date: 'mediumDate' }}</td>
+        <td class="font-bold">Dökum Numarası :</td>
+        <td>{{ qcKayitBilgileri.dokumNo }}</td>
+        <td class="font-bold">Döküm Kalitesi :</td>
+        <td>{{ qcKayitBilgileri.dokumCelikKalitesi }}</td>
+        <td class="font-bold">Çelik Kalitesi Standartı :</td>
+        <td>{{ qcKayitBilgileri.celikKaliteStandardi }}</td>
+        <td class="font-bold">QC Kayıt Tarihi :</td>
+        <td>{{ qcKayitDate | date: 'mediumDate' }}</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Üretim Zamanı :</td>
+        <td>{{ qcKayitBilgileri.uretimZamani | date: 'HH:mm' }}</td>
+        <td class="font-bold">Slab Numarası :</td>
+        <td>{{ qcKayitBilgileri.slabNo }}</td>
+        <td class="font-bold">Erdemir Çelik Kalitesi :</td>
+        <td>{{ qcKayitBilgileri.erdemirCelikKalitesi }}</td>
+        <td class="font-bold">Y/I :</td>
+        <td>{{ qcKayitBilgileri.yerliIhracKodu | euysEnum }}</td>
+        <td class="font-bold">QC Kayıt Zamanı :</td>
+        <td>{{ qcKayitDate | date: 'HH:mm' }}</td>
+      </tr>
+      <tr>
+        <td class="font-bold">Hat Numarası :</td>
+        <td>{{ qcKayitBilgileri.hatNo }}</td>
+        <td class="font-bold">Bob Numarası :</td>
+        <td>{{ qcKayitBilgileri.bobinNo }}</td>
+        <td class="font-bold">Uluslararası Çelik Kalitesi :</td>
+        <td
+          class="text-ellipsis overflow-hidden"
+          [title]="qcKayitBilgileri.uluslararasiCelikKalitesi"
+        >
+          {{ qcKayitBilgileri.uluslararasiCelikKalitesi }}
+        </td>
+        <td class="font-bold">Ürün :</td>
+        <td>{{ qcKayitBilgileri.urun }}</td>
+        <td class="font-bold">QC Kayıt Operatör :</td>
+        <td>{{ 'Kullanıcı Adı' }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</ng-template>

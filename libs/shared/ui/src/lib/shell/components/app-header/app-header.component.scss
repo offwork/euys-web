@@ -1,0 +1,29 @@
+.app-header {
+  align-items: center;
+  position: relative;
+
+  .p-button.p-button-text {
+    border: 0;
+    border-radius: 0;
+    color: #fff;
+
+    &:focus {
+      box-shadow: none;
+    }
+
+    &:enabled:hover {
+      color: #fff;
+    }
+  }
+
+  .euys-app-logo--container {
+    margin-left: -0.5rem;
+
+    .euys-app-logo {
+      height: 32px;
+      margin-top: -3px;
+      position: relative;
+      vertical-align: middle;
+    }
+  }
+}

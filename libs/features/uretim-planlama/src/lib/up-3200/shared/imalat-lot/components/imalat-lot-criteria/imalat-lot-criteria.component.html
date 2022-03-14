@@ -1,0 +1,57 @@
+<form
+  [formGroup]="form"
+  class="grid grid-cols-fit-5 items-center justify-items-end gap-x-3 gap-y-9"
+>
+  <label class="text-right w-24" for="yil">Yıl : *</label>
+  <euys-year-picker
+    class="w-44"
+    inputId="yil"
+    formControlName="yil"
+  ></euys-year-picker>
+
+  <label for="imalatLotTuru">İmalat Lot Türü : *</label>
+  <p-dropdown
+    [options]="imalatLotTuruOptions"
+    class="w-44 flex"
+    styleClass="flex-1"
+    placeholder="Seçiniz"
+    inputId="imalatLotTuru"
+    formControlName="imalatLotTuru"
+    optionLabel="label"
+    optionValue="value"
+  ></p-dropdown>
+
+  <span></span>
+
+  <label for="urunGrubu">Ürün Grubu : *</label>
+  <p-dropdown
+    [options]="['T', 'C', 'G']"
+    class="w-44 flex"
+    styleClass="flex-1"
+    placeholder="Seçiniz"
+    inputId="urunGrubu"
+    formControlName="urunGrubu"
+  ></p-dropdown>
+
+  <label for="yerliIhrac">Yerli/İhraç : *</label>
+  <p-dropdown
+    [options]="yerliIhracOptions"
+    class="w-44 flex"
+    styleClass="flex-1"
+    placeholder="Seçiniz"
+    inputId="yerliIhrac"
+    formControlName="yerliIhrac"
+    optionLabel="label"
+    optionValue="value"
+  ></p-dropdown>
+
+  <button
+    pButton
+    type="button"
+    label="Devam"
+    [disabled]="form.invalid"
+    (click)="onSearch()"
+    class="p-button p-button-raised p-button-outlined p-button-rounded w-32"
+    icon="pi pi-search"
+  ></button>
+</form>

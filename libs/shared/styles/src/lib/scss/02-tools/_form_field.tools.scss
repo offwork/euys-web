@@ -1,0 +1,13 @@
+/**
+ * TODO:
+ * isimlendirme ITCSS metodoloji yapısına uygun olmalı!
+ * class, mixin, function yanısıra scss dosyasınında
+ * bulunduğu klasöre göre isimle sonlandırılmalı!
+ *
+ * Deneysel kod geliştirmeleri belkide başka git
+ * branch'larında gerçekleştirilmeli.
+ */
+@mixin p-min-max-fieldset-container($size: 24px) {
+  display: none !important;
+  font-size: $size !important;
+}

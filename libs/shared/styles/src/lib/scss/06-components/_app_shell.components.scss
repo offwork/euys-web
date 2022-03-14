@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .app-shell {
+    @apply container max-w-full h-full z-0;
+  }
+
+  .app-header {
+    @apply flex h-16 bg-red-600 border-b-2 border-red-400 py-2 px-4 shadow;
+  }
+
+  .euys-sidenav {
+    @apply inline h-full w-16 shadow;
+  }
+
+  .euys-sidenav-profile {
+    @apply inline h-full w-16 shadow;
+  }
+
+  .euys-feature {
+    @apply bg-gray-50 h-full;
+  }
+
+  .feature-container {
+    @apply max-w-full p-6;
+  }
+}

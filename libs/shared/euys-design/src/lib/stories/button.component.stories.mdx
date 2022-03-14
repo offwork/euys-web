@@ -1,0 +1,97 @@
+import { moduleMetadata } from '@storybook/angular';
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import { withKnobs, text, boolean, select } from "@storybook/addon-knobs";
+import { ButtonModule } from 'primeng/button';
+import { ButtonComponent } from '../button/button.component';
+
+export const colors = {
+  'Primary': 'p-button-primary',
+  'Secondary': 'p-button-secondary',
+  'Success': 'p-button-success',
+  'Info': 'p-button-info',
+  'Warning': 'p-button-warning',
+  'Help': 'p-button-help',
+  'Danger': 'p-button-danger',
+};
+export const defaultColor = colors['Primary'];
+
+# Button Module
+
+Tüm Erdemir web uygulamarında kullnılacak Button bileşenidir. 
+
+> Button, `p-button` öğesini kullanan bir bileşen olarak veya `pButton` niteliğini kullanan bir direktif olarak uygulanır. Direktif mevcut bir buttonu geliştirirken `p-button` kendi başına bir öğedir. 
+
+<br/>
+
+<Meta title='Euys/UI/ButtonComponent' decorators={[
+  withKnobs,
+  moduleMetadata({
+    imports: [ButtonModule],
+    declarations: [ButtonComponent]
+  })
+]} />
+
+
+## Basic Button
+
+Button, `icon` ve `theme` içeren standart button öğesinin bir uzantısıdır. 
+
+<br/>
+
+<Canvas>
+  <Story name='Basic'>{{
+    template: `
+      <p-button [label]="label"></p-button>
+      <p-button [label]="label" [disabled]="disabled"></p-button>
+      <p-button [label]="label" [styleClass]="link"></p-button>
+    `,
+    props: {
+      label: text('Etiket', 'Click'),
+      disabled: boolean('Gecersiz', true),
+      link: text('Stil', 'p-button-link'),
+    }
+  }}</Story>
+</Canvas>
+
+
+## With Icon
+
+Bir button üzerindeki ***simge***, `icon` niteliği ile belirtilir ve `iconPos` niteliği kullanılarak konum özelleştirilir. Varsayılan `icon` konumu soldur. Yalnızca bir `icon` görüntülemek için `label` tanımsız olarak bırakın.
+`import { ButtonModule } from 'primeng/button';`
+<br/>
+
+<Canvas>
+  <Story name='With Icon'>{{
+    template: `
+      <p-button [icon]="icon"></p-button>
+      <p-button [label]="label" [icon]="icon"></p-button>
+      <p-button [label]="label" [icon]="icon" [iconPos]="iconPos"></p-button>
+    `,
+    props: {
+      label: text('label', 'Click'),
+      icon: text('icon', 'pi pi-check'),
+      iconPos: text('iconPos', 'right'),
+    }
+  }}</Story>
+</Canvas>
+
+
+## Outlined – Rounded
+
+Bir buton `p-button-outlined` stil sınıfına sahip olunarak şeffaf hale getirilebilir ve benzer şekilde `p-button-rounded` sınıfı kullanılarak da kenarlar yuvarlatılabilir.
+
+<br/>
+
+<Canvas>
+  <Story name='Outlined Rounded'>{{
+    template: `
+      <button pButton pRipple type="button" label="Outlined" [ngClass]="{'p-button-outlined': outlined}" [class]="type"></button>
+      <button pButton pRipple type="button" label="Rounded" [ngClass]="{'p-button-rounded': rounded}" [class]="type"></button>
+    `,
+    props: {
+      outlined: boolean('Outlined', true),
+      rounded: boolean('Rounded', true),
+      type: select('Kinds of Button', colors, defaultColor),
+    }
+  }}</Story>
+</Canvas>

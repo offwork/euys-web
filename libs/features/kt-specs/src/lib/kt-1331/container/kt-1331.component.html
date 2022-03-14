@@ -1,0 +1,35 @@
+<euys-spesifikasyon-toolbar
+  title="2. Teneke Kalay Ergitme Spesifikasyonu Spec Tablo"
+  [isFormVisible]="isFormVisible | async"
+  [isUpdate]="isUpdate()"
+  (updateClick)="onUpdateClick(selectedRow)"
+  (addClick)="onAddClick()"
+  [updateDisabled]="!selectedRow || selectedRow.kontrolAktifTaslak === 1"
+  (goBackClick)="goBack()"
+  (reloadClick)="reload()"
+>
+</euys-spesifikasyon-toolbar>
+
+<euys-viewing-list
+  (rowSelect)="rowSelectHandler($event)"
+  (rowUnselect)="rowUnselectHandler($event)"
+  [data]="data$ | async"
+  [loaded$]="loaded$"
+  *ngIf="(isFormVisible | async) === false && (loaded$ | async)"
+>
+</euys-viewing-list>
+
+<euys-save-or-update-form
+  *ngIf="isFormVisible | async"
+  [loaded$]="loaded$"
+  [loadedUrunler$]="loadedUrunler$"
+  [loadedCelikler$]="loadedCelikler$"
+  [anatabloKomboList$]="anatabloKomboList$"
+  [urunler$]="urunler$"
+  [celikler$]="celikler$"
+  [isFormVisible]="isFormVisible | async"
+  [selectedRow]="selectedRow"
+  [update]="isUpdate()"
+  (formSubmit)="onSubmit($event)"
+>
+</euys-save-or-update-form>

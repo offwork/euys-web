@@ -1,0 +1,38 @@
+<div class="card">
+  <p-table
+    styleClass="p-datatable-gridlines"
+    [value]="yuzeyKusurKaydiList$ | async"
+    [loading]="loading$ | async"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th colspan="9" style="text-align: center">YÜZEY KUSUR KAYDI</th>
+      </tr>
+      <tr>
+        <th>Kusur Kodu*</th>
+        <th>Derece*</th>
+        <th>%</th>
+        <th>Sırası*</th>
+        <th>Başlangıç</th>
+        <th>Bitiş</th>
+        <th>Yeri</th>
+        <th>Kusur Bu Hatta Mı?*</th>
+        <th>Kusur Hattı</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-yuzeyKusurKaydiList>
+      <tr>
+        <td class="w-1/9">{{ yuzeyKusurKaydiList.yuzeyKusuruKodu }}</td>
+        <td class="w-1/9">{{ yuzeyKusurKaydiList.yuzeyKusuruDerecesi }}</td>
+        <td class="w-1/9">{{ yuzeyKusurKaydiList.yuzeyKusuruYuzdesi }}</td>
+        <td class="w-1/9">{{ yuzeyKusurKaydiList.yuzeyKusuruSiraNo }}</td>
+        <td class="w-1/9">{{ yuzeyKusurKaydiList.yuzeyKusuruBaslNoktasi }}</td>
+        <td class="w-1/9">{{ yuzeyKusurKaydiList.yuzeyKusuruBitisNoktasi }}</td>
+        <td class="w-1/9">{{ yuzeyKusurKaydiList.yuzeyKusuruYeri }}</td>
+        <td class="w-1/9">{{ yuzeyKusurKaydiList.yuzeyKusuruBuHattaMi }}</td>
+        <td class="w-1/9">{{ yuzeyKusurKaydiList.yuzeyKusuruHatKodu }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

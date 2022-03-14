@@ -1,0 +1,61 @@
+<div class="card">
+  <p-table
+    styleClass="p-datatable-gridlines"
+    [value]="slabBilgisi$ | async"
+    [loading]="loading$ | async"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th colspan="6" style="text-align: center">SLAB BİLGİSİ</th>
+      </tr>
+      <tr>
+        <th>SLAB NO</th>
+        <th>KALINLIK</th>
+        <th>GENİŞLİK</th>
+        <th>UZUNLUK</th>
+        <th>AĞIRLIK</th>
+        <th>SB</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-slabBilgisi>
+      <tr>
+        <td class="w-1/6">{{ slabBilgisi?.slabNo }}</td>
+        <td class="w-1/6">{{ slabBilgisi?.kalinlik }}</td>
+        <td class="w-1/6">{{ slabBilgisi?.genislik }}</td>
+        <td class="w-1/6">{{ slabBilgisi?.uzunluk }}</td>
+        <td class="w-1/6">{{ slabBilgisi?.agirlik }}</td>
+        <td class="w-1/6">{{ slabBilgisi?.sb }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-table
+    styleClass="p-datatable-gridlines"
+    [value]="slabBilgisi$ | async"
+    [loading]="loading$ | async"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="text-align: center" colspan="3">PU BİLGİSİ</th>
+        <th style="text-align: center" colspan="3">SKARF BİLGİSİ</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-slabBilgisi>
+      <tr>
+        <td class="w-1/6" colspan="1">{{ slabBilgisi?.puKod1Aciklama1 }}</td>
+        <td class="w-1/6" colspan="1">{{ slabBilgisi?.puKod2Aciklama2 }}</td>
+        <td class="w-1/6" colspan="1">{{ slabBilgisi?.puKod3Aciklama3 }}</td>
+        <td class="w-1/6 text-center" colspan="1">
+          <span
+            [class]="
+              'euys-badge status-' + (slabBilgisi?.skarfQCGectiMi | lowercase)
+            "
+            >{{ slabBilgisi?.skarfQCGectiMi | euysEnum }}</span
+          >
+        </td>
+        <td class="w-1/3" colspan="2">
+          {{ slabBilgisi?.skarfKodAciklama }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

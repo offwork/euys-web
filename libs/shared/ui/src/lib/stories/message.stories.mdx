@@ -1,0 +1,47 @@
+import { CommonModule } from '@angular/common';
+import { moduleMetadata } from '@storybook/angular';
+import { Meta, Story, Canvas, Source, ArgsTable } from '@storybook/addon-docs';
+import { DesignSystemModule } from '../design-system/design-system.module';
+import { MessageComponent } from '../messages/components/message.component';
+
+# Message Component
+
+
+<Meta
+  title="Euys/UI/MessagesModule"
+  argTypes={{
+    message: {
+      description: 'Gösterilecek mesaj metni',
+      table: {
+        defaultValue: { summary: 'Kayıt bulunamadı.' },
+      },
+      control: {
+        type: null,
+      },
+    },
+  }}
+  decorators={[
+    moduleMetadata({
+      imports: [CommonModule, DesignSystemModule],
+      declarations: [MessageComponent],
+    }),
+  ]}
+/>
+
+<Canvas>
+  <Story
+    name="Message"
+    args={{
+      message: 'test',
+    }}
+  >
+    {{
+      template: `
+        <euys-message message="Örnek bir mesaj">
+        </euys-message>
+      `,
+    }}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Message" />

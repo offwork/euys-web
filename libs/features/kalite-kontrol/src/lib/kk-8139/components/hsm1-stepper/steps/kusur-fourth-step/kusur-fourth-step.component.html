@@ -1,0 +1,46 @@
+<euys-styled-panel [toggleable]="false">
+  <!-- HEADER -->
+  <ng-container header>
+    <euys-free-header textToRender="YÜZEY KUSUR KAYDI"> </euys-free-header>
+  </ng-container>
+
+  <!-- CONTENT -->
+  <ng-container content>
+    <euys-yuzey-kusur-kaydi
+      hatKodu="331"
+      [yuzeyKusurKaydiList$]="yuzeyKusurKaydiList$"
+      [yuzeyKusurKaydiListLoaded$]="yuzeyKusurKaydiListLoaded$"
+      [aktifKusur$]="aktifKusurList$"
+      [defaultYuzeyKusurKodu]="defaultYuzeyKusurKodu$ | async"
+      (updated)="onYuzeyKusurUpdate($event)"
+      [dispoze]="dispoze$ | async"
+      [minDerece]="minDerece$ | async"
+    ></euys-yuzey-kusur-kaydi>
+  </ng-container>
+
+  <!-- FOOTER -->
+  <ng-container footer>
+    <div class="flex flex-row align-middle justify-end">
+      <button
+        (click)="goToThirdStep()"
+        [disabled]="false"
+        [icon]="'pi pi-arrow-circle-left'"
+        [label]="'GERİ'"
+        class="p-mr-2 bg-blue-600 border border-transparent rounded-md py-1 px-2 font-medium text-white hover:bg-blue-700"
+        pButton
+        pRipple
+        type="button"
+      ></button>
+      <button
+        (click)="goToFifthPage()"
+        [disabled]="false"
+        [icon]="'pi pi-arrow-circle-right'"
+        [label]="'DEVAM'"
+        class="p-mr-2 bg-red-600 border border-transparent rounded-md py-1 px-2 font-medium text-white hover:bg-red-700"
+        pButton
+        pRipple
+        type="button"
+      ></button>
+    </div>
+  </ng-container>
+</euys-styled-panel>

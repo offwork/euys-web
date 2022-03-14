@@ -1,0 +1,55 @@
+
+<p-table
+  [value]="list"
+  styleClass="p-datatable-gridlines p-datatable-sm"
+  [scrollable]="true"
+  scrollHeight="70%"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>{{label}}</th>
+      <th class="p-fluid">
+        <input
+          type="text"
+          pInputText
+          #inputElement
+          (keydown.enter)="stopEnterPropagation($event)"
+          (keyup.enter)="add(inputElement, $event)"
+        >
+        <p-overlayPanel #inputOverlay>
+          <ng-template pTemplate>
+            <span class="p-error">En fazla {{maxRecords}} kayıt eklenebilir!</span>
+          </ng-template>
+        </p-overlayPanel>
+      </th>
+      <th class="action">
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-plus"
+          class="p-button-rounded p-button-success p-button-text"
+          (click)="add(inputElement, $event)"
+          [disabled]="disableAdd"
+        ></button>
+
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-item let-index="rowIndex">
+    <tr>
+      <td colspan="2">{{item[field]}}</td>
+      <td class="action">
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-minus"
+          class="p-button-rounded p-button-danger p-button-text"
+          (click)="deleteAt(index)"
+        ></button>
+
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

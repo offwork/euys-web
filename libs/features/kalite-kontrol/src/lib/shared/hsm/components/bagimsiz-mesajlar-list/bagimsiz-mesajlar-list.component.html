@@ -1,0 +1,52 @@
+<div *ngIf="(bagimsizMesajLoaded$ | async) === true; else loading" class="card">
+  <p-table
+    styleClass="p-datatable-gridlines p-datatable-sm"
+    [value]="bagimsizMesaj$ | async"
+    [scrollable]="true"
+    scrollHeight="200px"
+  >
+    <ng-template pTemplate="caption">
+      <div class="w-full text-center">Bağımsız Mesajlar</div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="justify-center">Gönderen Personel</th>
+        <th class="justify-center">Gelen Mesaj</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-mesaj>
+      <tr>
+        <td class="justify-center">{{ mesaj.notSahibi }}</td>
+        <td class="justify-center">{{ mesaj?.not }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<ng-template #loading>
+  <p-table
+    styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm table-header-text-center"
+    class="skeleton-table"
+    [value]="dummyList"
+    responsiveLayout="scroll"
+  >
+    <ng-template pTemplate="caption">
+      <div class="w-full text-center">BAĞIMSIZ MESAJLAR</div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="justify-center">Gönderen Personel</th>
+        <th class="justify-center">Gelen Mesaj</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-dummy>
+      <tr>
+        <td>
+          <p-skeleton></p-skeleton>
+        </td>
+        <td>
+          <p-skeleton></p-skeleton>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</ng-template>

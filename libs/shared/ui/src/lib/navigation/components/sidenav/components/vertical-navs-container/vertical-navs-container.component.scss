@@ -1,0 +1,65 @@
+@mixin euys-vertical-navs-container-theme() {
+  euys-vertical-navs-container {
+    /* stylelint-disable */
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-grow: 1;
+
+    > ul {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &.collapsed {
+      overflow: visible;
+      > ul {
+        euys-vertical-navs.root-menu-item {
+          > li {
+            > a {
+              > .nav-list-item {
+                padding: 0.75rem 0.75rem;
+
+                &:hover {
+                  background-color: #dfe3e6;
+                }
+
+                .list-item-text {
+                  display: none;
+                }
+                .list-item-icon--rotate {
+                  display: none;
+                }
+              }
+            }
+          }
+        }
+
+        > euys-vertical-navs.active-menu-item {
+          > li {
+            background-color: transparent;
+            position: relative;
+            > ul {
+              @apply shadow-lg;
+              background-color: #f5f7fa;
+              padding-bottom: 1rem;
+              position: absolute;
+              left: 45px;
+              top: -0.125rem;
+              z-index: 99999;
+              li.child-navs-list__header--collapsed {
+                border-top: 4px solid var(--primary-color);
+                color: #152935;
+                padding: 0.5rem 0.75rem;
+                > .list-item-text {
+                  font-size: 1rem;
+                  font-weight: normal;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    /* stylelint-enable */
+  }
+}

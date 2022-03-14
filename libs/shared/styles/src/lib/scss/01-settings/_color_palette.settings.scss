@@ -1,0 +1,50 @@
+/**
+ *
+ * COLOR-PALETTE
+ *
+ */
+
+$surface-a: var(--surface-a);
+$surface-b: #fcfcfc;
+/* stylelint-disable-next-line color-function-notation */
+$surface-c: rgba(70, 77, 242, 20%);
+$surface-d: #d4d6d9;
+$surface-e: #fff;
+$surface-f: #fff;
+
+$surface-0: #fff;
+$surface-50: #fafafa;
+$surface-100: #f5f5f5;
+$surface-200: #eee;
+$surface-300: #e0e0e0;
+$surface-400: #bdbdbd;
+$surface-500: #9e9e9e;
+$surface-600: #757575;
+$surface-700: #616161;
+$surface-800: #424242;
+$surface-900: #212121;
+$gray-50: #fafafa;
+$gray-100: #f5f5f5;
+$gray-200: #eee;
+$gray-300: #e0e0e0;
+$gray-400: #bdbdbd;
+$gray-500: #9e9e9e;
+$gray-600: #757575;
+$gray-700: #616161;
+$gray-800: #424242;
+$gray-900: #212121;
+
+$green-100: var(--green-100);
+$green-200: var(--green-200);
+$green-300: var(--green-300);
+$green-400: var(--green-400);
+$green-500: var(--green-500);
+$green-600: var(--green-600);
+$green-700: var(--green-700);
+$green-800: var(--green-800);
+$green-900: var(--green-900);
+
+$text-color: #495057;
+$text-color-secondary: #6c757d;
+
+$app-header-background: linear-gradient(to left, #b31217, #e52d27);

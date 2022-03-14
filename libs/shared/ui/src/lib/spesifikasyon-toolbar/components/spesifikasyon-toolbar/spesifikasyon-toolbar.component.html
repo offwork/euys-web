@@ -1,0 +1,59 @@
+<p-toolbar styleClass="bg-white mb-4">
+  <div class="p-toolbar-group-left">
+    <button
+      *ngIf="isFormVisible"
+      pButton
+      id="toolbar-back-button"
+      type="button"
+      label="Geri Dön"
+      icon="pi pi-arrow-left"
+      class="p-button-secondary mr-4"
+      (click)="goBackClick.emit($event)"
+    ></button>
+    <h3 class="!m-0 !font-medium">{{ title }} {{ titleSuffix }}</h3>
+  </div>
+
+  <div class="p-toolbar-group-right ml-4" *ngIf="!isFormVisible">
+    <button
+      pButton
+      id="toolbar-refresh-button"
+      type="button"
+      label="Yenile"
+      icon="pi pi-refresh"
+      class="p-button-secondary w-28"
+      (click)="reloadClick.emit($event)"
+    ></button>
+    <button
+      *ngIf="(hideUpdate || (noWrite$ | async)) === false"
+      pButton
+      id="toolbar-update-button"
+      type="button"
+      [disabled]="updateDisabled"
+      label="Güncelle"
+      icon="pi pi-pencil"
+      class="ml-4 w-28"
+      (click)="updateClick.emit($event)"
+    ></button>
+    <button
+      *ngIf="(hideDelete || (noWrite$ | async)) === false"
+      pButton
+      id="toolbar-delete-button"
+      type="button"
+      [disabled]="deleteDisabled"
+      label="Sil"
+      icon="pi pi-times-circle"
+      class="ml-4 w-28"
+      (click)="deleteClick.emit($event)"
+    ></button>
+    <button
+      *ngIf="(hideAdd || (noWrite$ | async)) === false"
+      pButton
+      id="toolbar-add-button"
+      type="button"
+      label="Yeni Kayıt"
+      icon="pi pi-plus"
+      class="ml-4 w-30"
+      (click)="addClick.emit($event)"
+    ></button>
+  </div>
+</p-toolbar>

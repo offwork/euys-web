@@ -1,0 +1,67 @@
+@import 'index';
+
+@include euys-core-theme();
+
+html,
+body {
+  /* stylelint-disable */
+  font-family: Source Sans Pro !important;
+  //font-size: 12px !important;
+  /* stylelint-enable */
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* stylelint-disable */
+td.p-editable-column.p-cell-editing
+  > p-celleditor
+  > p-inputnumber
+  > span
+  > input {
+  width: 5em;
+}
+/* stylelint-enable */
+
+.input-card {
+  .p-card-content {
+    padding: 0;
+  }
+}
+
+/**
+ * TODO: BENİ OKU!!
+ * libs/shared/styles/src/lib/scss/06-components/
+ * Yukarıdaki path altında barındırılmalı
+ * ve aşağıdaki scss dosyasından import edilmelidir.
+ * libs/shared/styles/src/lib/_imports.scss
+ */
+.p-image-action.p-link {
+  background-color: transparent;
+  border-radius: 50%;
+  color: #f8f9fa;
+  height: 3rem;
+  margin-right: 0.5rem;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  width: 3rem;
+
+  i {
+    font-size: 1.5rem;
+  }
+}
+
+.table {
+  .p-dropdown-label {
+    padding: 0 0.5rem;
+  }
+}
+
+.vertical {
+  max-inline-size: 8em;
+  overflow: hidden;
+  padding-inline: 0.25rem;
+  text-overflow: ellipsis;
+  transform: rotate(180deg);
+  white-space: nowrap;
+  writing-mode: vertical-lr;
+}

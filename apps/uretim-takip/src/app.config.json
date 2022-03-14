@@ -1,0 +1,125 @@
+{
+  "locale": "tr",
+  "application": {
+    "storagePrefix": "uretim_takip_",
+    "name": "uretim-takip-frontend",
+    "copyright": "© 2021 - 2022 Erdemir Information Technologies, Inc. All Rights Reserved.",
+    "version": "0.0.1"
+  },
+  "sideNav": {
+    "expandedSidenav": false,
+    "preserveState": true
+  },
+  "languages": [
+    { "key": "en", "value": "English" },
+    { "key": "tr", "value": "Turkish" }
+  ],
+  "urls": {
+    "local-2": "http://localhost:8080",
+    "local": "https://kurumsaldevl-was1.erdemir.com.tr/euysut-be",
+    "localJsonServer":"http://localhost:3000",
+    "dev": "https://apigwtest.erdemir.com.tr/int/dev",
+    "escape":"",
+    "test": "https://apigwtest.erdemir.com.tr/int/test",
+    "base": "/euys/uretim-takip",
+    "root": "/api/v1",
+    "resources": {}
+  },
+  "mainNavs": [
+    {
+      "uygulamaKod": "83d5394b-07f5-4651-831c-113daf0e8cf6",
+      "modulAd": "Üretim Takip",
+      "runModul": "UT",
+      "altModuller": [
+        {
+          "modulAd": "İşletme Genel İşlemler",
+          "runModul": "UT.ut-5100",
+          "altModuller": [
+            {
+                "modulAd": "Galvaniz Hattı Çinko Lapa Üretimi",
+                "runModul": "UT.ut-5101",
+                "altModuller": null
+            },
+            {
+              "modulAd": "Asitleme Tankları Analiz Limit Giriş",
+              "runModul": "UT.ut-5102",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Asitleme Tankları Laboratuvar Sonuçlar",
+                "runModul": "UT.ut-5103",
+                "altModuller": null
+            },
+            {
+              "modulAd": "Durulama Tankları Analiz Limit Giriş",
+              "runModul": "UT.ut-5104",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Durulama Tankları Laboratuvar Sonuçlar",
+                "runModul": "UT.ut-5105",
+                "altModuller": null
+            },
+            {
+              "modulAd": "CPL ve PPPL Asitleme Rejenerasyon Kayıtlar",
+                "runModul": "UT.ut-5106",
+                "altModuller": null
+            },
+            {
+              "modulAd": "Tandem Hadde Yağ Emülsiyon Analiz İşletme Kayıtlar",
+                "runModul": "UT.ut-5107",
+                "altModuller": null
+            },
+            {
+              "modulAd": "Tandem Hadde Yağ Emülsiyon Analiz Laboratuvar Kayıtlar",
+                "runModul": "UT.ut-5108",
+                "altModuller": null
+            },
+            {
+              "modulAd": "Merkez Hadde Yağ Emülsiyon",
+                "runModul": "UT.ut-5109",
+                "altModuller": null
+            }
+          ]
+        },
+        {
+          "modulAd": "Nihai Ürün İşlemleri",
+          "altModuller": [
+            {
+              "modulAd": "Kusurlu İstif Paketi Oluşturma/İptal",
+              "runModul": "UT.ut-6001",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Kusurlu İstif Paketleri Görüntüleme",
+              "runModul": "UT.ut-6002",
+              "altModuller": null
+            }
+          ]
+        },
+        {
+          "modulAd": "Nihai Ürün Durdurma İşlemleri",
+          "altModuller": [
+            {
+              "modulAd": "Durdurma Statü Kodları Giriş/Güncelleme/Silme",
+              "runModul": "UT.ut-6112",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Durdurma Kod Adları Giriş/Güncelleme/Silme",
+              "runModul": "UT.ut-6113",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Durdurma Kod Adları Görüntüleme",
+              "runModul": "UT.ut-6114",
+              "altModuller": null
+            }
+          ]
+        }
+        ]
+    }
+
+
+  ]
+}

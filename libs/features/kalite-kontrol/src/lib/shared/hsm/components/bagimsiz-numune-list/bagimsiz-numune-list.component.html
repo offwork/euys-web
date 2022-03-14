@@ -1,0 +1,118 @@
+<div
+  *ngIf="(bagimsizNumuneLoaded$ | async) === true; else loading"
+  class="card"
+  [formGroup]="formGroup"
+>
+  <p-table
+    [scrollable]="true"
+    scrollHeight="200px"
+    styleClass="p-datatable-gridlines p-datatable-sm"
+    [value]="bagimsizNumuneList"
+  >
+    <ng-template pTemplate="caption" *ngIf="showHeader">
+      <div class="w-full text-center">Bağımsız Numune Bilgisi</div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="w-3/12 justify-center">Bobin No</th>
+        <th class="w-1/12 justify-center">Numune No</th>
+        <th class="w-1/12 justify-center">Adet</th>
+        <th class="w-1/12 justify-center">Yer</th>
+        <th class="w-2/12 justify-center">Numune Açıklama</th>
+        <th class="w-1/12 justify-center">Talep Eden</th>
+        <th class="w-1/12 justify-center">Numune Alındı Mı</th>
+        <th class="w-2/12 justify-center">Operatör Açıklama</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-bagimsizNumune>
+      <tr>
+        <td class="w-3/12 justify-center">{{ bagimsizNumune?.bobinNo }}</td>
+        <td class="w-1/12 justify-center">{{ bagimsizNumune?.numuneNo }}</td>
+        <td class="w-1/12 justify-center">{{ bagimsizNumune?.adet }}</td>
+        <td class="w-1/12 justify-center">{{ bagimsizNumune?.yeri }}</td>
+        <td class="w-2/12 justify-center">{{ bagimsizNumune?.aciklama }}</td>
+        <td class="w-1/12 justify-center">{{ bagimsizNumune?.talepEden }}</td>
+        <td class="w-1/12 justify-center">
+          <div *ngIf="updateForm === true; else readOnly">
+            <p-dropdown
+              [options]="numuneAlindiMiOptions"
+              id="numuneAlindiMi"
+              formControlName="numuneAlindiMi"
+              (onChange)="stateHandler()"
+            ></p-dropdown>
+          </div>
+          <ng-template #readOnly>
+            {{ bagimsizNumune?.numuneAlindiMi }}
+          </ng-template>
+        </td>
+        <td class="w-2/12 justify-center">
+          <div *ngIf="updateForm === true; else readOnly">
+            <input
+              id="aciklama"
+              inputId="aciklama"
+              type="text"
+              pInputText
+              formControlName="aciklama"
+              (blur)="stateHandler()"
+            />
+          </div>
+          <ng-template #readOnly>
+            {{ bagimsizNumune?.aciklama }}
+          </ng-template>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<ng-template #loading>
+  <p-table
+    styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm table-header-text-center"
+    class="skeleton-table"
+    [value]="skeletonDummyList"
+    responsiveLayout="scroll"
+  >
+    <ng-template pTemplate="caption">
+      <div class="w-full text-center">Bağımsız Numune Bilgisi</div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="w-3/12 justify-center">Bobin No</th>
+        <th class="w-1/12 justify-center">Numune No</th>
+        <th class="w-1/12 justify-center">Adet</th>
+        <th class="w-1/12 justify-center">Yer</th>
+        <th class="w-2/12 justify-center">Numune Açıklama</th>
+        <th class="w-1/12 justify-center">Talep Eden</th>
+        <th class="w-1/12 justify-center">Numune Alındı Mı</th>
+        <th class="w-2/12 justify-center">Operatör Açıklama</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-dummy>
+      <tr>
+        <td class="w-3/12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="w-1/12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="w-1/12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="w-1/12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="w-2/12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="w-1/12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="w-1/12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="w-2/12">
+          <p-skeleton></p-skeleton>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</ng-template>

@@ -1,0 +1,66 @@
+<p-toolbar styleClass="bg-white mb-4">
+  <div class="p-toolbar-group-left">
+    <button
+      pButton
+      id="back-button"
+      type="button"
+      label="Geri Dön"
+      icon="pi pi-arrow-left"
+      class="p-button-secondary w-30"
+      (click)="goBackClick.emit()"
+    ></button>
+    <h3 class="!m-0 !ml-4 text-xl !font-bold">
+      {{ yupTaslak.yil }} Yıllık Üretim Planı
+    </h3>
+  </div>
+  <div *ngIf="showYearSelect" class="p-toolbar-group-right">
+    <label class="text-right mr-4" for="year">Yıl :</label>
+    <p-dropdown
+      placeholder="Seçiniz"
+      inputId="year"
+      [options]="['2019', '2020', '2021', '2022']"
+      [formControl]="yearControl"
+      (onChange)="onYearChange()"
+    ></p-dropdown>
+  </div>
+</p-toolbar>
+
+<div class="shadow">
+  <p-tabView *ngIf="loaded$ | async; else loading">
+    <p-tabPanel header="Özet">
+      <euys-yup-ozet [ozet]="ozet$ | async"></euys-yup-ozet>
+    </p-tabPanel>
+    <p-tabPanel header="Üretim Hedefleri">
+      <euys-uretim-hedefler
+        [list]="uretimHedefleriList$ | async"
+      ></euys-uretim-hedefler>
+    </p-tabPanel>
+    <p-tabPanel header="Ürün Grubu Bazında">
+      <euys-urun-hedefler
+        [list]="urunBazindaList$ | async"
+      ></euys-urun-hedefler>
+    </p-tabPanel>
+    <p-tabPanel header="Rapor Grubu Bazında">
+      <euys-kapasite-hedefler
+        [list]="kapasiteBazindaList$ | async"
+      ></euys-kapasite-hedefler>
+    </p-tabPanel>
+    <p-tabPanel header="Rumuz Bazında">
+      <euys-rumuz-hedefler [list]="rumuzBazindaList$ | async">
+      </euys-rumuz-hedefler>
+    </p-tabPanel>
+    <p-tabPanel header="Planlı Duruşlar">
+      <euys-hat-duruslar-hedefler
+        [rows]="planliDuruslar$ | async"
+        [keys]="planliDuruslarTesisAdlari$ | async"
+        propName="aylikDurusSaati"
+      ></euys-hat-duruslar-hedefler>
+    </p-tabPanel>
+  </p-tabView>
+
+  <ng-template #loading>
+    <div class="bg-white flex items-center justify-center p-8">
+      <p-progressSpinner></p-progressSpinner>
+    </div>
+  </ng-template>
+</div>

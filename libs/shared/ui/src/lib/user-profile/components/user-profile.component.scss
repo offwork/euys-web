@@ -1,0 +1,57 @@
+/* stylelint-disable selector-max-compound-selectors */
+.profile-content {
+  .profile-avatar {
+    align-items: center;
+    background-color: var(--surface-b);
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1rem;
+    padding-top: 2rem;
+
+    .p-button.p-button-icon-only.p-button-rounded {
+      margin-right: 0.5rem;
+      position: absolute;
+      right: 0;
+    }
+
+    img {
+      height: 100px;
+      max-width: 100%;
+      object-fit: cover;
+      object-position: -5px -6px;
+    }
+  }
+
+  .profile-calender {
+    display: block;
+    margin-top: 1rem;
+  }
+
+  .profile-todo {
+    overflow-y: scroll;
+    padding: 1rem;
+
+    .profile-todo-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0.5rem 1rem 1rem;
+    }
+  }
+
+  .p-datepicker {
+    border: 0 none;
+    border-radius: 0;
+
+    table {
+      font-size: smaller;
+      /* stylelint-disable-next-line rule-empty-line-before */
+      td {
+        padding: 0;
+      }
+    }
+  }
+
+  h3 {
+    padding-left: 1rem;
+  }
+}

@@ -1,0 +1,50 @@
+<li>
+  <a [id]="'link_' + navs.runModul" (click)="onItemSelected(navs)">
+    <div
+      [ngClass]="{ 'filter-active-selected': filteredItemSelected }"
+      class="nav-list-item">
+      <span class="indicator"></span>
+      <span class="list-item-icon">
+        <i class="pi pi-folder"></i>
+      </span>
+      <!-- FIXME: [innerHTML] hem gereksiz hem de güvenlik açıklarına neden oluyor!! -->
+      <span
+        *ngIf="filterValue; else elseBlock"
+        [innerHTML]="
+          navs.runModul | searchable: navs.modulAd | highlighter: filterValue
+        "
+        class="list-item-text"></span>
+      <ng-template #elseBlock>
+        <!-- FIXME: [innerHTML] hem gereksiz hem de güvenlik açıklarına neden oluyor!! -->
+        <span [innerHTML]="navs.modulAd" class="list-item-text"></span>
+      </ng-template>
+
+      <div class="spacer"></div>
+      <span
+        class="list-item-icon--rotate"
+        *ngIf="navs.altModuller"
+        [@indicatorRotate]="active ? 'active' : 'passive'">
+        <i class="pi pi-angle-down"></i>
+      </span>
+    </div>
+  </a>
+  <ul [euysChildNavsList]="collapsed" *ngIf="active">
+    <ng-template [ngIf]="collapsed">
+      <li class="child-navs-list__header--collapsed">
+        <span class="list-item-text">
+          {{ navs.modulAd }}
+        </span>
+      </li>
+    </ng-template>
+    <ng-template ngFor let-child let-i="index" [ngForOf]="navs.altModuller">
+      <euys-vertical-navs
+        [sideNavProps]="sideNavProps"
+        [navs]="child"
+        [index]="i"
+        [parentKey]="key"
+        [level]="level + 1"
+        [filterActive]="filterActive"
+        [filterValue]="filterValue"></euys-vertical-navs>
+    </ng-template>
+  </ul>
+</li>

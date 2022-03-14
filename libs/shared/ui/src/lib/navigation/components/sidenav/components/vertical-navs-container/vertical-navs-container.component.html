@@ -1,0 +1,17 @@
+<ul>
+  <ng-template ngFor let-child let-i="index" [ngForOf]="navs">
+    <euys-vertical-navs
+      [navs]="child"
+      [index]="i"
+      [level]="0"
+      [root]="true"
+      [parentKey]="null"
+      [collapsed]="collapsed"
+      [activeList]="activeList"
+      (activeListHandler)="activeListHandler($event)"
+      [sideNavProps]="sideNavProps"
+      [filterActive]="filterActive"
+      [filterValue]="filterValue"
+    ></euys-vertical-navs>
+  </ng-template>
+</ul>

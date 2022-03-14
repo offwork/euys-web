@@ -1,0 +1,37 @@
+@use 'sass:math';
+
+/* stylelint-disable function-parentheses-space-inside */
+
+/**
+ * TODO: İlk 2 katmanda herhangi bir CSS çıktısı almamak önemlidir.
+ */
+@function calculate-new-height($rw, $rh, $nw) {
+  $nh: 1;
+  /* stylelint-disable-next-line function-no-unknown */
+  $nh: math.div($rh, $rw) * $nw;
+
+  @return $nh;
+}
+
+/* stylelint-disable-next-line string-quotes */
+$logo-oyak: url('../../../../../assets/logo/oyak-logo.svg');
+$font-sm: 0.875rem;
+$padding-sm: 0.4375rem;
+$inline-spacing: var(--inline-spacing);
+$relational-unit--numeric: 16;
+$padding-app-navbar--numeric: $relational-unit--numeric;
+$padding-app-navbar: $padding-app-navbar--numeric * 1px;
+$navbar-logo-container--width: 125 - ($padding-app-navbar--numeric * 2);
+$light-navbar-logo-container--width: $navbar-logo-container--width * 1px;
+/* stylelint-disable-next-line function-no-unknown */
+$light-navbar-logo-container--height: calculate-new-height(
+  600,
+  300,
+  $navbar-logo-container--width
+) * 1px;
+/* stylelint-disable-next-line scss/operator-no-newline-after */
+$euys-right-menu-container--height: $light-navbar-logo-container--height +
+  ($padding-app-navbar--numeric);
+/* stylelint-disable-next-line scss/operator-no-newline-after */
+$light-navbar--height: $light-navbar-logo-container--height + 2 *
+  $relational-unit--numeric * 1px;

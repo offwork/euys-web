@@ -1,0 +1,97 @@
+/**
+ * TODO:
+ * Stylelint `disable` kullanmak mevcut kural setinin
+ * anlaşılmasını zorlaştıracağından bundan sonraki
+ * geliştirmelerde major hata olarak kabul edilecektir.
+ *
+ */
+
+// TODO: tüm projelerin kullandığı, ortak stylelint linter ayarları güncellenmeli.
+/* stylelint-disable */
+euys-column-action-button {
+  button {
+    height: 1.75rem !important;
+    width: 1.75rem !important;
+  }
+
+  &.xl-icon {
+    .p-button-icon {
+      font-size: 1.5rem;
+    }
+  }
+
+  .p-button-icon {
+    font-size: 1rem;
+  }
+
+  &.danger {
+    .p-button-icon-only {
+      background: #ef4444;
+      border: 1px solid #ef4444;
+
+      &:enabled:hover {
+        background: #7f1d1d;
+        border: 1px solid #7f1d1d;
+      }
+
+      &:enabled:focus {
+        box-shadow: 0 0 0 0.2rem #ef4444;
+      }
+    }
+  }
+
+  &.success {
+    .p-button-icon-only {
+      background: #15803d;
+      border: 1px solid #15803d;
+
+      &:enabled:hover {
+        background: #14532d;
+        border: 1px solid #14532d;
+      }
+
+      &:enabled:focus {
+        box-shadow: 0 0 0 0.2rem #15803d;
+      }
+    }
+  }
+
+  &.disabled,
+  &.data-mismatch {
+    .p-button-icon-only {
+      background: #9caeb7;
+      border: 1px solid #9caeb7;
+
+      &:enabled:hover {
+        background: #9caeb7;
+        border: 1px solid #9caeb7;
+      }
+
+      &:enabled:focus {
+        box-shadow: 0 0 0 0.2rem #9caeb7;
+      }
+    }
+  }
+
+  &.badge-icon {
+    &.disabled {
+      &.success {
+        .p-button-icon-only {
+          opacity: 1;
+          background: transparent;
+          color: #15803d;
+          border: none;
+        }
+      }
+      &.danger {
+        .p-button-icon-only {
+          opacity: 1;
+          background: transparent;
+          color: #ef4444;
+          border: none;
+        }
+      }
+    }
+  }
+}
+/* stylelint-enable */

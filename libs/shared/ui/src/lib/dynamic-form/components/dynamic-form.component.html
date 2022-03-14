@@ -1,0 +1,106 @@
+<form [formGroup]="dynamicFormGroup" (ngSubmit)="sendFormValue()" novalidate>
+  <div class="p-fluid grid grid-rows-1 gap-10">
+    <ng-content></ng-content>
+    <div
+      *ngFor="let ctrl of dynamicFormGroup.controls | keyvalue; let i = index"
+      class="grid grid-cols-3 justify-items-stretch gap-10"
+    >
+      <ng-container [ngSwitch]="formControls[i].type">
+        <ng-container *ngSwitchCase="'array'">
+          <label class="justify-self-end"
+            ><span *ngIf="formControls[i].required">*</span>
+            {{ formControls[i].label }}</label
+          >
+          <div class="col-span-2">
+            <p-dropdown
+              [id]="formId + '_' + formControls[i].controlName"
+              [inputId]="formId + '_' + formControls[i].controlName + '_input'"
+              [options]="
+                formControls[i].options
+                  | selectOptions: formControls[i].props
+                  | async
+              "
+              [formControlName]="formControls[i].controlName"
+              optionValue="value"
+              placeholder="Seçim yapın"
+              optionLabel="label"
+              [showClear]="true"
+            >
+              <ng-template let-option pTemplate="item">
+                <span
+                  [id]="
+                    formId +
+                    '_' +
+                    formControls[i].controlName +
+                    '_' +
+                    option.value
+                  "
+                >
+                  {{ option.label }}
+                </span>
+              </ng-template>
+            </p-dropdown>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'string'">
+          <label class="justify-self-end"
+            ><span *ngIf="formControls[i].required">*</span>
+            {{ formControls[i].label }}</label
+          >
+          <div class="col-span-2">
+            <input
+              [id]="formId + '_' + formControls[i].controlName"
+              type="text"
+              pInputText
+              [formControlName]="formControls[i].controlName"
+            />
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'decimal'">
+          <label class="justify-self-end"
+            ><span *ngIf="formControls[i].required">*</span>
+            {{ formControls[i].label }}</label
+          >
+          <div class="col-span-2">
+            <p-inputNumber
+              mode="decimal"
+              [id]="formId + '_' + formControls[i].controlName"
+              [minFractionDigits]="formControls[i].decimalSize"
+              [maxFractionDigits]="formControls[i].decimalSize"
+              [formControlName]="formControls[i].controlName"
+            ></p-inputNumber>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <label class="justify-self-end"
+            ><span *ngIf="formControls[i].required">*</span>
+            {{ formControls[i].label }}</label
+          >
+          <div class="col-span-2">
+            <input
+              [id]="formId + '_' + formControls[i].controlName"
+              type="text"
+              pInputText
+              pKeyFilter="int"
+              [formControlName]="formControls[i].controlName"
+            />
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+    <div class="grid grid-cols-3 justify-items-stretch gap-10">
+      <button
+        [id]="formId + '_submit'"
+        type="submit"
+        class="
+          p-button p-button-raised
+          w-full
+          justify-center
+          col-start-2 col-span-2
+        "
+      >
+        <i class="pi pi-save mr-2"></i> {{ update ? 'Güncelle' : 'Kaydet' }}
+      </button>
+    </div>
+  </div>
+</form>

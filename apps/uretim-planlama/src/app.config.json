@@ -1,0 +1,140 @@
+{
+  "locale": "tr",
+  "application": {
+    "storagePrefix": "uretim_planlama_",
+    "name": "uretim-planlama-frontend",
+    "copyright": "© 2021 - 2022 Erdemir Information Technologies, Inc. All Rights Reserved.",
+    "version": "0.0.1"
+  },
+  "sideNav": {
+    "expandedSidenav": false,
+    "preserveState": true
+  },
+  "languages": [
+    { "key": "en", "value": "English" },
+    { "key": "tr", "value": "Turkish" }
+  ],
+  "urls": {
+    "local": "http://localhost:8080",
+    "local-2": "https://kurumsaldevl-was1.erdemir.com.tr/euysup-be",
+    "localJsonServer":"http://localhost:3000",
+    "dev": "https://apigwtest.erdemir.com.tr/int/dev",
+    "escape":"",
+    "test": "https://apigwtest.erdemir.com.tr/int/test",
+    "base": "/euys/uretim-planlama",
+    "root": "/api/v1",
+    "resources": {}
+  },
+  "mainNavs": [
+    {
+      "uygulamaKod": "5e9277f1-4971-4c36-b989-5d1947b9bdc1",
+      "modulAd": "Üretim Planlama",
+      "runModul": "UP",
+      "altModuller": [
+        {
+          "modulAd": "Yıllık / Aylık Üretim Planı İşlemleri",
+          "runModul": "UP.up-3000",
+          "altModuller": [
+            {
+              "modulAd": "Hat Planlı Duruşlar ve Üretim Hedefleri Kaydı",
+              "runModul": "UP.up-3000.up-3001",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Hat Planlı Duruşlar ve Üretim Hedefleri Görüntüleme",
+              "runModul": "UP.up-3000.up-3002",
+              "altModuller": null
+            },
+            {
+              "modulAd": "YÜP Taslak Oluşturma",
+              "runModul": "UP.up-3000.up-3003",
+              "altModuller": null
+            },
+            {
+              "modulAd": "YÜP Projeksiyon İşlemleri",
+              "runModul": "UP.up-3000.up-3004",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Yıllık Üretim Planı Görüntüleme",
+              "runModul": "UP.up-3000.up-3005",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Aylık Üretim Planı Hazırlama",
+              "runModul": "UP.up-3000.up-3010",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Aylık Üretim Planı Görüntüleme",
+              "runModul": "UP.up-3000.up-3011",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Kapasite Rapor Grubu Tanımlama",
+              "runModul": "UP.up-3000.up-3015",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Kapasite Rapor Grubu Güncelleme / İptal",
+              "runModul": "UP.up-3000.up-3016",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Kapasite Rapor Grubu Görüntüleme",
+              "runModul": "UP.up-3000.up-3017",
+              "altModuller": null
+            },
+            {
+              
+              "modulAd": "Günlük Projeksiyon Girişi",
+              "runModul": "UP.up-3000.up-3020",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Günlük Projeksiyon Görüntüleme",
+              "runModul": "UP.up-3000.up-3021",
+              "altModuller": null
+            },
+            {
+              "modulAd": "2.Sıcak Haddehane Back-up Planı Girişi",
+              "runModul": "UP.up-3000.up-3030",
+              "altModuller": null
+            }
+          ]
+        },
+        {
+          "modulAd": "İmalat Lot İşlemleri",
+          "runModul": "UP.up-3200",
+          "altModuller": [
+            {
+              "modulAd": "Hat Genel Verimleri Kayıt / Güncelleme",
+              "runModul": "UP.up-3200.up-3201",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Siparişsiz İmalat Lot İşlemleri",
+              "runModul": "UP.up-3200.up-3220",
+              "altModuller": null
+            },
+            {
+              "modulAd": "İmalat Lot Statü Değiştirme",
+              "runModul": "UP.up-3200.up-3230",
+              "altModuller": null
+            },
+            {
+              "modulAd": "İmalat Lot Statü Tedarik Tipi Değiştirme",
+              "runModul": "UP.up-3200.up-3231",
+              "altModuller": null
+            },
+            {
+              "modulAd": "İmalat Lotun Hikayesi",
+              "runModul": "UP.up-3200.up-3244",
+              "altModuller": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

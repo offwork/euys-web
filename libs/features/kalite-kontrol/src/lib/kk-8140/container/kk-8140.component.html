@@ -1,0 +1,16 @@
+<ng-container header>
+  <euys-free-header textToRender="Yüzey Kusur Güncelleme Ekranı">
+  </euys-free-header>
+</ng-container>
+<ng-container content>
+  <euys-yuzey-kusur-kaydi
+    hatKodu="331"
+    [yuzeyKusurKaydiList$]="yuzeyKusurKaydiList$"
+    [yuzeyKusurKaydiListLoaded$]="yuzeyKusurKaydiListLoaded$"
+    [aktifKusur$]="aktifKusurList$"
+    [defaultYuzeyKusurKodu]="defaultYuzeyKusurKodu$ | async"
+    (updated)="onYuzeyKusurUpdate($event)"
+    [dispoze]="dispoze$ | async"
+    [minDerece]="minDerece$ | async"
+  ></euys-yuzey-kusur-kaydi>
+</ng-container>

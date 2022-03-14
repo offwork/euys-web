@@ -1,0 +1,23 @@
+<p-panel styleClass="pt-4" [toggleable]="toggleable">
+  <ng-template pTemplate="icons">
+    <ng-content select="[icons]"></ng-content>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <ng-content select="[header]"></ng-content>
+  </ng-template>
+  <ng-template pTemplate="content">
+    <ng-content select="[content]"></ng-content>
+  </ng-template>
+  <ng-template pTemplate="footer"
+    ><ng-content select="[footer]"></ng-content
+  ></ng-template>
+</p-panel>
+
+<p-toast></p-toast>
+<p-toast position="top-left" key="tl"></p-toast>
+<p-toast position="top-right" key="tr"></p-toast>
+<p-toast position="top-center" key="tc"></p-toast>
+<p-toast position="bottom-left" key="bl"></p-toast>
+<p-toast position="bottom-right" key="br"></p-toast>
+<p-toast position="bottom-center" key="bc"></p-toast>
+<p-confirmPopup></p-confirmPopup>

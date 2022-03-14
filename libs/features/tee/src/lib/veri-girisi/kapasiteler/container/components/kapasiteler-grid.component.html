@@ -1,0 +1,22 @@
+<div class="flex grid-wrapper" *ngIf="gridDataSource | async as gridData">
+  <ul class="grid-container flex-auto" *ngFor="let prop of gridData | keyvalue; let i = index">
+    {{
+      columnsDef[i]
+    }}
+    <li class="grid-cell" [ngClass]="{ 'value-bg': item.column === 'value' }" *ngFor="let item of prop.value">
+      <ng-container *ngIf="item.column === 'line'">
+        <input class="w-full" type="text" disabled [value]="item.value" [ngClass]="{ 'left-align': item.column === 'line' }" />
+      </ng-container>
+      <ng-container *ngIf="item.column === 'value'">
+        <input
+          euysDigitOnly
+          class="w-full"
+          type="text"
+          (blur)="blurListener(item, valInput.value, item.column)"
+          [value]="item.value | number: '.2':'tr'"
+          #valInput
+        />
+      </ng-container>
+    </li>
+  </ul>
+</div>

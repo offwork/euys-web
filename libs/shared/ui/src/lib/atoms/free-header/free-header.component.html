@@ -1,0 +1,17 @@
+<div
+  [ngStyle]="{
+    marginTop:
+      marginDense || marginNormal
+        ? marginNormal
+          ? '1.5rem'
+          : '0.125rem'
+        : marginDense
+        ? '0.125rem'
+        : '1.5rem'
+  }"
+  class="text-{{textAlign}}"
+>
+  <span class="text-l font-bold transform-gpu uppercase">{{
+    textToRender
+  }}</span>
+</div>

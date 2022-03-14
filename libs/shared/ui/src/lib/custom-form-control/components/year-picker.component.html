@@ -1,0 +1,70 @@
+<input
+  pInputText
+  readonly
+  [placeholder]="placeholder"
+  [id]="inputId"
+  [value]="value"
+  (focus)="showPicker()"
+  class="w-full"
+/>
+<div
+  class="
+    h-0
+    opacity-0
+    w-full
+    z-50
+    absolute
+    bg-gray-50
+    border
+    rounded
+    shadow-lg
+    overflow-hidden
+    transition-all
+    duration-200
+    ease-in
+  "
+  [ngClass]="{ '!h-52 !opacity-100': pickerVisible }"
+>
+  <div class="h-1/6 bg-gray-100 flex items-center justify-center">
+    <button
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-angle-double-left"
+      class="p-button-rounded p-button-text !w-7 !h-7 !ml-2"
+      (click)="base = base - 10"
+    ></button>
+    <span class="flex-1 text-center font-bold">{{ value }}</span>
+    <button
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-angle-double-right"
+      class="p-button-rounded p-button-text !w-7 !h-7 !mr-2"
+      (click)="base = base + 10"
+    ></button>
+  </div>
+  <div
+    class="grid grid-cols-2 grid-rows-5 items-center justify-items-center h-5/6"
+  >
+    <span
+      *ngFor="let i of range"
+      class="
+        w-full
+        h-full
+        flex
+        items-center
+        justify-center
+        cursor-pointer
+        hover:bg-gray-200
+      "
+      [ngClass]="{
+        'bg-red-500 hover:bg-red-600 text-white font-bold':
+          i + base + '' === value
+      }"
+      (click)="setValue(i + base)"
+    >
+      {{ i + base }}
+    </span>
+  </div>
+</div>

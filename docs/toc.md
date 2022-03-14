@@ -1,0 +1,4 @@
+- [Anasayfa](/)
+- [Başlamak](/get-started/)
+  - [Uygulama Komutlarını çalıştırma](/get-started/app-commands.md)
+  - [Kod İskelesi](/get-started/code-scaffolding)

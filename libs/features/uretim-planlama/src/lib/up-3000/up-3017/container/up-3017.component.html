@@ -1,0 +1,63 @@
+<p-card styleClass="!mb-4">
+  <form [formGroup]="kapasiteRaporGrubuForm" class="flex gap-4 items-center">
+    <label>Kapasite Grubu / Rapor Grubu :* </label>
+    <p-dropdown
+      placeholder="Seçiniz"
+      formControlName="kapasiteRapor"
+      [options]="['KAPASİTE', 'RAPOR']"
+    ></p-dropdown>
+
+    <label>Ürün Grubu :* </label>
+    <p-dropdown
+      formControlName="urunGrubu"
+      [options]="['Tümü', 'Teneke', 'Galvaniz', 'Sıcak']"
+    ></p-dropdown>
+
+    <button
+      pButton
+      type="button"
+      label="Devam"
+      class="p-button p-button-raised p-button-rounded w-32"
+      [disabled]="kapasiteRaporGrubuForm.invalid"
+      (click)="load()"
+    ></button>
+  </form>
+</p-card>
+
+<p-card *ngIf="kapasiteRaporGrubuList$ | async">
+  <p-table
+    [value]="kapasiteRaporGrubuList$ | async"
+    responsiveLayout="scroll"
+    styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped sm:!w-1/2"
+    rowGroupMode="rowspan"
+    groupRowsBy="urunGrubu"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Ürün Grubu</th>
+        <th>
+          {{
+            kapasiteRaporGrubuForm.value.kapasiteRapor === 'KAPASİTE'
+              ? 'Kapasite Grubu'
+              : 'Rapor Grubu'
+          }}
+        </th>
+        <th>Rumuz</th>
+      </tr>
+    </ng-template>
+    <ng-template
+      pTemplate="body"
+      let-kapasiteRapor
+      let-rowgroup="rowgroup"
+      let-rowspan="rowspan"
+    >
+      <tr>
+        <td *ngIf="rowgroup" [attr.rowspan]="rowspan">
+          {{ kapasiteRapor.urunGrubu }}
+        </td>
+        <td>{{ kapasiteRapor.grupAdi }}</td>
+        <td>{{ kapasiteRapor.rumuz }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>

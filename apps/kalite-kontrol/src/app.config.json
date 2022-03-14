@@ -1,0 +1,126 @@
+{
+  "locale": "tr",
+  "application": {
+    "storagePrefix": "kalite_kontrol_",
+    "name": "kt-specs-frontend",
+    "copyright": "© 2021 - 2022 Erdemir Information Technologies, Inc. All Rights Reserved.",
+    "version": "0.0.1"
+  },
+  "sideNav": {
+    "expandedSidenav": false,
+    "preserveState": true
+  },
+  "languages": [
+    { "key": "en", "value": "English" },
+    { "key": "tr", "value": "Turkish" }
+  ],
+  "urls": {
+    "base": "/euys/kalite-kontrol",
+    "dev": "https://apigwtest.erdemir.com.tr/int/dev",
+    "escape":"",
+    "local": "https://kurumsaldevl-was1.erdemir.com.tr/euyskk-be",
+    "local-2": "http://localhost:8080",
+    "localJsonServer":"http://localhost:3000",
+    "resources": {},
+    "root": "/api/v1",
+    "test": "https://apigwtest.erdemir.com.tr/int/test"
+  },
+  "mainNavs": [
+    {
+      "uygulamaKod": "df21ae0d-80fe-4b40-8913-87aa576fc2a4",
+      "modulAd": "Kalite Kontrol",
+      "runModul": "KK",
+      "altModuller": [
+        {
+          "modulAd": "Ana Veri Kalite Kontrol İşlemleri",
+          "runModul": "KK.kk-8100",
+          "altModuller": [
+            {
+              "modulAd": "Kusur Kodu Kayıt / Güncelleme",
+              "runModul": "KK.kk-8101",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Kusur Kodu Görüntüleme",
+              "runModul": "KK.kk-8102",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Operator Bilgilendirme Veri Kayıt",
+              "runModul": "KK.kk-8103",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Operator Bilgilendirme Veri Güncelleme/İptal",
+              "runModul": "KK.kk-8104",
+              "altModuller": null
+            }
+          ]
+        },
+        {
+          "modulAd": "HSM1 Kalite Kontrol İşlemleri",
+          "runModul": "KK.kk-8130",
+          "altModuller": [
+            {
+              "modulAd": "1. Sıcak Haddehane Kalite Kontrol Kayıt",
+              "runModul": "KK.kk-8139",
+              "altModuller": null
+            },
+            {
+              "modulAd": "1. Sıcak Haddehane Veri Güncelleme/İptal",
+              "runModul": "KK.kk-8140",
+              "altModuller": null
+            },
+            {
+              "modulAd": "1. Sıcak Haddehane Kalite Kontrol Kaydı Görüntüleme",
+              "runModul": "KK.kk-8141",
+              "altModuller": null
+            }
+          ]
+        },
+        {
+          "modulAd": "HSM2 Kalite Kontrol İşlemleri",
+          "runModul": "KK.kk-8110",
+          "altModuller": [
+            {
+              "modulAd": "2. Sıcak Haddehane Kalite Kontrol Kayıt",
+              "runModul": "KK.kk-8115",
+              "altModuller": null
+            },
+            {
+              "modulAd": "2. Sıcak Haddehane Veri Güncelleme/İptal",
+              "runModul": "KK.kk-8116",
+              "altModuller": null
+            },
+            {
+              "modulAd": "2. Sıcak Haddehane Kalite Kontrol Kaydı Görüntüleme",
+              "runModul": "KK.kk-8117",
+              "altModuller": null
+            }
+          ]
+        },
+        {
+          "modulAd": "Asitleme Hatları Kalite Kontrol İşlemleri",
+          "runModul": "KK.kk-8240",
+          "altModuller": [
+            {
+              "modulAd": "Asitleme Hatları Kalite Kontrol Kayıt",
+              "runModul": "KK.kk-8246",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Asitleme Hatları Kalite Kontrol Güncelleme / İptal",
+              "runModul": "KK.kk-8247",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Asitleme Hatları Kalite Kontrol Görüntüleme",
+              "runModul": "KK.kk-8248",
+              "altModuller": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

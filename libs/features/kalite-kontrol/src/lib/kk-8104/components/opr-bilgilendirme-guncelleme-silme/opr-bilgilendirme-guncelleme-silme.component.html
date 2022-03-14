@@ -1,0 +1,65 @@
+<div class="card">
+  <p-table
+    [value]="oprBilgilendirmeList"
+    selectionMode="single"
+    sortMode="multiple"
+    [(selection)]="selectedOprBilgilendirme"
+    dataKey="id"
+    responsiveLayout="scroll"
+    (onRowSelect)="onSelectionChange()"
+    (onRowUnselect)="onSelectionChange()"
+    styleClass="p-datatable-gridlines p-datatable-sm p-datatable-striped table-header-text-center"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="text-center" pSortableColumn="olusturmaTarihi">
+          TARİH - VARDİYA <p-sortIcon></p-sortIcon>
+        </th>
+        <th class="text-center">MÜŞTERİ</th>
+        <th class="text-center">MPC</th>
+        <th class="text-center">ÇELİK KALİTESİ</th>
+        <th class="text-center">URUN KODU</th>
+        <th class="text-center" pSortableColumn="kriterAgirligi">
+          KRİTER AĞIRLIĞI <p-sortIcon></p-sortIcon>
+        </th>
+        <th colspan="2" class="text-center"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-oprBilgilendirme>
+      <tr [pSelectableRow]="oprBilgilendirme">
+        <td>
+          {{ oprBilgilendirme.tarihVardiya }}
+        </td>
+        <td>{{ oprBilgilendirme.musteri }}</td>
+        <td class="text-right">{{ oprBilgilendirme.mpc }}</td>
+        <td class="text-right">{{ oprBilgilendirme.celikKalitesi }}</td>
+        <td class="text-right">{{ oprBilgilendirme.urunKodu }}</td>
+        <td class="text-right">{{ oprBilgilendirme.kriterAgirligi }}</td>
+        <td class="!text-center" width="60">
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            type="button"
+            class="p-button-rounded p-button-raised"
+            euysConfirmMessage="Seçili olan Operatör Bilgilendirmeyi silmek istediğinizden emin misiniz?"
+            euysConfirmHeader="Operatör Bilgilendirme Silme Onayı"
+            (confirm)="onDelete(oprBilgilendirme)"
+            style="margin-right: 5px; margin-top: 5px"
+          ></button>
+        </td>
+        <td class="!text-center" width="60">
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            type="button"
+            class="p-button-rounded p-button-raised"
+            (click)="onSubmit(oprBilgilendirme)"
+            style="margin-right: 5px; margin-top: 5px"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

@@ -1,0 +1,21 @@
+<euys-filter-bar
+  [isRecord]="true" 
+  [formFields]="filterFormFields" 
+  (startSearching)="clickOnContinue($event)">
+  <button pButton pRipple 
+    type="button" 
+    label="Kaydet" 
+    class="p-button-rounded p-button-secondary" 
+    icon="pi pi-save" 
+    [disabled]="saveDisable$ | async"
+    (click)="clickOnSave()"></button>
+</euys-filter-bar>
+
+<ng-container *ngIf="loaded$ | async">
+  <div class="p-card">
+    <euys-kapasiteler-grid
+      [columnsDef]="columnsDef"
+      [gridDataSource]="gridDataSource$"
+      (inputBlurred)="inputOnBlur($event)"></euys-kapasiteler-grid>
+  </div>
+</ng-container>

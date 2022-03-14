@@ -1,0 +1,31 @@
+
+<p-panel
+  #panel
+  header="Code"
+  [toggleable]="true"
+  [collapsed]="true"
+>
+  <ng-template pTemplate="icons">
+    <button
+      type="button"
+      pButton
+      class="p-panel-header-icon p-link"
+      [cdkCopyToClipboard]="fragments[activeIndex]?.code"
+      pTooltip="Copied to Clipboard!"
+      tooltipEvent="focus"
+      [life]="1000"
+      [showDelay]="100"
+      [disabled]="panel.collapsed"
+    >
+      <span class="pi pi-copy" [class.icon-disabled]="panel.collapsed"></span>
+    </button>
+  </ng-template>
+  <p-tabView [(activeIndex)]="activeIndex">
+    <p-tabPanel [header]="item.name" *ngFor="let item of fragments; let i = index;" [selected]="i === 0">
+      <pre>
+        <code>{{item.code}}</code>
+      </pre>
+    </p-tabPanel>
+  </p-tabView>
+</p-panel>
+

@@ -1,0 +1,28 @@
+@import './lib/erdemir.theme';
+/* stylelint-disable-next-line scss/at-import-partial-extension */
+@import 'tailwindcss/base';
+/* stylelint-disable-next-line scss/at-import-partial-extension */
+@import 'tailwindcss/components';
+/* stylelint-disable-next-line scss/at-import-partial-extension */
+@import 'tailwindcss/utilities';
+@import '@angular/cdk/overlay-prebuilt.css';
+@import './lib/styles.imports';
+@import '../../ui/src/lib/navigation/components/sidenav/sidenav.component';
+@import '../../ui/src/lib/navigation/components/sidenav/components/toggle-button/toggle-button.component';
+@import '../../ui/src/lib/navigation/components/sidenav/components/navs-search/navs-search.component';
+@import '../../ui/src/lib/navigation/components/sidenav/components/vertical-navs/vertical-navs.component';
+@import '../../ui/src/lib/navigation/components/sidenav/components/vertical-navs-container/vertical-navs-container.component';
+@import '../../../features/erdemir-demo-feature/src/lib/editable-grid/container/editable-grid.component';
+@import '../../ui/src/lib/filter-bar/components/filter-bar.component';
+@import '../../ui/src/lib/image-preview/components/image-preview/image-preview.component';
+
+@mixin euys-core-theme() {
+  @include euys-sidenav-component-theme();
+  @include euys-vertical-navs-container-theme();
+  @include euys-vertical-navs-theme();
+  @include euys-sidenav-toggle-button-theme();
+  @include euys-navs-search-theme();
+  @include editable-grid-component();
+  @include euys-filter-bar-mixin();
+  @include image-preview-mixin();
+}

@@ -1,0 +1,7 @@
+<p-card [ngSwitch]="phase">
+  <euys-up3220-search-form *ngSwitchCase="'search'" (search)="onSearch()">
+  </euys-up3220-search-form>
+  <euys-up3220-mpc-table *ngSwitchCase="'table'"></euys-up3220-mpc-table>
+  <euys-up3220-create-form *ngSwitchCase="'create'"></euys-up3220-create-form>
+  <euys-up3220-update-form *ngSwitchCase="'update'"></euys-up3220-update-form>
+</p-card>

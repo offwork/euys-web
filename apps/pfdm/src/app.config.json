@@ -1,0 +1,80 @@
+{
+  "locale": "tr",
+  "application": {
+    "storagePrefix": "pfdm_",
+    "name": "pfdm-frontend",
+    "copyright": "© 2021 - 2022 Erdemir Information Technologies, Inc. All Rights Reserved.",
+    "version": "0.0.1"
+  },
+  "sideNav": {
+    "expandedSidenav": false,
+    "preserveState": true
+  },
+  "languages": [
+    {
+      "key": "en",
+      "value": "English"
+    },
+    {
+      "key": "tr",
+      "value": "Turkish"
+    }
+  ],
+  "urls": {
+    "base": "/euys-pfdm",
+    "dev": "https://apigwtest.erdemir.com.tr/int/dev",
+    "escape":"",
+    "local": "http://localhost:8080",
+    "local-2": "https://kurumsaldevl-was1.erdemir.com.tr/euyspfdm-be",
+    "localJsonServer":"localhost:3000",
+    "resources": {},
+    "root": "/api/v1",
+    "test": "https://apigwtest.erdemir.com.tr/int/test"
+  },
+  "mainNavs": [
+    {
+      "uygulamaKod": "dec05942-a1de-455b-82a3-8e8d8e2816c3",
+      "modulAd": "PFDM",
+      "runModul": "PFDM",
+      "altModuller": [
+        {
+          "modulAd": "Fiziksel Özellik Tanımlama İşlemleri",
+          "runModul": "PFDM.fiziksel-ozellik",
+          "altModuller": [
+            {
+              "modulAd": "Kalınlık/Çap Aralığı Tanımlama",
+              "runModul": "PFDM.fiziksel-ozellik.pfdm-kalinlik-cap",
+              "altModuller": null
+            },
+            {
+              "modulAd": "3101-Kalınlık/Çap Aralığı İşlemleri",
+              "runModul": "PFDM.fiziksel-ozellik.pfdm-3101",
+              "altModuller": null
+            },
+            {
+              "modulAd": "3102-Genişlik Aralığı İşlemleri",
+              "runModul": "PFDM.fiziksel-ozellik.pfdm-3102",
+              "altModuller": null
+            },
+            {
+              "modulAd": "3103-Yüzey / Kaplama İşlemleri",
+              "runModul": "PFDM.fiziksel-ozellik.pfdm-3103",
+              "altModuller": null
+            }
+          ]
+        },
+        {
+          "modulAd": "Kalite Grubu İşlemleri",
+          "runModul": "PFDM.kalite-grubu",
+          "altModuller": [
+            {
+              "modulAd": "3104-Kalite Grubu İşlemleri",
+              "runModul": "PFDM.kalite-grubu.pfdm-3104",
+              "altModuller": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

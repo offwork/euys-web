@@ -1,0 +1,46 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noImplicitReturns": false,
+    "importHelpers": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "es2019", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "strictNullChecks": false,
+    "baseUrl": ".",
+    "paths": {
+      "@euys/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@euys/core": ["libs/core/src/index.ts"],
+      "@euys/erdemir-demo-feature": [
+        "libs/features/erdemir-demo-feature/src/index.ts"
+      ],
+      "@euys/features/kalite-kontrol": [
+        "libs/features/kalite-kontrol/src/index.ts"
+      ],
+      "@euys/features/kt-specs": ["libs/features/kt-specs/src/index.ts"],
+      "@euys/features/pfdm": ["libs/features/pfdm/src/index.ts"],
+      "@euys/features/tee": ["libs/features/tee/src/index.ts"],
+      "@euys/features/uretim-planlama": [
+        "libs/features/uretim-planlama/src/index.ts"
+      ],
+      "@euys/features/uretim-takip": [
+        "libs/features/uretim-takip/src/index.ts"
+      ],
+      "@euys/shared/app-shell": ["libs/shared/app-shell/src/index.ts"],
+      "@euys/shared/euys-design": ["libs/shared/euys-design/src/index.ts"],
+      "@euys/shared/styles": ["libs/shared/styles/src/index.ts"],
+      "@euys/shared/ui": ["libs/shared/ui/src/index.ts"],
+      "@euys/shared/utility": ["libs/shared/utility/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

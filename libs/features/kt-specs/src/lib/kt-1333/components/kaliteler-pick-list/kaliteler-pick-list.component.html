@@ -1,0 +1,22 @@
+<p-pickList
+  id="kalitelerPickList"
+  [dragdrop]="true"
+  [responsive]="true"
+  [showSourceControls]="false"
+  [showTargetControls]="false"
+  [sourceStyle]="{ height: '300px' }"
+  [source]="kaliteler"
+  [targetStyle]="{
+    height: '300px',
+    'border-color': dirty && kalitelerTarget?.length === 0 ? 'red' : ''
+  }"
+  [target]="kalitelerTarget"
+  filterBy="erdGrupKalitesi"
+>
+  <ng-template let-kalite pTemplate="item">
+    <div class="kalite-item">
+      <span class="kalite-aciklama">{{ kalite.erdGrupKalitesi }}</span>
+    </div>
+  </ng-template></p-pickList
+>
+

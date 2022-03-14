@@ -1,0 +1,320 @@
+<p-toolbar styleClass="mb-5">
+    <div class="p-toolbar-group-left">
+      <button
+        (click)="goBack()"
+        *ngIf="(visible | async) !== Visible.GORUNTULEME"
+        pButton
+        pRipple
+        type="button"
+        label="Geri"
+        icon="pi pi-arrow-left"
+        class="p-button-rounded p-button-secondary mr-5"
+      ></button>
+  
+      <h3 *ngIf="(visible | async) === Visible.GORUNTULEME">
+        Durulama Tankları Laboratuvar Sonuçları Görüntüleme
+      </h3>
+      <h3 *ngIf="(visible | async) === Visible.GORUNTULEME_LOG">
+        Durulama Tankları Laboratuvar Sonuçları Log Görüntüleme
+      </h3>
+      <h3 *ngIf="(visible | async) === Visible.GUNCELLEME_KAYIT && !selectedRow">
+        Durulama Tankları Laboratuvar Sonuçları Kayıt
+      </h3>
+      <h3 *ngIf="(visible | async) === Visible.GUNCELLEME_KAYIT && selectedRow">
+        Durulama Tankları Laboratuvar Sonuçları Güncelleme
+      </h3>
+    </div>
+  </p-toolbar>
+
+<p-table
+  [value]="data$ | async| filterOlcumTarihi:olcumTarihi "
+  styleClass="p-datatable-gridlines"
+  responsiveLayout="scroll"
+  [paginator]="true"
+  [rows]="7"
+  *ngIf="(visible | async) === Visible.GORUNTULEME"
+  sortField="olcumTarihiDate"
+>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th></th>
+      <th></th>
+      <!-- <th>Tarih Baslangıç</th> -->
+      <th pSortableColumn="olcumTarihiDate">
+        Tarih Aralığı <p-sortIcon field="olcumTarihiDate"></p-sortIcon>
+      </th>
+      <th>Vardiya</th>
+      <th>Saat</th>
+      <th>Tank No</th>
+      <th>Hat Kodu</th>
+      <th>pH</th>
+      <th>Klor mg/l</th>
+      <th>İletkenlik uS/cm</th>
+
+
+    </tr>
+    <tr>
+        <th></th>
+        <th></th>
+        <th>
+          <p-columnFilter
+            field="olcumTarihi"
+            matchMode="dateBefore"
+            [showMenu]="false"
+          >
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <p-calendar
+                dateFormat="dd.mm.yy"
+                appendTo="body"
+                [(ngModel)]="olcumTarihi"
+                selectionMode="range"
+                [minDate]="lowestOlcumTarihi"
+                [maxDate]="highestOlcumTarihi"
+                inputId="range"
+                [readonlyInput]="true"
+              ></p-calendar>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        
+        <th>
+          <p-columnFilter field="vardiyaNo" matchMode="equals" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <p-dropdown
+                [ngModel]="value"
+                [options]="vardiyaUretimleri$ | async"
+                (onChange)="filter($event.value)"
+                placeholder="Vardiya Seçiniz."
+                optionLabel="vardiyaNo"
+                optionValue="vardiyaNo"
+                [showClear]="true"
+              >
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th></th>
+        <th>
+            <p-columnFilter field="tankNo" matchMode="equals" [showMenu]="false">
+              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                <p-dropdown
+                  [ngModel]="value"
+                  [options]="tankNoList$ | async"
+                  (onChange)="filter($event.value)"
+                  placeholder="Tank Numarası Seçiniz."
+                  optionLabel="tankNo"
+                  optionValue="tankNo"
+                  [showClear]="true"
+                >
+                </p-dropdown>
+              </ng-template>
+            </p-columnFilter>
+          </th>
+          <th>
+            <p-columnFilter field="hatKodu" matchMode="equals" [showMenu]="false">
+              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                <p-dropdown
+                  [ngModel]="value"
+                  [options]="hatKodList$ | async"
+                  (onChange)="filter($event.value)"
+                  placeholder="Hat Kodu Seçiniz."
+                  optionLabel="hatKodu"
+                  optionValue="hatKodu"
+                  [showClear]="true"
+                >
+                </p-dropdown>
+              </ng-template>
+            </p-columnFilter>
+          </th>
+          <th></th>
+          <th></th>
+          <th></th>
+      </tr>
+   
+  </ng-template>
+  <ng-template pTemplate="body" let-row>
+    <tr>
+      <td class="!text-center" width="60">
+        <button
+          id="guncelle"
+          pButton
+          (click)="goToSave(row)"
+          [disabled]="row.kontrolGuncelleme === 0"
+          type="button"
+          icon="pi pi-pencil"
+          class="p-button-lg p-button-text p-button-success !py-0"
+        ></button>
+      </td>
+      <td class="!text-center" width="60">
+        <button
+          pButton
+          (click)="log(row)"
+          type="button"
+          icon="pi pi-search"
+          class="p-button-lg p-button-text p-button-success !py-0"
+        ></button>
+      </td>
+      <td>{{ row.olcumTarihiDate | date: 'dd.MM.yyyy' }}</td>
+      <td>{{ row.vardiyaNo }}</td>
+      <td>{{ row.olcumSaatiDate | date:'HH:mm' }}</td>
+      <td>{{ row.tankNo }}</td>
+      <td>{{ row.hatKodu }}</td>
+      <td>{{ row.ph }}</td>
+      <td>{{ row.klor }}</td>
+      <td>{{ row.iletkenlik }}</td>
+     
+    </tr>
+  </ng-template>
+</p-table>
+<p-table
+  [value]="dataLog$ | async"
+  styleClass="p-datatable-gridlines"
+  [paginator]="true"
+  [rows]="10"
+  responsiveLayout="scroll"
+  *ngIf="(visible | async) === Visible.GORUNTULEME_LOG"
+  
+>
+  <ng-template pTemplate="caption">
+    <span class="text-lg">Tarih : {{ (dataLog$ | async)[0]?.olcumTarihiFormat }}</span>
+    <hr class="my-2" />
+    <span> Vardiya : {{ (dataLog$ | async)[0]?.vardiyaNo }}</span>
+    <hr  class="my-2" />
+
+    <span> Saat : {{formatTime ((dataLog$ | async)[0]?.olcumSaati) }}</span>
+    <hr  class="my-2" />
+
+    <span>Tank No : {{ (dataLog$ | async)[0]?.tankNo }}</span>
+    <hr class="my-2" />
+
+    <span> Hat Kodu : {{ (dataLog$ | async)[0]?.hatKodu }}</span>
+
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th rowspan="2" class="!text-center">pH</th>
+      <th rowspan="2" class="!text-center">Klor mg/l</th>
+      <th rowspan="2" class="!text-center">İletkenlik uS/cm</th>
+      <th colspan="6" class="!text-center">Kayıt Yapan</th>
+
+    </tr>
+    <tr>
+      <th rowspan="2">Personel</th>
+      <th rowspan="2">Tarih</th>
+      <th rowspan="1">Saat</th>
+      
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-row>
+    <tr>
+      <td>{{ row.ph }}</td>
+      <td>{{ row.klor }}</td>
+      <td>{{ row.iletkenlik }}</td>
+      <td>{{ row.islemYapanKisi }}</td>
+      <td>{{ row.islemTarihiFormat }}</td>
+      <td>{{formatTime(row.islemSaati) }}</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-card *ngIf="(visible | async) === Visible.GUNCELLEME_KAYIT">
+    <form [formGroup]="form" class="grid gap-3 items-center"
+    style="grid-template-columns: repeat(3, fit-content(100%))">
+      <label for="olcumTarihi"> Tarih:* </label>
+
+      <p-calendar
+        dateFormat="dd.mm.yy"
+        formControlName="olcumTarihiDate"
+        class="col-span-1 flex"
+        styleClass="flex-1"
+        [minDate]="dateOneAgoWeek"
+        [maxDate]="dateNow"
+        inputId="olcumTarihi"
+        [readonlyInput]="true"
+      ></p-calendar>
+      <span class="col-span-1"></span>
+  
+      <label  for="olcumSaati"> Saat:* </label>
+
+      <p-calendar
+      [timeOnly]="true"
+      formControlName="olcumSaatiDate"
+      class="col-span-1 flex"
+      styleClass="flex-1"
+      inputId="olcumSaatiDate"
+      [readonlyInput]="true"
+    ></p-calendar>
+    <span class="col-span-1"></span>
+  
+    <label  for="tankNo"> Tank No:* </label>
+
+    <p-dropdown
+    formControlName="tankNo"
+    class="col-span-1 flex"
+    styleClass="flex-1"
+    inputId="tankNo"
+    [options]="tankNoList$ | async"
+    optionLabel="tankNo"
+    optionValue="tankNo"
+    [showClear]="false"
+    (onChange)="getLimit()"
+  >
+  </p-dropdown>
+  <span class="col-span-1"></span>
+    
+    <label  for="hatKodu"> Hat Kodu:* </label>
+
+    <p-dropdown
+        formControlName="hatKodu"
+        class="col-span-1 flex"
+        styleClass="flex-1"
+        inputId="hatKodu"
+        [options]="hatKodList$| async"
+        optionLabel="hatKodu"
+        optionValue="hatKodu"
+        [showClear]="false"
+        (onChange)="getLimit()"
+      >
+      </p-dropdown>
+     
+      <label class="text-center font-bold col-span-1"> Limit Değerler </label>
+  
+      <label > pH:* </label>
+   
+      <input formControlName="ph" pInputText pKeyFilter="num"/>
+
+<span class="text-center">{{limit?.ph}}</span>     
+  
+      <label>  Klor:* </label>
+      <input formControlName="klor" pInputText pKeyFilter="num"/>
+
+      <span class="text-center">{{limit?.klor}}</span>     
+
+      <label> İletkenlik:* </label>
+      <input formControlName="iletkenlik" pInputText pKeyFilter="int" />
+      <span class="text-center">{{limit?.iletkenlik}}</span>
+    </form>
+  
+    <button
+      (click)="saveOrUpdate()"
+      pButton
+      pRipple
+      type="button"
+      [label]="this.selectedRow ? 'Güncelle' : 'Kaydet'"
+      icon="pi pi-save"
+      class="p-button-rounded p-button-secondary mb-5 mt-5"
+    ></button>
+  </p-card>
+  <button
+    (click)="goToSave()"
+    *ngIf="(visible | async) === Visible.GORUNTULEME"
+    pButton
+    pRipple
+    type="button"
+    label="Kaydet"
+    icon="pi pi-save"
+    class="p-button-rounded p-button-secondary mt-5 mb-5"
+  ></button>

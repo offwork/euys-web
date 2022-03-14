@@ -1,0 +1,103 @@
+<p-card [hidden]="!isFormVisible" #saveOrUpdateFormCard>
+  <form [formGroup]="saveOrUpdateForm">
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-fluid p-formgrid p-grid p-col-12 p-md-12">
+        <div class="p-field p-col-12 p-md-6">
+          <label for="urunlerPicklist"><b>*Ürün kodu</b></label>
+          <euys-urunler-pick-list
+            #urunlerPickList
+            [urunlerLoaded]="loadedUrunler$ | async"
+            [urunler]="urunler"
+            [urunlerGelen]="urunTarget"
+            [dirty]="pickListDirty"
+          ></euys-urunler-pick-list>
+        </div>
+
+        <div class="p-field p-col-12 p-md-6">
+          <label for="kalitelerPickList"><b>*Sipariş çelik kalitesi</b></label>
+          <euys-kaliteler-pick-list
+            #kalitelerPickList
+            [kalitelerLoaded]="loadedCelikler$ | async"
+            [kaliteler]="celikler"
+            [celiklerGelen]="celikTarget"
+            [dirty]="pickListDirty"
+          ></euys-kaliteler-pick-list>
+        </div>
+
+        <euys-min-max-fieldset
+          #siparisKalinlikMinMaxFieldset
+          [label]="'Anma Kalınlık'"
+          [maxFormControlName]="'maxKalinlik'"
+          [maxFractionDigits]="4"
+          [maxPlaceholder]="'Maximum anma kalınlığı giriniz'"
+          [maxDefaultValue]="selectedRow !== null ? selectedRow.maxKalinlik : 0"
+          [minFormControlName]="'minKalinlik'"
+          [minFractionDigits]="4"
+          [minPlaceholder]="'Minimum anma kalınlığı giriniz'"
+          [minDefaultValue]="selectedRow !== null ? selectedRow.minKalinlik : 0"
+          [helperTextMaximum]="'Maximum anma kalınlığı giriniz.'"
+          [helperTextMinimum]="'Minimum anma kalınlığı giriniz.'"
+          [pCol12]="true"
+          [pMD6]="true"
+        ></euys-min-max-fieldset>
+
+        <euys-min-max-fieldset
+        #siparisGenislikMinMaxFieldset
+        [label]="'Sipariş Genişlik'"
+        [maxFormControlName]="'maxGenislik'"
+        [maxFractionDigits]="4"
+        [maxPlaceholder]="'Maximum sipariş genişliği giriniz'"
+        [maxDefaultValue]="selectedRow !== null ? selectedRow.maxGenislik : 0"
+        [minFormControlName]="'minGenislik'"
+        [minFractionDigits]="4"
+        [minPlaceholder]="'Minimum sipariş genişliği giriniz'"
+        [minDefaultValue]="selectedRow !== null ? selectedRow.minGenislik : 0"
+        [helperTextMaximum]="'Maximum sipariş genişliği giriniz.'"
+        [helperTextMinimum]="'Minimum sipariş genişliği giriniz.'"
+        [pCol12]="true"
+        [pMD6]="true"
+      ></euys-min-max-fieldset>
+       
+        <div class="p-field p-col-12 p-md-6">
+          <label for="iiTenekeKalayErgitmeKodu"
+            ><strong
+              >*2.Teneke Kalay Ergitme Spesifikasyonu Ana
+              Tablo</strong
+            ></label
+          >
+          <p-dropdown
+            id="iiTenekeKalayErgitmeKodu"
+            [filter]="true"
+            [options]="anatablo"
+            [showClear]="true"
+            [virtualScroll]="true"
+            emptyFilterMessage="2.Teneke Kalay Ergitme Spesifikasyonu Ana Tablo kodu bulunamadı."
+            filterBy="iiTenekeKalayErgitmeKodu"
+            filterPlaceholder="2.Teneke Kalay Ergitme Spesifikasyonu Ana Tablo özelliklerine göre arama yapınız..."
+            formControlName="iiTenekeKalayErgitmeKodu"
+            inputId="iiTenekeKalayErgitmeKodu"
+            optionLabel="codeAndText"
+            optionValue="iiTenekeKalayErgitmeKodu"
+            placeholder="Seçiniz"
+            [required]="true"
+          ></p-dropdown>
+          <euys-form-field-info
+            [inputHelperControl]="iiTenekeKalayErgitmeKodu"
+            [helperText]="'Ana Tablo kodu seçimi zorunludur.'"
+          ></euys-form-field-info>
+        </div>
+      </div>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      [label]="this.selectedRow ? 'Güncelle' : 'Kaydet'"
+      (click)="onSubmit()"
+      class="p-button p-button-raised p-button-rounded w-36 !px-8"
+      type="button"
+      icon="pi pi-save"
+    ></button>
+  </ng-template>
+</p-card>

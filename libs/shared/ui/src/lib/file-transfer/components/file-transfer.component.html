@@ -1,0 +1,30 @@
+<div class="file-tansfer">
+  <!-- see link below for file extensions that the entry accepts -->
+  <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept#unique_file_type_specifiers -->
+  <p-fileUpload 
+    name="euysFiles[]"
+    [customUpload]="true" 
+    [multiple]="false" 
+    [accept]="acceptExtensions" 
+    (uploadHandler)="uploadHandler($event)">
+  </p-fileUpload>
+  <p-panel header="Dosya indir" *ngIf="(fileList$ | async) as fileList">
+    <div class="euys-download-list-wrapper">
+      <ul class="euys-download-list">
+        <li class="euys-download-item euys-highlight" *ngFor="let file of fileList; index as i">
+          <div class="file-item">
+            <span>{{ file.name }}</span>
+            <button pButton pRipple 
+            type="button" 
+            icon="pi pi-download" 
+            class="p-button-rounded p-button-outlined"
+            (click)="onClick(file)"></button>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <ng-template *ngIf="(download$ | async) as download" pTemplate="footer">
+      <p-progressBar [value]="download?.progress"></p-progressBar>
+    </ng-template>
+  </p-panel>
+</div>

@@ -1,0 +1,40 @@
+<p-steps
+  [(activeIndex)]="activePage"
+  [model]="hsm1Steps"
+  [readonly]="true"
+></p-steps>
+
+<div class="p-fluid p-grid">
+  <euys-qc-list
+    (goToPage)="goToPage($event)"
+    (preserveSecondStepState)="preserveStateHandler($event)"
+    (refreshBobinList$)="refreshBobinListHandler()"
+    (selectionChangeEventEmitter$)="selectionChangeEventHandler($event)"
+    *ngIf="activePage === 0"
+    [hsmBobinList$]="hsmBobinList$"
+    [hsmBobinListLoaded$]="hsmBobinListLoaded$"
+  ></euys-qc-list>
+  <euys-numune-goruntuleme-second-step
+    (goToPage)="goToPage($event)"
+    (refreshBobinList$)="refreshBobinListHandler()"
+    *ngIf="activePage === 1"
+    [preserveState]="preserveState"
+    [selectedBobinList]="selectedBobinList"
+  ></euys-numune-goruntuleme-second-step>
+  <euys-qc-kayit-third-step
+    (goToPage)="goToPage($event)"
+    (preserveSecondStepState)="preserveStateHandler($event)"
+    *ngIf="activePage === 2"
+  >
+  </euys-qc-kayit-third-step>
+  <euys-kusur-fourth-step
+    class="p-col-12 p-0"
+    (goToPage)="goToPage($event)"
+    *ngIf="activePage === 3"
+  ></euys-kusur-fourth-step>
+  <euys-qc-kayit-onay-fifth
+    (goToPage)="goToPage($event)"
+    *ngIf="activePage === 4"
+  >
+  </euys-qc-kayit-onay-fifth>
+</div>

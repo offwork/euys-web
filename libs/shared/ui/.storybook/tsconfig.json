@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "emitDecoratorMetadata": true
+  },
+
+  "exclude": ["../**/*.spec.ts"],
+  "include": ["../src/**/*", "*.js", "../../../features/kalite-kontrol/src/lib/kk-8139/components/shared/testing-area/notification.service.ts"]
+}

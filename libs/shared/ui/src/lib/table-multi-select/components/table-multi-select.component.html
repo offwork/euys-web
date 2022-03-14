@@ -1,0 +1,75 @@
+<div class="scroll-container">
+  <table *ngIf="(options && options.length);else noOptions">
+    <colgroup>
+      <col *ngFor="let option of options" [style.width]="'3em'">
+    </colgroup>
+    <thead>
+      <tr>
+        <th *ngFor="let option of options" [title]="option[optionLabel] || option">
+          <span class="vertical">{{option[optionLabel] || option}}</span>
+        </th>
+      </tr>
+      <tr *ngIf="optionLabel">
+        <th *ngFor="let option of options">
+          <ng-container [ngSwitch]="!!optionValueTemplate">
+            <ng-container
+              *ngSwitchCase="true"
+              [ngTemplateOutlet]="optionValueTemplate.templateRef"
+              [ngTemplateOutletContext]="{ $implicit: option }"
+            >
+            </ng-container>
+            <ng-container *ngSwitchDefault>{{option[optionValue] || option}}</ng-container>
+          </ng-container>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td *ngFor="let option of options">
+          <div class="flex justify-center py-1">
+            <p-checkbox
+              name="value"
+              [value]="option"
+              [(ngModel)]="selected"
+              [inputId]="'checkbox_' + (option[optionLabel] || option) | euysReplaceWhitespace"
+              (onChange)="onSelectChange()"
+              [disabled]="disabled"
+            >
+            </p-checkbox>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #noOptions>
+  <table class="borderless">
+    <colgroup>
+      <col *ngFor="let col of skeletonCols" [style.width]="'3em'">
+    </colgroup>
+    <thead>
+      <tr>
+        <th *ngFor="let col of skeletonCols" [style.font-size]="'large'" class="p-2">
+          <p-skeleton height="8em"></p-skeleton>
+        </th>
+      </tr>
+      <tr>
+        <th *ngFor="let col of skeletonCols">
+          <div class="flex justify-center align-center p-1">
+            <p-skeleton width="2em"></p-skeleton>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th *ngFor="let col of skeletonCols">
+          <div class="flex justify-center align-center p-1">
+            <p-skeleton size="2em"></p-skeleton>
+          </div>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>

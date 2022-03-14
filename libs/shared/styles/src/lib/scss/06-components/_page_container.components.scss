@@ -1,0 +1,16 @@
+.page-container {
+  display: block;
+  padding-bottom: 1rem;
+
+  .scroll-container {
+    overflow: auto;
+  }
+
+  .table-divider {
+    display: block;
+
+    .p-divider {
+      margin: 2rem 0;
+    }
+  }
+}

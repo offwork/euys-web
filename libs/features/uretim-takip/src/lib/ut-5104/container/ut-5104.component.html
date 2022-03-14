@@ -1,0 +1,57 @@
+<p-card>
+  <form
+    [formGroup]="form"
+    class="grid grid-cols-2 gap-3 items-center"
+    style="grid-template-columns: repeat(2, fit-content(100%))"
+  >
+    <label for="tankNo"> *Tank No: </label>
+
+    <p-dropdown
+      formControlName="tankNo"
+      class="flex"
+      styleClass="flex-1"
+      inputId="tankNo"
+      placeholder="Seçiniz"
+      [options]="tankList$ | async"
+      optionLabel="tankNo"
+      optionValue="tankNo"
+      [showClear]="false"
+    >
+    </p-dropdown>
+
+    <label for="hatKodu"> *Hat Kodu: </label>
+
+    <p-dropdown
+      formControlName="hatKodu"
+      class="flex"
+      styleClass="flex-1"
+      inputId="hatKodu"
+      placeholder="Seçiniz"
+      [options]="hatList$ | async"
+      optionLabel="hatKodu"
+      optionValue="hatKodu"
+      [showClear]="false"
+    >
+    </p-dropdown>
+
+    <label> *pH (minimum): </label>
+    <input formControlName="ph" pInputText pKeyFilter="num" />
+
+    <label> *Klor mg/l (maksimum): </label>
+    <input formControlName="klor" pInputText pKeyFilter="int" />
+
+    <label> *İletkenlik uS/cm (maksimum): </label>
+    <input formControlName="iletkenlik" pInputText pKeyFilter="int" />
+  </form>
+
+  <button
+    (click)="onSubmit()"
+    pButton
+    pRipple
+    type="button"
+    [label]="(isUpdate$ | async) ? 'Güncelle' : 'Kaydet'"
+    icon="pi pi-save"
+    class="p-button-rounded p-button-secondary mb-5 mt-5"
+    [loading]="loading$ | async"
+  ></button>
+</p-card>

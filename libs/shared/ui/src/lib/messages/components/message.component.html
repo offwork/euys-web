@@ -1,0 +1,10 @@
+<p-messages severity="info" styleClass="mx-3">
+  <ng-template pTemplate>
+    <div
+      class="flex items-center text-lg font-semibold"
+      [ngClass]="{ 'p-4': size === 'normal' }"
+    >
+      <i class="pi pi-info-circle mr-2 !text-2xl"></i> {{ message }}
+    </div>
+  </ng-template>
+</p-messages>

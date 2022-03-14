@@ -1,0 +1,12 @@
+<euys-opr-bilgilendirme-guncelleme-silme
+  *ngIf="(oprBilgilendirmeDataLoaded$ | async) === false"
+  [oprBilgilendirmeList]="oprBilgilendirmeList$ | async"
+>
+</euys-opr-bilgilendirme-guncelleme-silme>
+
+<euys-opr-bilgilendirme-guncelleme
+  *ngIf="oprBilgilendirmeDataLoaded$ | async"
+  [oprBilgilendirmeData]="oprBilgilendirmeData$ | async"
+  [oprBilgilendirmeDataLoaded]="oprBilgilendirmeDataLoaded$ | async"
+>
+</euys-opr-bilgilendirme-guncelleme>

@@ -1,0 +1,49 @@
+{
+  "locale": "tr",
+  "application": {
+    "storagePrefix": "erdemir_demo_",
+    "name": "erdemir_demo-frontend",
+    "copyright": "© 2021 - 2022 Erdemir Information Technologies, Inc. All Rights Reserved.",
+    "version": "0.0.1"
+  },
+  "sideNav": {
+    "expandedSidenav": false,
+    "preserveState": true
+  },
+  "languages": [
+    { "key": "en", "value": "English" },
+    { "key": "tr", "value": "Turkish" }
+  ],
+  "urls": {
+    "local": "http://localhost:8080",
+    "dev": "https://apigwtest.erdemir.com.tr/int/dev",
+    "test": "https://apigwtest.erdemir.com.tr/int/test",
+    "base": "/demo",
+    "root": "/api/v1",
+    "resources": {}
+  },
+  "mainNavs": [
+    {
+      "uygulamaKod": "demo",
+      "modulAd": "Erdemir Demo",
+      "runModul": "edemo",
+      "altModuller": [
+        {
+          "modulAd": "Editable Grid",
+          "runModul": "edemo.EditableGrid",
+          "altModuller": null
+        },
+        {
+          "modulAd": "Showcase",
+          "runModul": "edemo.Showcase",
+          "altModuller": null
+        },
+        {
+          "modulAd": "QC Kayıt",
+          "runModul": "edemo.QCKayit",
+          "altModuller": null
+        }
+      ]
+    }
+  ]
+}

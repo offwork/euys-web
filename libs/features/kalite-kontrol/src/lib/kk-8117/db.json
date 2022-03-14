@@ -1,0 +1,56 @@
+{
+    "YuzeyKusurKaydiList": [
+        {
+            "id": "ID_KK_URETIM_yuzey_kusuru_001",
+            "idUretimKyd": "ID_UT_URETIM_KYD_001",
+            "yuzeyKusuruSiraNo": 1,
+            "yuzeyKusuruKodu": "144",
+            "yuzeyKusuruDerecesi": 3,
+            "yuzeyKusuruYuzdesi": 12,
+            "yuzeyKusuruYeri": "O",
+            "yuzeyKusuruHatKodu": 221,
+            "yuzeyKusuruBuHattaMi": "E",
+            "yuzeyKusuruBaslNoktasi": 124,
+            "holdGerekliMi": "H"
+        },
+        {
+            "id": "ID_KK_URETIM_yuzey_kusuru_011",
+            "idUretimKyd": "ID_UT_URETIM_KYD_011",
+            "yuzeyKusuruSiraNo": 1,
+            "yuzeyKusuruKodu": "193",
+            "yuzeyKusuruDerecesi": 3,
+            "yuzeyKusuruYuzdesi": 12,
+            "yuzeyKusuruYeri": "O",
+            "yuzeyKusuruHatKodu": 221,
+            "yuzeyKusuruBuHattaMi": "E",
+            "yuzeyKusuruBaslNoktasi": 124,
+            "holdGerekliMi": "H"
+        },
+        {
+            "id": "ID_KK_URETIM_yuzey_kusuru_012",
+            "idUretimKyd": "ID_UT_URETIM_KYD_012",
+            "yuzeyKusuruSiraNo": 1,
+            "yuzeyKusuruKodu": "183",
+            "yuzeyKusuruDerecesi": 3,
+            "yuzeyKusuruYuzdesi": 12,
+            "yuzeyKusuruYeri": "O",
+            "yuzeyKusuruHatKodu": 221,
+            "yuzeyKusuruBuHattaMi": "E",
+            "yuzeyKusuruBaslNoktasi": 124,
+            "holdGerekliMi": "H"
+        },
+        {
+            "id": "ID_KK_URETIM_yuzey_kusuru_013",
+            "idUretimKyd": "ID_UT_URETIM_KYD_013",
+            "yuzeyKusuruSiraNo": 1,
+            "yuzeyKusuruKodu": "173",
+            "yuzeyKusuruDerecesi": 3,
+            "yuzeyKusuruYuzdesi": 12,
+            "yuzeyKusuruYeri": "O",
+            "yuzeyKusuruHatKodu": 221,
+            "yuzeyKusuruBuHattaMi": "E",
+            "yuzeyKusuruBaslNoktasi": 124,
+            "holdGerekliMi": "H"
+        }
+    ]
+}

@@ -1,0 +1,32 @@
+<span class="p-input-icon-left">
+  <button
+    [id]="'sidenav_input_activate_filter_btn'"
+    pButton
+    pRipple
+    type="button"
+    icon="pi pi-search"
+    class="p-button-rounded p-button-text filter-button-search"
+    (click)="activateFilter()"
+  ></button>
+  <input
+    [id]="'sidenav_input_filter'"
+    euysNavsSearch
+    [euysInputFocus]="focusInput"
+    pInputText
+    type="text"
+    [(ngModel)]="filterValue"
+    placeholder="Ara..."
+    (filterHandler)="filterHandler($event)"
+  />
+  <ng-template [ngIf]="filterActive">
+    <button
+      [id]="'sidenav_input_deactivate_filter_btn'"
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-times"
+      class="p-button-rounded p-button-text filter-button-clear"
+      (click)="clearFilter()"
+    ></button>
+  </ng-template>
+</span>

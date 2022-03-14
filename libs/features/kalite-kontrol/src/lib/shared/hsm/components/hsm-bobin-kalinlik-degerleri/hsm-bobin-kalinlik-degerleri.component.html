@@ -1,0 +1,103 @@
+<form [formGroup]="bobinKalinlikDegerleriForm">
+  <div class="relative max-w-5xl min-w-[34rem]">
+    <div class="absolute z-0 inline w-full">
+      <img src="/assets/hsm/hsmBobinKalinlik.png" />
+    </div>
+    <div class="inline-flex absolute z-10 pt-6 pr-8 gap-4 w-full">
+      <div class="flex-1 field ml-8">
+        <span class="p-float-label">
+          <p-inputNumber
+            id="operatorC40"
+            formControlName="operatorC40"
+            mode="decimal"
+            [maxlength]="6"
+            [min]="0"
+            [max]="99.999"
+            [minFractionDigits]="3"
+            [maxFractionDigits]="3"
+            inputStyleClass="w-32"
+            (onBlur)="yeniDeger()"
+            [locale]="appLocale"
+          ></p-inputNumber>
+          <label class="pl-2" for="inputtext">Operatör</label>
+        </span>
+      </div>
+
+      <div class="flex-1 field">
+        <span class="p-float-label">
+          <p-inputNumber
+            id="ceyrek1"
+            formControlName="ceyrek1"
+            mode="decimal"
+            [maxlength]="6"
+            [min]="0"
+            [max]="99.999"
+            [minFractionDigits]="3"
+            [maxFractionDigits]="3"
+            inputStyleClass="w-32"
+            (onBlur)="yeniDeger()"
+            [locale]="appLocale"
+          ></p-inputNumber>
+          <label class="pl-2" for="ceyrek1">Çeyrek</label>
+        </span>
+      </div>
+
+      <div class="flex-1 field justify-center">
+        <span class="p-float-label">
+          <p-inputNumber
+            id="merkez"
+            formControlName="merkez"
+            mode="decimal"
+            [maxlength]="6"
+            [min]="0"
+            [max]="99.999"
+            [minFractionDigits]="3"
+            [maxFractionDigits]="3"
+            inputStyleClass="w-32"
+            (onBlur)="yeniDeger()"
+            [locale]="appLocale"
+          ></p-inputNumber>
+          <label class="pl-2" for="inputtext">Merkez</label>
+        </span>
+      </div>
+
+      <div class="flex-1 field">
+        <span class="p-float-label">
+          <p-inputNumber
+            id="ceyrek2"
+            formControlName="ceyrek2"
+            mode="decimal"
+            [maxlength]="6"
+            [min]="0"
+            [max]="99.999"
+            [minFractionDigits]="3"
+            [maxFractionDigits]="3"
+            inputStyleClass="w-32"
+            (onBlur)="yeniDeger()"
+            [locale]="appLocale"
+          ></p-inputNumber>
+          <label class="pl-2" for="inputtext">Çeyrek</label>
+        </span>
+      </div>
+
+      <div class="flex-1 field">
+        <span class="p-float-label">
+          <p-inputNumber
+            id="drv40"
+            formControlName="drv40"
+            mode="decimal"
+            [maxlength]="6"
+            [min]="0"
+            [max]="99.999"
+            [minFractionDigits]="3"
+            [maxFractionDigits]="3"
+            inputStyleClass="w-32"
+            (onBlur)="yeniDeger()"
+            [locale]="appLocale"
+          ></p-inputNumber>
+          <label class="pl-2" for="inputtext">Tahrik</label>
+        </span>
+      </div>
+    </div>
+  </div>
+</form>

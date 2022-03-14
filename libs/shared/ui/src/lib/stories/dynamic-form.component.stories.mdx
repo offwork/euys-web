@@ -1,0 +1,192 @@
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { moduleMetadata } from '@storybook/angular';
+import { Meta, Story, Canvas, Source, Preview } from '@storybook/addon-docs';
+import { withKnobs, text, boolean, select, optionsKnob, object } from "@storybook/addon-knobs";
+import { action } from '@storybook/addon-actions';
+import { of as observableOf } from 'rxjs';
+import { DesignSystemModule } from '../design-system/design-system.module';
+import { DynamicFormComponent } from '../dynamic-form/components/dynamic-form.component';
+import { SelectOptionsPipe } from '../dynamic-form/pipes/select-options.pipe';
+
+
+export const DynamicFormFields = [{ 
+    id: 0,
+    type: 'string',
+    label: 'Slab Yüzey Temizleme Açıklama:',
+    controlName: 'slabYuzeyTemizlemeAciklama' ,
+    required: true
+  }, {
+    id: 1,
+    type: 'array',
+    label: 'Slab Tamir Kontrol Tipi:',
+    controlName: 'slabTamirKontrolTipi',
+    options: [{ 'label': 'S', 'value': 'S' }, { 'label': 'G', 'value': 'G' }],
+    props: ['value', 'label'],
+    required: true,
+  }];
+
+export const getDynamicFormProps = (overrides = {}) => Object.assign({}, {
+  formControls: object('Form Controls', DynamicFormFields),
+  update: boolean('Update', false),
+  selectedRow: object('Selected Row', observableOf({})),
+  onSubmit: action('dispatchFormValue')
+}, overrides);
+
+
+# Dynamic Form Component
+
+**DynamicFormComponent**, ilgili ekranlardaki koleksiyonların üzerinde yenilemler yapmayı amaçlayan kullanıcı form görünümlerini oluşturmak için kullanılır.
+
+> **`<euys-dynamic-form>`** bileşenini kullanabilmek için modülünüze, SharedUiModule dahil etmelisiniz.
+
+<Source language="typescript" dark code={
+`
+import { SharedUiModule } from '@euys/shared/ui';
+@NgModule({
+declarations: [Kt1247Component],
+imports: [
+  // ...
+  SharedUiModule,
+]
+})
+export class Kt1247Module {}
+`} />
+
+
+> DynamicFormComponent, tabloya yeni bir satır eklemek için aşağıdaki gibi ***DynamicFormControl*** nesnesinin bir koleksiyonunu kullanır.
+
+<Source language="typescript" dark code={
+`
+import { DynamicFormControl } from '@euys/shared/ui';
+@Component({ selector: 'euys-kt1247' })
+export class Kt1247Component {
+  formControls: Array<DynamicFormControl> = [{ 
+    id: 0,
+    type: 'string',
+    label: 'Slab Yüzey Temizleme Açıklama:',
+    controlName: 'slabYuzeyTemizlemeAciklama' ,
+    required: true
+  }, {
+    id: 1,
+    type: 'array',
+    label: 'Slab Tamir Kontrol Tipi:',
+    controlName: 'slabTamirKontrolTipi',
+    options: [{ 'label': 'S', 'value': 'S' }, { 'label': 'G', 'value': 'G' }],
+    props: ['value', 'label'],
+    required: true,
+  }]
+}
+`} />
+
+
+<br />
+
+### DynamicFormControl
+
+| Prop | Açıklama | Tür |
+| ---: | --- | --- |
+| **`id`** | her bir DynamicFormControl öğesinin dizideki indisi için kullanılır | `number` |
+| **`label`** | form alanının görüntülenecek ismini temsil eder | `string` |
+| **`controlName`** | form alanın kimliği diğer bir deyişle kendisidir | `string` |
+| **`required`** | form alanın zorunlu olup olmayacağını belirler | `boolean` |
+| **`type`** | form alanlarının tipinin belirlenmesinde yardımcı olur | `FieldType or null` |
+| **`options`** | `Combobox` veya `Dropdown` liste görünümlerine bağlanan dizi ya da **stream** nesneleridir | `any[] or Observable<any[]>` |
+| **`props`** | `Dropdown` veya `Combobox` listesindeki ***anahtar-değer*** çiftidir. | `string[]` |
+
+
+<br />
+
+<Meta 
+  title="Euys/UI/DynamicFormComponent"
+  decorators={[
+    withKnobs,
+    moduleMetadata({
+      imports: [NoopAnimationsModule, CommonModule, DesignSystemModule, ReactiveFormsModule],
+      declarations: [DynamicFormComponent, SelectOptionsPipe],
+    }),
+  ]}
+/>
+
+
+## Yeni bir tane oluşturmak
+
+- `@Input() formControls`       form alanlarının oluşturduğu form nesnesinin şemasını temsil eder.
+- `@Input() update`             güncellenme ya da kayıt formu olup olmayacağını belirler.
+- `@Input() selectedRow`        seçillen öğenin güncellenmesi için form alanları ile eşleşmesini sağlar.
+- `@Output() dispatchFormValue` form nesnesnin değerlerini bir üst bileşene iletilmesini gerçekleştirir.
+
+<br />
+
+<Preview>
+  <Story name="Create">
+    {{
+      template: `
+        <euys-dynamic-form 
+          [selectedRow]="selectedRow"
+          [formControls]="formControls"
+          [update]="update"
+          (dispatchFormValue)="onSubmit($event)">
+          <div class="grid grid-cols-3 justify-items-stretch border-b py-4 gap-10">
+            <label class="justify-self-end">
+              Slab Yüzey Temizleme Spesifikasyonu Ana Tablo Kodu :
+            </label>
+            <div class="col-span-2">
+              <span class="border-solid border-l border-gray-300 pl-2">
+                000
+              </span>
+            </div>
+          </div>
+        </euys-dynamic-form>
+      `,
+      props: getDynamicFormProps()
+    }}
+  </Story>
+</Preview>
+
+
+## Seçimi güncelleme
+
+> `@Input() selectedRow` aslında tablo görünümünden seçilen satırın kendisidir. Ancak `selectedRow` inputunun `Observable<any>` türünde olması, **DynamicFormComponent**'nin üst bileşeniyle arasındaki değişikliklerden(yeni bir kayıt ya da güncelleme gibi) kolayca haberdar olmasını sağlar.
+
+<br />
+
+<Canvas>
+  <Story name="Update">
+    {{
+      template: `
+        <euys-dynamic-form 
+          [selectedRow]="selectedRow"
+          [formControls]="formControls"
+          [update]="update"
+          (dispatchFormValue)="onSubmit($event)">
+          <div class="grid grid-cols-3 justify-items-stretch border-b py-4 gap-10">
+            <label class="justify-self-end">
+              Slab Yüzey Temizleme Spesifikasyonu Ana Tablo Kodu :
+            </label>
+            <div class="col-span-2">
+              <span class="border-solid border-l border-gray-300 pl-2">
+                000
+              </span>
+            </div>
+          </div>
+        </euys-dynamic-form>
+      `,
+      props: getDynamicFormProps({
+        update: boolean('Update', true),
+        selectedRow: object('Selected Row', observableOf({
+          "id":"a32ad35a-340b-4f07-a46e-702522298bf7",
+          "uretimOzellikTipi":"047",
+          "slabYuzeyTemizlemeKodu":3,
+          "slabTamirKontrolTipi":"S",
+          "slabYuzeyTemizlemeAciklama":"Açıklama 2",
+          "slabYuzeyTemizlemeText":"Açıklama 2 / S",
+          "durum":"A",
+          "islemTipiNo":1,
+          "etag":"b4426bdd-99c4-4cdb-baeb-cfb8248cb5c8"
+        }))
+      })
+    }}
+  </Story>
+</Canvas>

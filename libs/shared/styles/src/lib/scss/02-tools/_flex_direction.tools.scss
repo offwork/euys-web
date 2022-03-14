@@ -1,0 +1,16 @@
+@mixin flex-column {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+@mixin flex-row {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  height: 100%;
+  overflow: hidden;
+}

@@ -1,0 +1,78 @@
+<p-card>
+  <button
+    pButton
+    type="button"
+    label="Kayıt"
+    id="verimKayitButton"
+    icon="pi pi-save"
+    (click)="save()"
+    [disabled]="!selectedHatVerim || selectedHatVerim.hatVerim"
+  ></button>
+
+  <button
+    pButton
+    type="button"
+    label="Güncelle"
+    id="verimGuncelleButton"
+    icon="pi pi-pencil"
+    (click)="update()"
+    [disabled]="!selectedHatVerim || !selectedHatVerim.hatVerim"
+  ></button>
+
+  <p-table
+    [value]="upHatVerimList$ | async"
+    selectionMode="single"
+    [(selection)]="selectedHatVerim"
+    responsiveLayout="scroll"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Hat Kodu</th>
+        <th>Hat Adı</th>
+        <th>Hat Verimi</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-hatVerim>
+      <tr [pSelectableRow]="hatVerim">
+        <td class="text-center">{{ hatVerim.hatKodu }}</td>
+        <td class="text-center">{{ hatVerim.hatAdi }}</td>
+        <td class="text-right">{{ hatVerim.hatVerim | number: '1.3-3' }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+
+<p-dialog
+  header="{{ selectedHatVerim?.hatAdi }}"
+  [(visible)]="displayDialog"
+  [modal]="true"
+>
+  <form class="grid grid-cols-fit-2 gap-4" [formGroup]="formGroup">
+    <label for="hatKodu">Hat Kodu</label>
+    <input
+      type="text"
+      [attr.disabled]="true"
+      pInputText
+      formControlName="hatKodu"
+    />
+    <label for="hatAdi">Hat Adı</label>
+    <input
+      type="text"
+      [attr.disabled]="true"
+      pInputText
+      formControlName="hatAdi"
+    />
+    <label for="hatVerim" euysValidationMessage>Hat Verim</label>
+    <input type="number" pInputText formControlName="hatVerim" />
+
+    <button
+      pButton
+      type="button"
+      label="Kayıt"
+      id="dialogVerimKayitButton"
+      icon="pi pi-save"
+      (click)="dialogSave()"
+      class="col-start-2"
+    ></button>
+  </form>
+</p-dialog>

@@ -1,0 +1,15 @@
+/**
+ * TODO:
+ * isimlendirme ITCSS metodoloji yapısına uygun olmalı!
+ * class, mixin, function yanısıra scss dosyasınında
+ * bulunduğu klasöre göre isimle sonlandırılmalı!
+ *
+ * Deneysel kod geliştirmeleri belkide başka git
+ * branch'larında gerçekleştirilmeli.
+ */
+@mixin md-icon-size($size: 24px) {
+  font-size: $size;
+  height: $size;
+  line-height: $size;
+  width: $size;
+}

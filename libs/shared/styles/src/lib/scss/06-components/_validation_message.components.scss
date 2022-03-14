@@ -1,0 +1,24 @@
+.validation-message-directive {
+  /* stylelint-disable-next-line length-zero-no-unit */
+  --rows: 0rem;
+
+  &::after {
+    color: #f00;
+    content: attr(data-validation-message);
+    font-size: 90%;
+    position: absolute;
+    transform: translate(1rem, calc(2rem + var(--rows)));
+  }
+}
+
+/* stylelint-disable-next-line selector-no-qualifying-type */
+td.validation-message-directive {
+  --rows: 0.35rem;
+
+  position: relative;
+
+  &::after {
+    font-size: 80%;
+    left: 0;
+  }
+}

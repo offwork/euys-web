@@ -1,0 +1,27 @@
+<euys-filter-bar [formFields]="filterFormFields" (startSearching)="clickOnContinue($event)"></euys-filter-bar>
+
+<div class="table-wrapper" *ngIf="loaded$ | async">
+  <p-card class="scroll-container" [header]="header">
+    <ng-container *ngIf="(yillikUretimTable$ | async)?.length > 0; else emptyTemplate">
+      <table cdk-table [dataSource]="yillikUretimTable$" class="w-100">
+        <ng-container cdkColumnDef="hat">
+          <th cdk-header-cell *cdkHeaderCellDef>Hat</th>
+          <td cdk-cell *cdkCellDef="let element">{{ element.unite }}</td>
+        </ng-container>
+        <ng-container *ngFor="let ay of aylar; let i = index">
+          <ng-container cdkColumnDef="aylikBilgi-{{ i }}">
+            <th cdk-header-cell *cdkHeaderCellDef class="text-right">{{ ay }}</th>
+            <td cdk-cell *cdkCellDef="let element" class="text-right">
+              {{ element.aylikBilgiler[i] | translocoDecimal: { maximumFractionDigits: 0 } }}
+            </td>
+          </ng-container>
+        </ng-container>
+        <tr cdk-header-row *cdkHeaderRowDef="columns"></tr>
+        <tr cdk-row *cdkRowDef="let row; columns: columns"></tr>
+      </table>
+    </ng-container>
+    <ng-template #emptyTemplate>
+      <p-messages [(value)]="hummanMassage" [enableService]="false" [closable]="false"></p-messages>
+    </ng-template>
+  </p-card>
+</div>

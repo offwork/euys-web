@@ -1,0 +1,196 @@
+<p-toolbar styleClass="mb-5">
+  <div class="p-toolbar-group-left">
+    <button
+      (click)="goBack(false)"
+      *ngIf="(visible | async) !== Visible.GORUNTULEME"
+      pButton
+      pRipple
+      type="button"
+      label="Geri"
+      icon="pi pi-arrow-left"
+      class="p-button-rounded p-button-secondary mr-5"
+    ></button>
+
+    <h3 *ngIf="(visible | async) === Visible.GORUNTULEME">
+      Durdurma Kod Adları Ana Ekranı
+    </h3>
+    <h3 *ngIf="(visible | async) === Visible.GUNCELLEME_KAYIT">
+      Durdurma Kod Adları Tanımlama
+    </h3>
+  </div>
+</p-toolbar>
+
+<p-table
+  *ngIf="(visible | async) === Visible.GORUNTULEME"
+  [value]="data$ | async | cloneArray"
+  styleClass="p-datatable-gridlines"
+  responsiveLayout="scroll"
+  [paginator]="true"
+  [rows]="7">
+  <ng-template pTemplate="header">
+    <tr>
+      <th></th>
+      <th pSortableColumn="durdurmaAnaKodu">Durdurma Ana Kod Adı
+        <p-sortIcon field="durdurmaAnaKodu"></p-sortIcon>
+      </th>
+      <th pSortableColumn="durdurmaAltKodu">Durdurma Alt Kod Adı
+        <p-sortIcon field="durdurmaAltKodu"></p-sortIcon>
+      </th>
+      <th pSortableColumn="durdurmaStatu">Durdurma Kod Adı Hold Statüsü
+        <p-sortIcon field="durdurmaStatu"></p-sortIcon>
+      </th>
+      <th pSortableColumn="durdurmaBirim">Durdurma Takip Birimleri
+        <p-sortIcon field="durdurmaBirim"></p-sortIcon>
+      </th>
+    </tr>
+    <tr class="p-text-left">
+      <th></th>
+      <th>
+        <p-columnFilter field="durdurmaAnaKodu" matchMode="equals" [showMenu]="false">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <p-dropdown [ngModel]="value"
+                        [options]="(listeler$ | async)?.durdurmaAnaKodlari"
+                        (onChange)="filter($event.value)"
+                        placeholder="Hepsi"></p-dropdown>
+          </ng-template>
+        </p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter field="durdurmaAltKodu" matchMode="equals" [showMenu]="false">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <p-dropdown [ngModel]="value"
+                        [options]="(listeler$ | async)?.durdurmaAltKodlari"
+                        (onChange)="filter($event.value)"
+                        placeholder="Hepsi"></p-dropdown>
+          </ng-template>
+        </p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter field="durdurmaStatu" matchMode="equals" [showMenu]="false">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <p-dropdown [ngModel]="value"
+                        [options]="(listeler$ | async)?.utDurdurmaStatuModel"
+                        (onChange)="filter($event.value)"
+                        placeholder="Hepsi"
+                        optionLabel="durdurmaStatu"
+                        optionValue="durdurmaStatu"></p-dropdown>
+          </ng-template>
+        </p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter field="durdurmaBirim" matchMode="equals" [showMenu]="false">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <p-dropdown appendTo="body"
+                        [ngModel]="value"
+                        [options]="(listeler$ | async)?.utStDurdurmaBirimModelList"
+                        (onChange)="filter($event.value)"
+                        placeholder="Hepsi"
+                        optionLabel="durdurmaBirim"
+                        optionValue="durdurmaBirim"></p-dropdown>
+          </ng-template>
+        </p-columnFilter>
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-row>
+    <tr>
+      <td class="!text-center" width="60">
+        <button
+          id="guncelle"
+          pButton
+          (click)="goToSave(row)"
+          type="button"
+          icon="pi pi-pencil"
+          class="p-button-lg p-button-text p-button-success !py-0"
+        ></button>
+      </td>
+      <td>{{ row.durdurmaAnaKodu }}</td>
+      <td>{{ row.durdurmaAltKodu }}</td>
+      <td>{{ row.durdurmaStatu }}</td>
+      <td>{{ row.durdurmaBirim }}</td>
+
+    </tr>
+  </ng-template>
+</p-table>
+
+<button
+  *ngIf="(visible | async) === Visible.GORUNTULEME"
+  id="kayit"
+  (click)="goToSave()"
+  pButton
+  pRipple
+  type="button"
+  [label]="'Yeni'"
+  icon="pi pi-save"
+  class="p-button-rounded p-button-secondary my-5"
+></button>
+
+<p-card *ngIf="(visible | async) === Visible.GUNCELLEME_KAYIT">
+  <form [formGroup]="form" class="grid gap-3 items-center"
+        style="grid-template-columns: repeat(2, fit-content(100%))">
+
+    <label>* Durdurma Ana Kod Adı: </label>
+    <p-autoComplete
+      appendTo="body"
+      formControlName="durdurmaAnaKodu"
+      [suggestions]="anaKodFiltre"
+      (completeMethod)="anaKodArama($event.query)"
+      (onSelect)="anaKodArama($event)"
+      [dropdown]="true"></p-autoComplete>
+
+    <label>* Durdurma Alt Kod Adı: </label>
+    <p-autoComplete
+      appendTo="body"
+      formControlName="durdurmaAltKodu"
+      [suggestions]="altKodFiltre"
+      (completeMethod)="altKodArama($event)"
+      [dropdown]="true"></p-autoComplete>
+
+    <label>* Durdurma Kod Adı Hold Statüsü: </label>
+    <p-dropdown
+      formControlName="idDurdurmaStatu"
+      placeholder="Seçiniz"
+      class="col-span-1 flex"
+      styleClass="flex-1"
+      inputId="durdurmaStatu"
+      [options]="(listeler$ | async).utDurdurmaStatuModel"
+      optionLabel="durdurmaStatu"
+      optionValue="id"
+      [showClear]="true"></p-dropdown>
+
+    <label>* Durdurma Birim Adı: </label>
+    <p-dropdown
+      formControlName="durdurmaBirimNo"
+      placeholder="Seçiniz"
+      class="col-span-1 flex"
+      styleClass="flex-1"
+      inputId="durdurmaStatu"
+      [options]="(listeler$ | async).utStDurdurmaBirimModelList"
+      optionLabel="durdurmaBirim"
+      optionValue="durdurmaBirimNo"
+      [showClear]="true"></p-dropdown>
+
+  </form>
+
+  <button
+    (click)="saveOrUpdate()"
+    pButton
+    pRipple
+    type="button"
+    [label]="'Devam'"
+    icon="pi pi-save"
+    class="p-button-rounded p-button-secondary my-5 mr-3"
+  ></button>
+
+  <button
+    (click)="delete()"
+    pButton
+    pRipple
+    type="button"
+    [label]="'Sil'"
+    [disabled]="!this.selectedRow"
+    icon="pi pi-save"
+    class="p-button-rounded p-button-secondary my-5"
+  ></button>
+</p-card>

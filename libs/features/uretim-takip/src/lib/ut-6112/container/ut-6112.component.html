@@ -1,0 +1,102 @@
+<p-toolbar styleClass="mb-5">
+  <div class="p-toolbar-group-left">
+    <button
+      (click)="goBack()"
+      *ngIf="(visible | async) !== Visible.GORUNTULEME"
+      pButton
+      pRipple
+      type="button"
+      label="Geri"
+      icon="pi pi-arrow-left"
+      class="p-button-rounded p-button-secondary mr-5"
+    ></button>
+
+    <h3 *ngIf="(visible | async) === Visible.GORUNTULEME">
+      Durdurma Statü Kodları Açıklamaları Ana Ekranı
+    </h3>
+    <h3 *ngIf="(visible | async) === Visible.GUNCELLEME_KAYIT">
+      Durdurma Statü Kodları Açıklamaları Giriş/Güncelleme/Silme Ekranı
+    </h3>
+  </div>
+</p-toolbar>
+
+<p-table
+  [value]="data$ | async"
+  styleClass="p-datatable-gridlines"
+  responsiveLayout="scroll"
+  [paginator]="true"
+  [rows]="7"
+  *ngIf="(visible | async) === Visible.GORUNTULEME"
+  sortField="olcumTarihiDate">
+  <ng-template pTemplate="header">
+    <tr>
+      <th></th>
+      <th>Kod</th>
+      <th>Durdurma Statü Kodu Açıklaması</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-row>
+    <tr>
+      <td class="!text-center" width="60">
+        <button
+          id="guncelle"
+          pButton
+          (click)="goToSave(row)"
+          type="button"
+          icon="pi pi-pencil"
+          class="p-button-lg p-button-text p-button-success !py-0"
+        ></button>
+      </td>
+      <td>{{ row.durdurmaStatu }}</td>
+      <td>{{ row.durdurmaStatuTanim }}</td>
+
+    </tr>
+  </ng-template>
+</p-table>
+
+<button
+  *ngIf="(visible | async) === Visible.GORUNTULEME"
+  id="kayit"
+  (click)="goToSave()"
+  pButton
+  pRipple
+  type="button"
+  [label]="'Kayıt'"
+  icon="pi pi-save"
+  class="p-button-rounded p-button-secondary my-5"
+></button>
+
+<p-card *ngIf="(visible | async) === Visible.GUNCELLEME_KAYIT">
+  <form [formGroup]="form" class="grid gap-3 items-center"
+        style="grid-template-columns: repeat(2, fit-content(100%))">
+
+    <label>* Durdurma Statü Kodu: </label>
+    <input formControlName="durdurmaStatu" pInputText />
+
+
+    <label>* Durdurma Statü Kodu Açıklaması: </label>
+    <input formControlName="durdurmaStatuTanim" pInputText />
+  </form>
+
+  <button
+    (click)="saveOrUpdate()"
+    pButton
+    pRipple
+    type="button"
+    [label]="'Devam'"
+    icon="pi pi-save"
+    class="p-button-rounded p-button-secondary my-5 mr-3"
+  ></button>
+
+  <button
+    (click)="delete()"
+    pButton
+    pRipple
+    type="button"
+    [label]="'Sil'"
+    [disabled]="!this.selectedRow"
+    icon="pi pi-save"
+    class="p-button-rounded p-button-secondary my-5"
+  ></button>
+</p-card>

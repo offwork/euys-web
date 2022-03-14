@@ -1,0 +1,39 @@
+<euys-spesifikasyon-toolbar
+  title="Genişlik Aralığı"
+  [isFormVisible]="isFormVisible | async"
+  [isUpdate]="isUpdate()"
+  [updateDisabled]="!selectedRow"
+  (addClick)="onAddClick()"
+  (updateClick)="onUpdateClick(selectedRow)"
+  (goBackClick)="goBack()"
+  (reloadClick)="reload()"
+  [hideDelete]="false"
+  (deleteClick)="onDeleteClick(selectedRow)"
+  [deleteDisabled]="!selectedRow"
+>
+</euys-spesifikasyon-toolbar>
+
+<euys-spesifikasyon-tablo
+  [data]="data$"
+  [loaded]="loaded$"
+  [headers]="tableHeaders"
+  [cols]="cols"
+  [selected]="selectedRow"
+  (selectedChange)="selectedRow = $event"
+  *ngIf="(isFormVisible | async) === false"
+>
+</euys-spesifikasyon-tablo>
+
+<p-card *ngIf="isFormVisible | async">
+  <euys-dynamic-form
+    [selectedRow]="selectedRow$"
+    [formControls]="formControls"
+    [update]="isUpdate()"
+    (dispatchFormValue)="onSubmit($event)"
+  >
+  </euys-dynamic-form>
+</p-card>
+<p-confirmDialog
+  header="Silme Onayı"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>

@@ -1,0 +1,89 @@
+<div *ngIf="yaglamaList$ | async as yaglamaList; else loading">
+  <p-table
+    (onRowSelect)="onRowSelect($event.data)"
+    (onRowUnselect)="onRowUnselect(null)"
+    [paginator]="true"
+    [rows]="10"
+    [selection]="selected"
+    [value]="yaglamaList"
+    dataKey="id"
+    responsiveLayout="scroll"
+    selectionMode="single"
+    styleClass="p-datatable-gridlines p-datatable-striped table-header-text-center"
+  >
+    <ng-template pTemplate="header"
+      >0
+      <tr>
+        <th rowspan="2">Kodu</th>
+        <th rowspan="2">Ürün Kodları</th>
+        <th rowspan="2">Sipariş Çelik Kalitesi</th>
+        <th colspan="2">Sipariş Kalınlık</th>
+        <th rowspan="2">Hat</th>
+        <th rowspan="2">Yerli/İhraç</th>
+        <th colspan="3">Yağlama Sipariş Öğesi Ana Tablolar</th>
+        <th rowspan="2">Yağlama Spesifikasyon Ana Tablo</th>
+        <th rowspan="2">Durum</th>
+      </tr>
+      <tr>
+        <th>Min</th>
+        <th>Max</th>
+        <th>Yağlama Markası</th>
+        <th>Yağlama Durumu</th>
+        <th>Yağlama Yüzeyi</th>
+      </tr>
+      <tr>
+        <th>
+          <euys-simple-table-filter
+            [type]="'text'"
+            [field]="'yaglamaKodu'"
+          ></euys-simple-table-filter>
+        </th>
+        <th>
+          <euys-simple-table-filter
+            [type]="'text'"
+            [field]="'celikKalitesi'"
+          ></euys-simple-table-filter>
+        </th>
+        <th>
+          <euys-simple-table-filter
+            [type]="'numeric'"
+            [field]="'minKalinlik'"
+          ></euys-simple-table-filter>
+        </th>
+        <th>
+          <euys-simple-table-filter
+            [type]="'numeric'"
+            [field]="'maxKalinlik'"
+          ></euys-simple-table-filter>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-yaglamaItem>
+      <tr [pSelectableRow]="yaglamaItem">
+        <td>{{ yaglamaItem.yaglamaKodu }}</td>
+        <td class="flex items-center justify-center text-center gap-2">
+          <span *ngIf="configLoaded$ | async">
+            {{ yaglamaItem.urunKodlari[0] + '...' }}
+          </span>
+          <euys-column-action-button
+            [icon]="'pi pi-ellipsis-v'"
+            [isReady]="configLoaded$ | async"
+            (columnActionEmitter)="expandColumnDataHandler(yaglamaItem)"
+          >
+          </euys-column-action-button>
+        </td>
+        <td>{{ yaglamaItem.celikKalitesi }}</td>
+        <td>{{ yaglamaItem.minKalinlik }}</td>
+        <td>{{ yaglamaItem.maxKalinlik }}</td>
+        <td>{{ yaglamaItem.hatKodu }}</td>
+        <td>{{ yaglamaItem.yerliIhrac }}</td>
+        <td>{{ yaglamaItem.marka }}</td>
+        <td>{{ yaglamaItem.yaglamaDurum }}</td>
+        <td>{{ yaglamaItem.yaglamaYuzeyi }}</td>
+        <td>{{ yaglamaItem.yaglamaKodu }}</td>
+        <td>{{ yaglamaItem.durum }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<ng-template #loading>LOADING</ng-template>

@@ -1,0 +1,33 @@
+.v-align-content {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 100%;
+
+  span {
+    padding-left: 4px;
+  }
+
+  p-calendar {
+    display: contents;
+  }
+}
+
+.h-align-content {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 20% 80%;
+
+  span > span {
+    float: right;
+    margin-right: 16px;
+  }
+
+  p-calendar {
+    display: contents;
+    margin-left: 16px;
+  }
+
+  .euys-form-field-error {
+    grid-column: 2;
+  }
+}

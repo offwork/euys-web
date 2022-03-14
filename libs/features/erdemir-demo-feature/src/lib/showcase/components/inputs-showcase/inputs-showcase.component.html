@@ -1,0 +1,194 @@
+<div class="grid grid-cols-2 justify-items-stretch gap-x-20 gap-y-10 pt-2">
+  <div class="p-fluid">
+    <span class="p-float-label">
+      <input id="username1" type="text" pInputText>
+      <label for="username1">Adı Soyadı</label>
+    </span>
+    <small id="username1-help">Adınızı ve Soyadınızı giriniz.</small>
+  </div>
+
+  <div class="p-fluid">
+    <span class="p-float-label">
+      <input id="username2" type="text" pInputText [formControl]="formName2">
+      <label for="username2">Adı Soyadı</label>
+    </span>
+    <small *ngIf="formName2.valid || formName2.pristine" id="username2-help">Adınızı ve Soyadınızı giriniz.</small>
+    <small *ngIf="formName2.hasError('required') && (formName2.dirty || formName2.touched)" id="username2-help" class="p-error">Ad Soyad zorunludur.</small>
+  </div>
+
+  <euys-code-showcase [fragments]="fragments1" class="col-span-2"></euys-code-showcase>
+
+  <div class="p-fluid">
+    <span class="p-float-label">
+      <input id="username2" type="text" pInputText disabled>
+      <label for="username1">Disabled</label>
+    </span>
+    <small id="username1-help">Adınızı ve Soyadınızı giriniz.</small>
+  </div>
+  <div class="p-fluid">
+    <span class="p-float-label">
+      <input id="username2" type="text" pInputText [value]="'Taner Topaç'" readonly>
+      <label for="username2">Readonly</label>
+    </span>
+    <small id="username2-help">Adınızı ve Soyadınızı giriniz.</small>
+  </div>
+
+  <euys-code-showcase [fragments]="fragments2" class="col-span-2"></euys-code-showcase>
+
+  <div class="p-fluid">
+    <span class="p-float-label">
+      <p-inputMask id="telNo1" mask="(999) 999-9999" [(ngModel)]="tel"></p-inputMask>
+      <label for="telNo1">Telefon Numarası</label>
+    </span>
+    <small id="username2-help">10 haneli telefon numaranızı giriniz</small>
+  </div>
+  <div class="p-fluid">
+    <span class="p-float-label">
+      <p-inputMask id="telNo2" mask="(999) 999-9999" [formControl]="formTel2"></p-inputMask>
+      <label for="telNo2">Telefon Numarası</label>
+    </span>
+    <small *ngIf="formTel2.valid || formTel2.pristine" id="telNo2-help">10 haneli telefon numaranızı giriniz.</small>
+    <small *ngIf="formTel2.hasError('required') && (formTel2.touched || formTel2.dirty)" id="telNo2-error" class="p-error">Telefon numarası zorunludur.</small>
+  </div>
+
+  <euys-code-showcase [fragments]="fragments3" class="col-span-2"></euys-code-showcase>
+
+  <div class="p-fluid">
+    <span class="p-float-label">
+      <p-calendar dateFormat="dd/mm/yy" inputId="dateformat" [formControl]="formDate1" [showIcon]="true"></p-calendar>
+      <label for="dateformat">DateFormat (dd/mm/yyyy)</label>
+    </span>
+  </div>
+  <div class="p-fluid">
+    <span class="p-float-label">
+      <p-calendar dateFormat="dd/mm/yy" inputId="dateformat2" [formControl]="formDate2" [showIcon]="true"></p-calendar>
+      <label for="dateformat2">DateFormat (dd/mm/yyyy)</label>
+    </span>
+    <small *ngIf="formDate2.hasError('required') && (formDate2.touched || formDate2.dirty)" id="formDate2-error" class="p-error">Tarih zorunludur.</small>
+  </div>
+
+  <euys-code-showcase [fragments]="fragments4" class="col-span-2"></euys-code-showcase>
+
+  <div class="p-fluid">
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+      <input id="search1" type="text" pInputText placeholder="Ara">
+    </div>
+    <small id="search1-help">Aramak için yazınız.</small>
+  </div>
+  <div class="p-fluid">
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+      <input id="search2" type="text" pInputText placeholder="Ara" [value]="'Çelik'">
+    </div>
+    <small id="search2-help">Aramak için yazınız.</small>
+  </div>
+
+  <euys-code-showcase [fragments]="fragments5" class="col-span-2"></euys-code-showcase>
+
+  <div class="p-fluid">
+    <div class="p-inputgroup">
+      <input id="email1" type="text" pInputText placeholder="Mail Adresi">
+      <span class="p-inputgroup-addon">@erdemir.com.tr</span>
+    </div>
+  </div>
+  <div class="p-fluid">
+    <div class="p-inputgroup">
+      <input id="email2" type="text" pInputText placeholder="Mail Adresi" [formControl]="formMail2">
+      <span class="p-inputgroup-addon">@erdemir.com.tr</span>
+    </div>
+    <small *ngIf="formMail2.hasError('required') && (formMail2.touched || formMail2.dirty)" id="email2-help" class="p-error">Mail adresi zorunludur.</small>
+  </div>
+
+  <euys-code-showcase [fragments]="fragments6" class="col-span-2"></euys-code-showcase>
+
+  <div class="p-fluid">
+    <div class="p-inputgroup">
+      <p-inputNumber inputId="currency1" [style.width]="'100%'" mode="decimal" locale="tr-TR" [minFractionDigits]="2" [maxFractionDigits]="2" placeholder="Tutar">
+      </p-inputNumber>
+      <span class="p-inputgroup-addon">₺</span>
+    </div>
+  </div>
+  <div class="p-fluid">
+    <div class="p-inputgroup">
+      <p-inputNumber [formControl]="formCurrency2" [style.width]="'100%'" inputId="currency2" mode="decimal" locale="tr-TR" [minFractionDigits]="2" [maxFractionDigits]="2" placeholder="Tutar">
+      </p-inputNumber>
+      <span class="p-inputgroup-addon">₺</span>
+    </div>
+    <small *ngIf="formCurrency2.hasError('required') && (formCurrency2.touched || formCurrency2.dirty)" id="currency2-help" class="p-error">Tutar zorunludur.</small>
+  </div>
+
+  <euys-code-showcase [fragments]="fragments7" class="col-span-2"></euys-code-showcase>
+
+  <div class="p-fluid">
+    <p-dropdown [options]="cities" optionLabel="name" [filter]="true" filterBy="name"
+      [showClear]="true" placeholder="Şehir">
+    </p-dropdown>
+  </div>
+  <div class="p-fluid">
+    <p-dropdown [options]="cities" [formControl]="formCity2" optionLabel="name" [filter]="true" filterBy="name"
+      [showClear]="true" placeholder="Şehir">
+    </p-dropdown>
+    <small *ngIf="formCity2.hasError('required') && (formCity2.dirty || formCity2.touched)" id="city2-help" class="p-error">Şehir Seçiniz.</small>
+  </div>
+
+  <euys-code-showcase [fragments]="fragments8" class="col-span-2"></euys-code-showcase>
+
+  <div class="p-fluid">
+    <span class="p-float-label">
+      <p-autoComplete [suggestions]="mamuls" inputId="mamul1-input" (completeMethod)="autoCompleteMamul($event)" [forceSelection]="true" field="mamulAdi" [dropdown]="true"></p-autoComplete>
+      <label for="mamul1-input">Mamul</label>
+    </span>
+  </div>
+  <div class="p-fluid">
+    <span class="p-float-label">
+      <p-autoComplete [suggestions]="mamuls" inputId="mamul2-input" [formControl]="formMamul2" (completeMethod)="autoCompleteMamul($event)" [forceSelection]="true" field="mamulAdi" [dropdown]="true"></p-autoComplete>
+      <label for="mamul2-input">Mamul</label>
+      <small *ngIf="formMamul2.hasError('required') && (formMamul2.dirty || formMamul2.touched)" id="mamul2-help" class="p-error">
+        Mamul seçimi zorunludur.
+      </small>
+    </span>
+  </div>
+
+  <euys-code-showcase [fragments]="fragments9" class="col-span-2"></euys-code-showcase>
+
+  <div class="p-fluid">
+    <span class="p-float-label">
+      <input id="password1" type="password" pInputText>
+      <label for="password1">Parola</label>
+    </span>
+    <small id="password1-help">Parola giriniz.</small>
+  </div>
+  <div class="p-fluid">
+    <span class="p-float-label">
+      <input id="password2" type="password" pInputText [formControl]="formPassword2">
+      <label for="password2">Parola</label>
+    </span>
+    <small *ngIf="formPassword2.valid || formPassword2.pristine" id="password2-help">Parolanızı giriniz.</small>
+    <small *ngIf="formPassword2.hasError('required') && (formPassword2.dirty || formPassword2.touched)" id="password2-help" class="p-error">Parola zorunludur.</small>
+    <small *ngIf="formPassword2.hasError('pattern') && (formPassword2.dirty || formPassword2.touched)" id="password2-help" class="p-error">
+      Parolanız en az bir büyük harf, bir rakam ve bir özel karakterden (#$@!%&*?) oluşmalıdır. En az 8, en fazla 30 karakter olabilir.
+    </small>
+  </div>
+
+  <euys-code-showcase [fragments]="fragments10" class="col-span-2"></euys-code-showcase>
+
+  <div class="p-fluid">
+    <span class="p-float-label">
+      <p-inputNumber [style.width]="'100%'" inputId="number1" mode="decimal" locale="tr-TR" locale="tr-TR" [minFractionDigits]="0" [maxFractionDigits]="0" [showButtons]="true">
+      </p-inputNumber>
+      <label for="number1">Sayı</label>
+    </span>
+  </div>
+  <div class="p-fluid">
+    <span class="p-float-label">
+      <p-inputNumber [formControl]="formNumber2" [style.width]="'100%'" inputId="number2" mode="decimal" locale="tr-TR" locale="tr-TR" [minFractionDigits]="0" [maxFractionDigits]="0" [showButtons]="true">
+      </p-inputNumber>
+      <label for="number2">Sayı</label>
+    </span>
+    <small *ngIf="formNumber2.hasError('required') && (formNumber2.touched || formNumber2.dirty)" id="number2-help" class="p-error">Sayı zorunludur.</small>
+  </div>
+
+  <euys-code-showcase [fragments]="fragments11" class="col-span-2"></euys-code-showcase>
+
+</div>

@@ -1,0 +1,43 @@
+<div class="title-wrapper">
+  <ul class="title-list" *ngIf="treeList | async as treeview">
+    <li *ngFor="let item of treeview">
+      {{ item }}
+    </li>
+  </ul>
+</div>
+
+<div class="grid-horizontal-scroll">
+  <div class="collapse-header">
+    <div>
+      <span>HEDEF</span>
+    </div>
+    <div>
+      <span>TEE – WSA</span>
+      <span [style.margin-left.px]="'-1'">TEE – TESİS KAYNAKLI</span>
+    </div>
+  </div>
+  <div class="grid-wrapper" *ngIf="gridDataSource | async as gridData">
+    <ul class="grid-container" *ngFor="let column of getColumnKeys(gridData); let i = index">
+      {{
+        columnsDef[i]
+      }}
+      <li class="grid-cell" *ngFor="let item of gridData[column]">
+        <ng-container *ngIf="item.sign === 0">
+          <input disabled type="text" />
+        </ng-container>
+        <ng-container *ngIf="item.sign === 1"
+          ><!-- [ngClass]="{'invalid-total': inValidTotal(item.value)}" -->
+          <input
+            euysDigitOnly
+            type="text"
+            #valInput
+            [value]="item.value | number: '.2':'tr'"
+            [ngClass]="{ 'invalid-total': inValidTotal(item.value) }"
+            placeholder="Bu alan boş bırakılamaz!"
+            (blur)="percentageCalc(item, valInput.value, column)"
+          />
+        </ng-container>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<euys-spesifikasyon-toolbar
+  (addClick)="onAddClick()"
+  (goBackClick)="goBack()"
+  (reloadClick)="reload()"
+  (updateClick)="onUpdateClick(selectedRow)"
+  [isFormVisible]="isFormVisible | async"
+  [isUpdate]="isUpdate"
+  [updateDisabled]="!selectedRow || selectedRow.kontrolAktifTaslak === 1"
+  title="Yağlama Spesifikasyonu"
+>
+</euys-spesifikasyon-toolbar>
+
+<euys-yaglama-list
+  [configLoaded$]="configLoaded$"
+  [config$]="config$"
+  (rowSelect)="rowSelectHandler($event)"
+  (rowUnselect)="rowUnselectHandler($event)"
+  [yaglamaList$]="yaglamaList$"
+  [yaglamaListLoaded$]="yaglamaListLoaded$"
+>
+</euys-yaglama-list>
+
+<euys-yaglama-spesifikasyon-form
+  [configLoaded$]="configLoaded$"
+  [config$]="config$"
+  [isFormVisible]="isFormVisible | async"
+  [selectedRow]="selectedRow$"
+  [update]="isUpdate"
+></euys-yaglama-spesifikasyon-form>

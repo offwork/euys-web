@@ -1,0 +1,148 @@
+<ng-container *ngIf="listVisible; else detail">
+  <p-toolbar styleClass="bg-white mb-4">
+    <div class="p-toolbar-group-left">
+      <label class="text-right mx-4" for="year">Yıl :</label>
+      <euys-year-picker
+        inputId="year"
+        class="w-32"
+        [formControl]="yearControl"
+        (onChange)="reload()"
+      ></euys-year-picker>
+    </div>
+
+    <div class="p-toolbar-group-right relative ml-4">
+      <div
+        *ngIf="progress$ | async"
+        class="
+          absolute
+          w-full
+          flex
+          items-center
+          justify-center
+          bg-black/40
+          z-10
+          rounded
+        "
+      >
+        <p-progressSpinner
+          styleClass="!w-10 !h-10 stroke-current text-white"
+          strokeWidth="6"
+        ></p-progressSpinner>
+      </div>
+      <button
+        pButton
+        id="delete-button"
+        type="button"
+        label="Sil"
+        icon="pi pi-times-circle"
+        class="p-button-secondary w-28 !ml-1"
+        [disabled]="!selected"
+        (click)="del()"
+      ></button>
+      <button
+        pButton
+        id="edit-button"
+        type="button"
+        label="Düzenle"
+        icon="pi pi-pencil"
+        class="p-button-secondary !ml-4 w-28"
+        [disabled]="!selected"
+        (click)="openModal()"
+      ></button>
+      <button
+        pButton
+        id="approve-button"
+        type="button"
+        label="Onay"
+        icon="pi pi-check-circle"
+        class="!ml-4 w-28"
+        [disabled]="!selected"
+        (click)="approve()"
+      ></button>
+      <button
+        pButton
+        id="disapprove-button"
+        type="button"
+        label="Onay İptali"
+        icon="pi pi-minus-circle"
+        class="!ml-4 mr-1 w-30"
+        [disabled]="!selected"
+        (click)="disapprove()"
+      ></button>
+    </div>
+  </p-toolbar>
+
+  <p-card>
+    <div class="flex justify-center" *ngIf="loading$ | async">
+      <p-progressSpinner></p-progressSpinner>
+    </div>
+
+    <p-table
+      [hidden]="loading$ | async"
+      [value]="data$ | async"
+      [(selection)]="selected"
+      selectionMode="single"
+      styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Yıllık Üretim Planı Taslağı</th>
+          <th>YÜP Açıklama</th>
+          <th>YÜP'e Baz Dosya</th>
+          <th>YÜP Kayıt Tarihi</th>
+          <th>YÜP Statü</th>
+          <th class="!text-center" width="120"></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item>
+        <tr [pSelectableRow]="item">
+          <td>{{ item.yupTaslakIsmi }}</td>
+          <td>{{ item.yupTaslakAciklama }}</td>
+          <td>{{ item.yupBazAnaBilgileriModel?.dosyaAdi }}</td>
+          <td>{{ item.olusturmaTarihi | date: 'longDate':'tr' }}</td>
+          <td>{{ item.yupPlanStatuNo === '01' ? 'Taslak' : 'Onaylandı' }}</td>
+          <td class="!text-center" width="120">
+            <button
+              pButton
+              type="button"
+              icon="pi pi-search"
+              class="p-button-lg p-button-text p-button-success !py-0"
+              (click)="showDetail(item)"
+            ></button>
+            <button
+              pButton
+              type="button"
+              icon="pi pi-file-pdf"
+              class="p-button-lg p-button-text p-button-primary !py-0"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr euysMessageRow></tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+</ng-container>
+
+<ng-template #detail>
+  <euys-yillik-uretim-plani
+    [showYearSelect]="true"
+    [yupTaslak]="yupTaslak"
+    (goBackClick)="showList()"
+  ></euys-yillik-uretim-plani>
+</ng-template>
+
+<p-dialog
+  header="YÜP Projeksiyon Düzenleme"
+  [modal]="true"
+  [(visible)]="modalVisible"
+>
+  <euys-dynamic-form
+    [selectedRow]="updateModel$"
+    [formControls]="formControls"
+    [update]="true"
+    (dispatchFormValue)="onSubmit($event)"
+  >
+  </euys-dynamic-form>
+</p-dialog>

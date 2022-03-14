@@ -1,0 +1,47 @@
+<p-columnFilter
+  [type]="type"
+  [field]="field"
+  [matchMode]="matchMode"
+  [showClearButton]="false"
+  [showApplyButton]="false"
+  [showMenu]="false"
+  [showOperator]="false"
+>
+  <ng-template
+    *ngIf="type === 'text'"
+    pTemplate="filter"
+    let-value
+    let-filter="filterCallback"
+  >
+    <input
+      [id]="field + '_filter'"
+      type="text"
+      pInputText
+      [ngModel]="value"
+      (input)="filter(getInputValue($event))"
+    />
+  </ng-template>
+  <ng-template
+    *ngIf="type === 'select'"
+    pTemplate="filter"
+    let-value
+    let-filter="filterCallback"
+  >
+    <p-dropdown
+      [id]="field + '_filter'"
+      [inputId]="field + '_filter-input'"
+      [ngModel]="value"
+      [options]="options"
+      (onChange)="filter($event.value)"
+      [showClear]="true"
+      placeholder="Seçiniz"
+      appendTo="body"
+    >
+      <ng-template let-option pTemplate="item">
+        <span [id]="field + '_filter-item_' + option">
+          {{ option }}
+        </span>
+      </ng-template>
+    </p-dropdown>
+  </ng-template>
+</p-columnFilter>

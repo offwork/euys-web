@@ -1,0 +1,94 @@
+<p-card>
+  <form [formGroup]="form" class="flex flex-col">
+    <p-selectButton
+      id="mevcut-select-button"
+      [options]="mevcutYeni"
+      optionLabel="label"
+      optionValue="value"
+      formControlName="mevcut"
+      class="ml-12"
+    ></p-selectButton>
+
+    <div
+      class="
+        grid grid-cols-fit-2
+        md:grid-cols-fit-4
+        items-center
+        gap-x-4 gap-y-9
+        mt-8
+        mb-1
+      "
+    >
+      <label class="text-right" for="yil">Yıl :</label>
+      <euys-year-picker
+        class="w-48"
+        inputId="yil"
+        formControlName="yil"
+      ></euys-year-picker>
+
+      <label class="text-right ml-2" for="kayitliDosya">
+        YÜP'e Baz Kayıtlı Dosyalar :
+      </label>
+      <p-dropdown
+        class="flex"
+        styleClass="flex-1 w-64"
+        [placeholder]="f.mevcut.value ? 'Seçiniz' : '-'"
+        [options]="bazAnaBilgiList$ | async"
+        optionLabel="dosyaAdi"
+        inputId="kayitliDosya"
+        formControlName="selected"
+      ></p-dropdown>
+
+      <label class="text-right" for="dosyaAdi" euysValidationMessage
+        >Dosya İsmi :</label
+      >
+      <textarea
+        pInputTextarea
+        [rows]="2"
+        class="resize-none"
+        id="dosyaAdi"
+        formControlName="dosyaAdi"
+      ></textarea>
+
+      <label class="text-right" for="dosyaAciklama">Dosya Açıklama :</label>
+      <textarea
+        pInputTextarea
+        [rows]="2"
+        class="resize-none"
+        id="dosyaAciklama"
+        formControlName="dosyaAciklama"
+      ></textarea>
+
+      <label class="text-right" for="dosyaExcel">Excel Dosya :</label>
+      <p-fileUpload
+        mode="basic"
+        styleClass="w-full"
+        chooseLabel="Dosya Seç"
+        [auto]="true"
+        [customUpload]="true"
+        (uploadHandler)="onFileChange($event)"
+      ></p-fileUpload>
+
+      <p-chip
+        *ngIf="file"
+        [label]="file?.name"
+        class="col-span-2"
+        styleClass="!px-4 !py-px shadow-inner"
+        icon="pi pi-file-excel"
+      ></p-chip>
+    </div>
+  </form>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      id="save-button"
+      class="p-button p-button-raised p-button-rounded w-36 !px-8"
+      type="button"
+      label="Kaydet"
+      icon="pi pi-save"
+      [loading]="progress$ | async"
+      (click)="save()"
+    ></button>
+  </ng-template>
+</p-card>

@@ -1,0 +1,45 @@
+<p-tabView
+  #tabView
+  [controlClose]="true"
+  [id]="'kusurKatalogTabPanel'"
+  (onClose)="handleClose($event)"
+  (onChange)="handleTabChange($event)"
+  [(activeIndex)]="index"
+>
+  <p-tabPanel
+    *ngFor="let kusurKatalogView of kusurKatalogViewList; trackBy:trackBykusurKatalogId"
+    header="{{kusurKatalogView.kkKusurKtlgHat?.hatKodu}} {{dirtyForms['katalog_form_' + kusurKatalogView.kkKusurKtlgHat.hatKodu] ? '*' : ''}}"
+    [closable]="true"
+  >
+    <ng-container [ngTemplateOutlet]="editable" [ngTemplateOutletContext]="{$implicit: kusurKatalogView}"></ng-container>
+  </p-tabPanel>
+  <p-tabPanel
+    [closable]="!!newKatalog && !!kusurKatalogViewList?.length"
+    [rightIcon]="!newKatalog ? 'pi pi-plus' : ''"
+    [header]="!newKatalog ? '' : (newKatalog?.kkKusurKtlgHat?.hatKodu || 'Yeni Katalog ') + '*'"
+  >
+    <ng-container
+      *ngIf="newKatalog;else default"
+      [ngTemplateOutlet]="editable"
+      [ngTemplateOutletContext]="{$implicit: newKatalog}"
+    ></ng-container>
+    <ng-template #default></ng-template>
+
+  </p-tabPanel>
+
+</p-tabView>
+
+<ng-template #editable let-katalog>
+  <euys-kusur-katalog-form
+    [id]="'katalog_form_' + katalog.kkKusurKtlgHat.hatKodu"
+    (isDirty)="dirtyForms['katalog_form_' + katalog.kkKusurKtlgHat.hatKodu]=$event"
+    *ngIf="katalog && hatComboListLoaded && kaliteListLoaded"
+    [kusurKatalog]="katalog"
+    [hatList]="hatComboList"
+  >
+  </euys-kusur-katalog-form>
+</ng-template>
+
+<ng-template #nonEditable></ng-template>
+
+<p-confirmPopup></p-confirmPopup>

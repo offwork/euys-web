@@ -1,0 +1,214 @@
+<ng-template #cell let-item="item">
+  <div class="cell">
+    <ng-container *ngIf="item.editable; else justText">
+      <p-dropdown class="w-full" styleClass="!flex" *ngIf="item.options; else textInput" [options]="item.options">
+      </p-dropdown>
+
+      <ng-template #textInput>
+        <input
+          pInputText
+          type="text"
+          class="p-inputtext-sm"
+          [value]="getItemValue(item)"
+          (keyup)="setItemValue(item, $event)"
+        />
+      </ng-template>
+    </ng-container>
+    <ng-template #justText> veriXyz </ng-template>
+  </div>
+</ng-template>
+
+<div class="flex">
+  <div class="table w-full grid grid-cols-12 bg-white table-border-bottom table-border-left">
+    <div class="cell col-span-2 row-span-2">Erdemir Logo</div>
+    <div class="cell col-span-8">Kalite Kontrol Sistemi</div>
+    <div class="cell cell-header">Tarih</div>
+    <div class="cell">11.10.2021</div>
+    <div class="cell col-span-8">1. Sıcak Haddehane QC Kayıt/Karar</div>
+    <div class="cell cell-header">Saat</div>
+    <div class="cell">13:40</div>
+
+    <div class="cell col-span-2 row-span-3 sticky -top-4 bg-white table-border-bottom"></div>
+
+    <!-- Top Section -->
+    <div class="col-span-10 row-span-3 grid grid-cols-10 sticky -top-4 bg-white table-border-bottom">
+      <ng-container *ngFor="let item of topData; let i = index">
+        <div class="cell cell-header" [class.col-span-2]="item.wide">{{ item.label }}</div>
+        <div class="cell">veri{{ i }}</div>
+      </ng-container>
+      <div class="cell col-span-2"></div>
+    </div>
+
+    <div class="cell col-span-12 justify-end pr-1 cell-borderless">
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-angle-right"
+        class="p-button-rounded table-button !transition-all !duration-500"
+        [class.rotate-180]="accordionTableOpen"
+        (click)="accordionTableOpen = !accordionTableOpen"
+      ></button>
+    </div>
+    <!-- Top Section End -->
+
+    <!-- Left Section -->
+    <div class="col-span-2 grid grid-cols-2">
+      <ng-container *ngFor="let item of leftData; let i = index">
+        <div class="cell cell-header">{{ item.label }}</div>
+        <ng-container *ngTemplateOutlet="cell; context:{item}"></ng-container>
+      </ng-container>
+    </div>
+    <!-- Left Section End-->
+
+    <!-- Right Section 1 -->
+    <div class="col-span-8 grid grid-cols-8">
+      <div class="cell col-span-4"></div>
+      <div class="cell col-span-3 cell-header">Ölçülen ( Actual)</div>
+      <div class="cell"></div>
+
+      <div class="cell"></div>
+      <div class="cell cell-header">Hedef(Target)</div>
+      <div class="cell cell-header">Min.</div>
+      <div class="cell cell-header">Max.</div>
+      <div class="cell cell-header">Ort. (Avarage)</div>
+      <div class="cell cell-header">Min.</div>
+      <div class="cell cell-header">Max.</div>
+      <div class="cell cell-header">Hold</div>
+
+      <ng-container *ngFor="let row of rtTopRows">
+        <div class="cell cell-header">{{ row.label }}</div>
+        <ng-container *ngFor="let item of rtData; let i = index">
+          <ng-container *ngTemplateOutlet="cell; context: { item: getRowItem(row, item) }"></ng-container>
+        </ng-container>
+      </ng-container>
+
+      <div class="cell col-span-8 row-span-7 center-data">
+        <div class="center-data-inputs">
+          <p-card styleClass="input-card border border-gray-200" subheader="Operatör">
+            <input type="text" class="!w-24" pInputText />
+          </p-card>
+          <p-card styleClass="input-card border border-gray-200" subheader="Çeyrek">
+            <input type="text" class="!w-24" pInputText />
+          </p-card>
+          <p-card styleClass="input-card border border-gray-200" subheader="Merkez">
+            <input type="text" class="!w-24" pInputText />
+          </p-card>
+          <p-card styleClass="input-card border border-gray-200" subheader="Çeyrek">
+            <input type="text" class="!w-24" pInputText />
+          </p-card>
+          <p-card styleClass="input-card border border-gray-200" subheader="DRV">
+            <input type="text" class="!w-24" pInputText />
+          </p-card>
+        </div>
+        <div class="center-data-shape-container">
+          <div class="center-data-shape"></div>
+        </div>
+      </div>
+
+      <ng-container *ngFor="let row of rtBottomRows">
+        <div class="cell cell-header">{{ row.label }}</div>
+        <ng-container *ngFor="let item of rtData; let i = index">
+          <ng-container *ngTemplateOutlet="cell; context: { item: getRowItem(row, item) }"></ng-container>
+        </ng-container>
+      </ng-container>
+    </div>
+    <!-- Right Section 1 End -->
+
+    <!-- Right Section 2 -->
+    <div class="col-span-2 grid grid-cols-2">
+      <div class="cell cell-header col-span-2">Tolerans Dışı</div>
+      <div class="cell cell-header">MIN(%)</div>
+      <div class="cell cell-header">MAX(%)</div>
+
+      <div class="cell">11</div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell">15</div>
+
+      <div class="cell col-span-2 row-span-2"></div>
+      <div class="cell col-span-2 row-span-7"></div>
+      <div class="cell col-span-2 row-span-6"></div>
+
+      <div class="cell">?</div>
+      <div class="cell">?</div>
+
+      <div class="cell">VeriX</div>
+      <div class="cell">VeriY</div>
+
+      <div class="cell">VeriA</div>
+      <div class="cell">VeriB</div>
+
+      <div class="cell col-span-2 row-span-2"></div>
+    </div>
+    <!-- Right Section 2 End -->
+  </div>
+
+  <div
+    class="table w-full grid grid-cols-3 table-border-bottom accordion-table"
+    [class.accordion-table-open]="accordionTableOpen"
+  >
+    <div class="cell cell-borderless col-span-3 row-span-6"></div>
+
+    <div class="cell cell-header col-span-3">L3 Değeri ( Actual)</div>
+    <div class="cell cell-header">Ort.</div>
+    <div class="cell cell-header">Min.</div>
+    <div class="cell cell-header">Max.</div>
+
+    <div class="cell">Veri0</div>
+    <div class="cell">Veri1</div>
+    <div class="cell">Veri2</div>
+
+    <div class="cell">Veri0</div>
+    <div class="cell">Veri1</div>
+    <div class="cell">Veri2</div>
+
+    <div class="cell">Veri0</div>
+    <div class="cell">Veri1</div>
+    <div class="cell">Veri2</div>
+
+    <div class="cell col-span-3"></div>
+    <div class="cell col-span-3 row-span-5"></div>
+
+    <div class="cell cell-header col-span-3">L3 Değeri ( Actual)</div>
+    <div class="cell cell-header">Ort.</div>
+    <div class="cell cell-header">Min.</div>
+    <div class="cell cell-header">Max.</div>
+
+    <ng-container *ngFor="let row of rtBottomRows">
+      <div class="cell">Veri0</div>
+      <div class="cell">Veri1</div>
+      <div class="cell">Veri2</div>
+    </ng-container>
+  </div>
+</div>
+
+<div class="table w-full grid grid-cols-12 mt-4">
+  <div class="cell cell-borderless col-span-2 row-span-2"></div>
+
+  <div class="col-span-6 grid grid-cols-6 table-border-left table-border-bottom">
+    <div class="cell cell-header col-span-6 justify-center">TCR (Bekletmeli Haddeleme)</div>
+    <div class="cell cell-header"></div>
+    <div class="cell cell-header">Hedef</div>
+    <div class="cell cell-header">Min</div>
+    <div class="cell cell-header">Max</div>
+    <div class="cell cell-header">Ölçülen</div>
+    <div class="cell cell-header">QC Karar</div>
+
+    <ng-container *ngFor="let row of tcrRows">
+      <div class="cell cell-header">{{ row.label }}</div>
+      <ng-container *ngFor="let item of tcrData; let i = index">
+        <ng-container *ngTemplateOutlet="cell; context: { item: getRowItem(row, item) }"></ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <div class="cell cell-borderless col-span-4 row-span-2"></div>
+</div>
+
+<p-toolbar styleClass="mt-4">
+  <div class="p-toolbar-group-left"></div>
+  <div class="p-toolbar-group-right">
+    <button pButton pRipple type="button" label="Devam" class="p-button-rounded" icon="pi pi-arrow-right"></button>
+  </div>
+</p-toolbar>

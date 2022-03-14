@@ -1,0 +1,25 @@
+<div class="fm-pratik-table">
+  <p-table
+    [columns]="fmPratikTableColumnDef"
+    [value]="fmBilgisi$ | async"
+    styleClass="p-datatable-gridlines"
+  >
+    <ng-template pTemplate="caption"
+      ><h2 [style.text-align]="'center'">FM PRATİĞİ BİLGİLERİ</h2></ng-template
+    >
+    <ng-template pTemplate="header" let-columns>
+      <tr class="fm-pratik-dialog-tr">
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr class="fm-pratik-dialog-tr">
+        <td *ngFor="let col of columns" class="fm-pratik-dialog-td">
+          {{ rowData[col.field] }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

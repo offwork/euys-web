@@ -1,0 +1,49 @@
+<form
+  [formGroup]="form"
+  class="
+    grid grid-flow-col grid-cols-fit-3 grid-rows-2
+    items-center
+    justify-items-start
+    gap-x-4
+  "
+>
+  <span class="row-start-2 text-right w-24">İmalat Lot No :</span>
+  <label for="mpcNo">MPC :</label>
+  <div class="p-inputgroup">
+    <input
+      pInputText
+      type="text"
+      id="mpcNo"
+      formControlName="mpcNo"
+      [attr.maxlength]="mpcLength"
+      (paste)="onPaste($event)"
+    />
+    <span class="p-inputgroup-addon">X ({{ mpcLength }})</span>
+  </div>
+
+  <label for="siparisNo">Sipariş No :</label>
+  <div class="p-inputgroup">
+    <input
+      pInputText
+      type="text"
+      id="siparisNo"
+      formControlName="siparisNo"
+      [attr.maxlength]="siparisNoLength"
+    />
+    <span class="p-inputgroup-addon">X ({{ siparisNoLength }})</span>
+  </div>
+
+  <button
+    pButton
+    type="button"
+    label="Devam"
+    [disabled]="invalid"
+    (click)="onSearch()"
+    class="
+      row-start-2
+      p-button p-button-raised p-button-outlined p-button-rounded
+      w-32
+    "
+    icon="pi pi-search"
+  ></button>
+</form>

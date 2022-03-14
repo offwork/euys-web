@@ -1,0 +1,81 @@
+<div class="flex justify-center" *ngIf="(loaded | async) === false">
+  <p-progressSpinner></p-progressSpinner>
+</div>
+
+<euys-message
+  *ngIf="(loaded | async) && value && value.length === 0"
+></euys-message>
+
+<p-table
+  [hidden]="((loaded | async) && value && value.length > 0) === false"
+  #table
+  [value]="displayValue"
+  [paginator]="true"
+  [rows]="pageRow"
+  [(first)]="pageFirst"
+  responsiveLayout="scroll"
+  selectionMode="single"
+  [selection]="selected"
+  (onRowSelect)="onSelectionChange($event.data)"
+  (onRowUnselect)="onSelectionChange(null)"
+  [dataKey]="dataKey"
+  styleClass="p-datatable-gridlines p-datatable-striped table-header-text-center"
+  [sortField]="sortField"
+  [sortOrder]="-1"
+  [customSort]="true"
+  (sortFunction)="sort($event)"
+>
+  <ng-template pTemplate="header">
+    <ng-container *ngIf="headerTemplate; else dynamicHeader">
+      <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+    </ng-container>
+    <ng-template #dynamicHeader>
+      <tr *ngFor="let row of headers">
+        <ng-container *ngFor="let column of convertHeaderRow(row)">
+          <th
+            *ngIf="column.sort; else nonSortableTh"
+            [id]="column.sort + '_th'"
+            [pSortableColumn]="column.sort"
+            [attr.colspan]="column.colspan || 1"
+            [attr.rowspan]="column.rowspan || 1"
+            [class.!text-center]="column.colspan && column.colspan > 1"
+          >
+            {{ column.title }} <p-sortIcon [field]="column.sort"></p-sortIcon>
+          </th>
+          <ng-template #nonSortableTh>
+            <th
+              *ngIf="!column.sort"
+              [attr.colspan]="column.colspan || 1"
+              [attr.rowspan]="column.rowspan || 1"
+              [class.!text-center]="column.colspan && column.colspan > 1"
+            >
+              {{ column.title }}
+            </th>
+          </ng-template>
+        </ng-container>
+      </tr>
+    </ng-template>
+
+    <tr>
+      <th *ngFor="let col of cols">
+        <euys-column-filter
+          [type]="col.filterType"
+          [field]="col.field"
+          [matchMode]="col.matchMode"
+          [options]="col.options$ | async"
+        >
+        </euys-column-filter>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowItem>
+    <tr [pSelectableRow]="rowItem">
+      <td
+        *ngFor="let col of cols"
+        [ngClass]="{ '!text-right': getFieldType(rowItem, col) === 'number' }"
+      >
+        {{ getFieldValueFormatted(rowItem, col) }}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

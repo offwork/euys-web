@@ -1,0 +1,61 @@
+<euys-app-shell euysAutoCloseSidenav (expanded)="setState($event)">
+  <euys-app-header-tpl>
+    <ng-template let-toggleProfile="toggleProfile">
+      <euys-app-header
+        [logo]="logo"
+        [title]="title"
+        [color]="color"
+        [tooltip]="tooltip"
+        [redirectUrl]="redirectUrl"
+        [hideSidenavMenu]="hideMenu">
+        <div class="languages">
+          <button type="button" pButton icon="pi pi-globe" (click)="menuLang.toggle($event)"></button>
+          <p-tieredMenu #menuLang [model]="languages" [popup]="true"></p-tieredMenu>
+        </div>
+        <p-divider layout="vertical"></p-divider>
+        <!-- `euysAutoCloseSidenav` yönergesini çalıştırmanız için gerekir
+          çünkü (click)="toggleProfile($event)" olayı <euys-app-shell> deki
+          toggleProfile() metodunu tekikler, aksi takdirde çalışmayacaktır. -->
+        <button id="profile-button" class="p-button p-button-text profile-button" type="button" (click)="toggleProfile($event)">
+          <div class="profile-button-content">
+            <div class="overflow-hidden ml-4 rounded-full border-white border-2 w-12 h-12">
+              <img src="{{ profile$ }}">
+            </div>
+            <p class="flex-1 px-8">
+              <span>Sayın</span><br />
+              <span>{{ userInfo$.ad + ' ' + userInfo$.soyad }}</span> <br />
+            </p>
+            <span class="mx-4">
+              <i class="pi pi-ellipsis-v"></i>
+            </span>
+          </div>
+        </button>
+        <!-- SON -->
+      </euys-app-header>
+    </ng-template>
+  </euys-app-header-tpl>
+  <euys-app-navs-tpl>
+    <ng-template let-toggleMenu="toggleMenu">
+      <euys-sidenav
+        [navs]="navs"
+        (toggleSidenav)="toggleMenu($event)"></euys-sidenav>
+    </ng-template>
+  </euys-app-navs-tpl>
+  <euys-app-profile-tpl>
+    <ng-template let-expandedProfile>
+      <euys-user-profile
+        [photo]="profile$"
+        [expanded]="expandedProfile"
+        [name]="userInfo$.ad"
+        [lastName]="userInfo$.soyad"></euys-user-profile>
+    </ng-template>
+  </euys-app-profile-tpl>
+  <euys-feature-container-tpl>
+    <ng-template>
+      <euys-feature-container>
+        <euys-breadcrumbs [urlSegments]="urlSegments"></euys-breadcrumbs>
+        <router-outlet></router-outlet>
+      </euys-feature-container>
+    </ng-template>
+  </euys-feature-container-tpl>
+</euys-app-shell>

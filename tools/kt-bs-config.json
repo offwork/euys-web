@@ -1,0 +1,5 @@
+{
+  "port": 8080,
+  "files": ["./dist/apps/kt-specs/**/*.{html,htm,css,js}"],
+  "server": { "baseDir": "./dist/apps/kt-specs" }
+}

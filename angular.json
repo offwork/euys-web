@@ -1,0 +1,1674 @@
+{
+  "version": 1,
+  "projects": {
+    "api": {
+      "root": "apps/api",
+      "sourceRoot": "apps/api/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/api",
+            "main": "apps/api/src/main.ts",
+            "tsConfig": "apps/api/tsconfig.app.json",
+            "assets": ["apps/api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/api/src/environments/environment.ts",
+                  "with": "apps/api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "api:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/api/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/api"],
+          "options": {
+            "jestConfig": "apps/api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-interfaces": {
+      "root": "libs/api-interfaces",
+      "sourceRoot": "libs/api-interfaces/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api-interfaces/**/*.ts"]
+          }
+        }
+      }
+    },
+    "core": {
+      "projectType": "library",
+      "root": "libs/core",
+      "sourceRoot": "libs/core/src",
+      "prefix": "euys",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/core"],
+          "options": {
+            "jestConfig": "libs/core/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/core/src/**/*.ts",
+              "libs/core/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "erdemir-demo": {
+      "projectType": "application",
+      "root": "apps/erdemir-demo",
+      "sourceRoot": "apps/erdemir-demo/src",
+      "prefix": "euys",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/erdemir-demo",
+            "index": "apps/erdemir-demo/src/index.html",
+            "main": "apps/erdemir-demo/src/main.ts",
+            "polyfills": "apps/erdemir-demo/src/polyfills.ts",
+            "tsConfig": "apps/erdemir-demo/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "stylePreprocessorOptions": {
+              "includePaths": ["libs/shared/styles/src"]
+            },
+            "assets": [
+              "apps/erdemir-demo/src/favicon.ico",
+              "apps/erdemir-demo/src/assets",
+              "apps/erdemir-demo/src/app.config.json",
+              {
+                "glob": "**/*",
+                "input": "libs/shared/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "libs/shared/i18n",
+                "output": "/assets/i18n"
+              },
+              {
+                "glob": "**/*",
+                "input": "libs/shared/assets/fonts",
+                "output": "/assets/fonts"
+              }
+            ],
+            "styles": [
+              "libs/shared/assets/fonts/source-sans-pro.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "apps/erdemir-demo/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "1mb",
+                  "maximumError": "3mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kb",
+                  "maximumError": "8kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/erdemir-demo/src/environments/environment.ts",
+                  "with": "apps/erdemir-demo/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "erdemir-demo:build:production"
+            },
+            "development": {
+              "browserTarget": "erdemir-demo:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "erdemir-demo:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/erdemir-demo/src/**/*.ts",
+              "apps/erdemir-demo/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/erdemir-demo"],
+          "options": {
+            "jestConfig": "apps/erdemir-demo/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "erdemir-demo-e2e": {
+      "root": "apps/erdemir-demo-e2e",
+      "sourceRoot": "apps/erdemir-demo-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/erdemir-demo-e2e/cypress.json",
+            "tsConfig": "apps/erdemir-demo-e2e/tsconfig.e2e.json",
+            "devServerTarget": "erdemir-demo:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "erdemir-demo:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/erdemir-demo-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "erdemir-demo-feature": {
+      "projectType": "library",
+      "root": "libs/features/erdemir-demo-feature",
+      "sourceRoot": "libs/features/erdemir-demo-feature/src",
+      "prefix": "euys",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/erdemir-demo-feature"],
+          "options": {
+            "jestConfig": "libs/features/erdemir-demo-feature/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/erdemir-demo-feature/src/**/*.ts",
+              "libs/erdemir-demo-feature/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "features-kalite-kontrol": {
+      "projectType": "library",
+      "root": "libs/features/kalite-kontrol",
+      "sourceRoot": "libs/features/kalite-kontrol/src",
+      "prefix": "euys",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/kalite-kontrol"],
+          "options": {
+            "jestConfig": "libs/features/kalite-kontrol/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/kalite-kontrol/src/**/*.ts",
+              "libs/features/kalite-kontrol/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "features-kt-specs": {
+      "projectType": "library",
+      "root": "libs/features/kt-specs",
+      "sourceRoot": "libs/features/kt-specs/src",
+      "prefix": "euys",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/kt-specs"],
+          "options": {
+            "jestConfig": "libs/features/kt-specs/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/kt-specs/src/**/*.ts",
+              "libs/features/kt-specs/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "features-pfdm": {
+      "projectType": "library",
+      "root": "libs/features/pfdm",
+      "sourceRoot": "libs/features/pfdm/src",
+      "prefix": "euys",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/pfdm"],
+          "options": {
+            "jestConfig": "libs/features/pfdm/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/pfdm/src/**/*.ts",
+              "libs/features/pfdm/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "features-tee": {
+      "projectType": "library",
+      "root": "libs/features/tee",
+      "sourceRoot": "libs/features/tee/src",
+      "prefix": "euys",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/tee"],
+          "options": {
+            "jestConfig": "libs/features/tee/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/tee/src/**/*.ts",
+              "libs/features/tee/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "features-uretim-planlama": {
+      "projectType": "library",
+      "root": "libs/features/uretim-planlama",
+      "sourceRoot": "libs/features/uretim-planlama/src",
+      "prefix": "euys",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/uretim-planlama"],
+          "options": {
+            "jestConfig": "libs/features/uretim-planlama/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/uretim-planlama/src/**/*.ts",
+              "libs/features/uretim-planlama/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "features-uretim-takip": {
+      "projectType": "library",
+      "root": "libs/features/uretim-takip",
+      "sourceRoot": "libs/features/uretim-takip/src",
+      "prefix": "euys",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/uretim-takip"],
+          "options": {
+            "jestConfig": "libs/features/uretim-takip/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/uretim-takip/src/**/*.ts",
+              "libs/features/uretim-takip/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "kalite-kontrol": {
+      "projectType": "application",
+      "root": "apps/kalite-kontrol",
+      "sourceRoot": "apps/kalite-kontrol/src",
+      "prefix": "euys",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/kalite-kontrol",
+            "index": "apps/kalite-kontrol/src/index.html",
+            "main": "apps/kalite-kontrol/src/main.ts",
+            "polyfills": "apps/kalite-kontrol/src/polyfills.ts",
+            "tsConfig": "apps/kalite-kontrol/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "stylePreprocessorOptions": {
+              "includePaths": ["libs/shared/styles/src"]
+            },
+            "assets": [
+              "apps/kalite-kontrol/src/favicon.ico",
+              "apps/kalite-kontrol/src/assets",
+              "apps/kalite-kontrol/src/app.config.json",
+              {
+                "glob": "**/*",
+                "input": "libs/shared/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "libs/shared/i18n",
+                "output": "/assets/i18n"
+              }
+            ],
+            "styles": [
+              "libs/shared/assets/fonts/source-sans-pro.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "apps/kalite-kontrol/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "1mb",
+                  "maximumError": "3mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kb",
+                  "maximumError": "8kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/kalite-kontrol/src/environments/environment.ts",
+                  "with": "apps/kalite-kontrol/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "devs": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/kalite-kontrol/src/environments/environment.ts",
+                  "with": "apps/kalite-kontrol/src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/kalite-kontrol/src/environments/environment.ts",
+                  "with": "apps/kalite-kontrol/src/environments/environment.test.ts"
+                }
+              ]
+            },
+            "test": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/kalite-kontrol/src/environments/environment.ts",
+                  "with": "apps/kalite-kontrol/src/environments/environment.test.ts"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "kalite-kontrol:build:production"
+            },
+            "development": {
+              "browserTarget": "kalite-kontrol:build:development"
+            },
+            "devs": {
+              "browserTarget": "kalite-kontrol:build:devs"
+            },
+            "local": {
+              "browserTarget": "kalite-kontrol:build:local"
+            },
+            "test": {
+              "browserTarget": "kalite-kontrol:test"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "kalite-kontrol:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/kalite-kontrol/src/**/*.ts",
+              "apps/kalite-kontrol/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/kalite-kontrol"],
+          "options": {
+            "jestConfig": "apps/kalite-kontrol/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "kalite-kontrol-e2e": {
+      "root": "apps/kalite-kontrol-e2e",
+      "sourceRoot": "apps/kalite-kontrol-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/kalite-kontrol-e2e/cypress.json",
+            "tsConfig": "apps/kalite-kontrol-e2e/tsconfig.e2e.json",
+            "devServerTarget": "kalite-kontrol:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "kalite-kontrol:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/kalite-kontrol-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "kt-specs": {
+      "projectType": "application",
+      "root": "apps/kt-specs",
+      "sourceRoot": "apps/kt-specs/src",
+      "prefix": "euys",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/kt-specs",
+            "index": "apps/kt-specs/src/index.html",
+            "main": "apps/kt-specs/src/main.ts",
+            "polyfills": "apps/kt-specs/src/polyfills.ts",
+            "tsConfig": "apps/kt-specs/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "stylePreprocessorOptions": {
+              "includePaths": ["libs/shared/styles/src"]
+            },
+            "assets": [
+              "apps/kt-specs/src/favicon.ico",
+              "apps/kt-specs/src/assets",
+              "apps/kt-specs/src/app.config.json",
+              {
+                "glob": "**/*",
+                "input": "libs/shared/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "libs/shared/i18n",
+                "output": "/assets/i18n"
+              }
+            ],
+            "styles": [
+              "libs/shared/assets/fonts/source-sans-pro.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "apps/kt-specs/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "1mb",
+                  "maximumError": "3mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kb",
+                  "maximumError": "8kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/kt-specs/src/environments/environment.ts",
+                  "with": "apps/kt-specs/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "devs": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "apps/kt-specs/src/environments/environment.ts",
+                  "with": "apps/kt-specs/src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/kt-specs/src/environments/environment.ts",
+                  "with": "apps/kt-specs/src/environments/environment.test.ts"
+                }
+              ]
+            },
+            "test": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/kt-specs/src/environments/environment.ts",
+                  "with": "apps/kt-specs/src/environments/environment.test.ts"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "kt-specs:build:production"
+            },
+            "development": {
+              "browserTarget": "kt-specs:build:development"
+            },
+            "devs": {
+              "browserTarget": "tee:build:devs"
+            },
+            "local": {
+              "browserTarget": "tee:build:local"
+            },
+            "test": {
+              "browserTarget": "tee:build:test"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "kt-specs:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/kt-specs/src/**/*.ts",
+              "apps/kt-specs/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/kt-specs"],
+          "options": {
+            "jestConfig": "apps/kt-specs/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "kt-specs-e2e": {
+      "root": "apps/kt-specs-e2e",
+      "sourceRoot": "apps/kt-specs-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/kt-specs-e2e/cypress.json",
+            "tsConfig": "apps/kt-specs-e2e/tsconfig.e2e.json",
+            "devServerTarget": "kt-specs:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "kt-specs:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/kt-specs-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "pfdm": {
+      "projectType": "application",
+      "root": "apps/pfdm",
+      "sourceRoot": "apps/pfdm/src",
+      "prefix": "euys",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/pfdm",
+            "index": "apps/pfdm/src/index.html",
+            "main": "apps/pfdm/src/main.ts",
+            "polyfills": "apps/pfdm/src/polyfills.ts",
+            "tsConfig": "apps/pfdm/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "stylePreprocessorOptions": {
+              "includePaths": ["libs/shared/styles/src"]
+            },
+            "assets": [
+              "apps/pfdm/src/favicon.ico",
+              "apps/pfdm/src/assets",
+              "apps/pfdm/src/app.config.json",
+              {
+                "glob": "**/*",
+                "input": "libs/shared/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "libs/shared/i18n",
+                "output": "/assets/i18n"
+              }
+            ],
+            "styles": [
+              "libs/shared/assets/fonts/source-sans-pro.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "apps/pfdm/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/pfdm/src/environments/environment.ts",
+                  "with": "apps/pfdm/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "devs": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "apps/pfdm/src/environments/environment.ts",
+                  "with": "apps/pfdm/src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/pfdm/src/environments/environment.ts",
+                  "with": "apps/pfdm/src/environments/environment.test.ts"
+                }
+              ]
+            },
+            "test": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/pfdm/src/environments/environment.ts",
+                  "with": "apps/pfdm/src/environments/environment.test.ts"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "pfdm:build:production"
+            },
+            "development": {
+              "browserTarget": "pfdm:build:development"
+            },
+            "devs": {
+              "browserTarget": "pfdm:build:devs"
+            },
+            "local": {
+              "browserTarget": "pfdm:build:local"
+            },
+            "test": {
+              "browserTarget": "pfdm:build:test"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "pfdm:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/pfdm/src/**/*.ts",
+              "apps/pfdm/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/pfdm"],
+          "options": {
+            "jestConfig": "apps/pfdm/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "pfdm-e2e": {
+      "root": "apps/pfdm-e2e",
+      "sourceRoot": "apps/pfdm-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/pfdm-e2e/cypress.json",
+            "tsConfig": "apps/pfdm-e2e/tsconfig.e2e.json",
+            "devServerTarget": "pfdm:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "pfdm:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/pfdm-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "shared-app-shell": {
+      "projectType": "library",
+      "root": "libs/shared/app-shell",
+      "sourceRoot": "libs/shared/app-shell/src",
+      "prefix": "euys",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/app-shell"],
+          "options": {
+            "jestConfig": "libs/shared/app-shell/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/app-shell/src/**/*.ts",
+              "libs/shared/app-shell/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "shared-euys-design": {
+      "projectType": "library",
+      "root": "libs/shared/euys-design",
+      "sourceRoot": "libs/shared/euys-design/src",
+      "prefix": "euys",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/euys-design"],
+          "options": {
+            "jestConfig": "libs/shared/euys-design/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/euys-design/src/**/*.ts",
+              "libs/shared/euys-design/src/**/*.html"
+            ]
+          }
+        },
+        "storybook": {
+          "builder": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/angular",
+            "port": 4400,
+            "config": {
+              "configFolder": "libs/shared/euys-design/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "builder": "@nrwl/storybook:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "uiFramework": "@storybook/angular",
+            "outputPath": "dist/storybook/shared-euys-design",
+            "config": {
+              "configFolder": "libs/shared/euys-design/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        }
+      }
+    },
+    "shared-styles": {
+      "projectType": "library",
+      "root": "libs/shared/styles",
+      "sourceRoot": "libs/shared/styles/src",
+      "prefix": "euys",
+      "architect": {}
+    },
+    "shared-ui": {
+      "projectType": "library",
+      "root": "libs/shared/ui",
+      "sourceRoot": "libs/shared/ui/src",
+      "prefix": "euys",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/ui"],
+          "options": {
+            "jestConfig": "libs/shared/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/ui/src/**/*.ts",
+              "libs/shared/ui/src/**/*.html"
+            ]
+          }
+        },
+        "storybook": {
+          "builder": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/angular",
+            "port": 4400,
+            "config": {
+              "configFolder": "libs/shared/ui/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "builder": "@nrwl/storybook:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "uiFramework": "@storybook/angular",
+            "outputPath": "dist/storybook/shared-ui",
+            "config": {
+              "configFolder": "libs/shared/ui/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        }
+      }
+    },
+    "shared-utility": {
+      "projectType": "library",
+      "root": "libs/shared/utility",
+      "sourceRoot": "libs/shared/utility/src",
+      "prefix": "euys",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/utility"],
+          "options": {
+            "jestConfig": "libs/shared/utility/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/utility/src/**/*.ts",
+              "libs/shared/utility/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "tee": {
+      "projectType": "application",
+      "root": "apps/tee",
+      "sourceRoot": "apps/tee/src",
+      "prefix": "euys",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "allowedCommonJsDependencies": ["file-saver", "lodash", "moment"],
+            "outputPath": "dist/apps/tee",
+            "index": "apps/tee/src/index.html",
+            "main": "apps/tee/src/main.ts",
+            "polyfills": "apps/tee/src/polyfills.ts",
+            "tsConfig": "apps/tee/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "stylePreprocessorOptions": {
+              "includePaths": ["libs/shared/styles/src"]
+            },
+            "assets": [
+              "apps/tee/src/favicon.ico",
+              "apps/tee/src/assets",
+              "apps/tee/src/app.config.json",
+              {
+                "glob": "**/*",
+                "input": "libs/shared/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "libs/shared/i18n",
+                "output": "/assets/i18n"
+              }
+            ],
+            "styles": [
+              "libs/shared/assets/fonts/source-sans-pro.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "apps/tee/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "1mb",
+                  "maximumError": "3mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kb",
+                  "maximumError": "8kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/tee/src/environments/environment.ts",
+                  "with": "apps/tee/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "devs": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/tee/src/environments/environment.ts",
+                  "with": "apps/tee/src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/tee/src/environments/environment.ts",
+                  "with": "apps/tee/src/environments/environment.test.ts"
+                }
+              ]
+            },
+            "test": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/tee/src/environments/environment.ts",
+                  "with": "apps/tee/src/environments/environment.test.ts"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "tee:build:production"
+            },
+            "development": {
+              "browserTarget": "tee:build:development"
+            },
+            "devs": {
+              "browserTarget": "tee:build:devs"
+            },
+            "local": {
+              "browserTarget": "tee:build:local"
+            },
+            "test": {
+              "browserTarget": "tee:build:test"
+            }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "proxyConfig": "apps/tee/proxy.conf.json"
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "tee:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/tee/src/**/*.ts",
+              "apps/tee/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/tee"],
+          "options": {
+            "jestConfig": "apps/tee/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "tee-e2e": {
+      "root": "apps/tee-e2e",
+      "sourceRoot": "apps/tee-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/tee-e2e/cypress.json",
+            "tsConfig": "apps/tee-e2e/tsconfig.e2e.json",
+            "devServerTarget": "tee:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "tee:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/tee-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "uretim-planlama": {
+      "projectType": "application",
+      "root": "apps/uretim-planlama",
+      "sourceRoot": "apps/uretim-planlama/src",
+      "prefix": "euys",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/uretim-planlama",
+            "index": "apps/uretim-planlama/src/index.html",
+            "main": "apps/uretim-planlama/src/main.ts",
+            "polyfills": "apps/uretim-planlama/src/polyfills.ts",
+            "tsConfig": "apps/uretim-planlama/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "stylePreprocessorOptions": {
+              "includePaths": ["libs/shared/styles/src"]
+            },
+            "assets": [
+              "apps/uretim-planlama/src/favicon.ico",
+              "apps/uretim-planlama/src/assets",
+              "apps/uretim-planlama/src/app.config.json",
+              {
+                "glob": "**/*",
+                "input": "libs/shared/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "libs/shared/i18n",
+                "output": "/assets/i18n"
+              }
+            ],
+            "styles": [
+              "libs/shared/assets/fonts/source-sans-pro.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "apps/uretim-planlama/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "1mb",
+                  "maximumError": "3mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kb",
+                  "maximumError": "8kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/uretim-planlama/src/environments/environment.ts",
+                  "with": "apps/uretim-planlama/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "devs": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "apps/uretim-planlama/src/environments/environment.ts",
+                  "with": "apps/uretim-planlama/src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/uretim-planlama/src/environments/environment.ts",
+                  "with": "apps/uretim-planlama/src/environments/environment.test.ts"
+                }
+              ]
+            },
+            "test": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/uretim-planlama/src/environments/environment.ts",
+                  "with": "apps/uretim-planlama/src/environments/environment.test.ts"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "uretim-planlama:build:production"
+            },
+            "development": {
+              "browserTarget": "uretim-planlama:build:development"
+            },
+            "devs": {
+              "browserTarget": "uretim-planlama:build:devs"
+            },
+            "local": {
+              "browserTarget": "uretim-planlama:build:local"
+            },
+            "test": {
+              "browserTarget": "uretim-planlama:build:test"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "uretim-planlama:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/uretim-planlama/src/**/*.ts",
+              "apps/uretim-planlama/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/uretim-planlama"],
+          "options": {
+            "jestConfig": "apps/uretim-planlama/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "uretim-planlama-e2e": {
+      "root": "apps/uretim-planlama-e2e",
+      "sourceRoot": "apps/uretim-planlama-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/uretim-planlama-e2e/cypress.json",
+            "tsConfig": "apps/uretim-planlama-e2e/tsconfig.e2e.json",
+            "devServerTarget": "uretim-planlama:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "uretim-planlama:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/uretim-planlama-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "uretim-takip": {
+      "projectType": "application",
+      "root": "apps/uretim-takip",
+      "sourceRoot": "apps/uretim-takip/src",
+      "prefix": "euys",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/uretim-takip",
+            "index": "apps/uretim-takip/src/index.html",
+            "main": "apps/uretim-takip/src/main.ts",
+            "polyfills": "apps/uretim-takip/src/polyfills.ts",
+            "tsConfig": "apps/uretim-takip/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "stylePreprocessorOptions": {
+              "includePaths": ["libs/shared/styles/src"]
+            },
+            "assets": [
+              "apps/uretim-takip/src/favicon.ico",
+              "apps/uretim-takip/src/assets",
+              "apps/uretim-takip/src/app.config.json",
+              {
+                "glob": "**/*",
+                "input": "libs/shared/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "libs/shared/i18n",
+                "output": "/assets/i18n"
+              }
+            ],
+            "styles": [
+              "libs/shared/assets/fonts/source-sans-pro.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "apps/uretim-takip/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/uretim-takip/src/environments/environment.ts",
+                  "with": "apps/uretim-takip/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "devs": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "apps/uretim-takip/src/environments/environment.ts",
+                  "with": "apps/uretim-takip/src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/uretim-takip/src/environments/environment.ts",
+                  "with": "apps/uretim-takip/src/environments/environment.test.ts"
+                }
+              ]
+            },
+            "test": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/uretim-takip/src/environments/environment.ts",
+                  "with": "apps/uretim-takip/src/environments/environment.test.ts"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "uretim-takip:build:production"
+            },
+            "development": {
+              "browserTarget": "uretim-takip:build:development"
+            },
+            "devs": {
+              "browserTarget": "uretim-takip:build:devs"
+            },
+            "local": {
+              "browserTarget": "uretim-takip:build:local"
+            },
+            "test": {
+              "browserTarget": "uretim-takip:build:test"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "uretim-takip:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/uretim-takip/src/**/*.ts",
+              "apps/uretim-takip/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/uretim-takip"],
+          "options": {
+            "jestConfig": "apps/uretim-takip/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "uretim-takip-e2e": {
+      "root": "apps/uretim-takip-e2e",
+      "sourceRoot": "apps/uretim-takip-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/uretim-takip-e2e/cypress.json",
+            "tsConfig": "apps/uretim-takip-e2e/tsconfig.e2e.json",
+            "devServerTarget": "uretim-takip:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "uretim-takip:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/uretim-takip-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": false,
+    "defaultCollection": "@nrwl/angular",
+    "packageManager": "yarn"
+  },
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "defaultProject": "tee"
+}

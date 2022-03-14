@@ -1,0 +1,76 @@
+<p-card>
+  <label class="text-right mx-4" for="yil">Yıl :</label>
+  <euys-year-picker
+    inputId="yil"
+    class="w-32"
+    [formControl]="yilControl"
+  ></euys-year-picker>
+
+  <p-table
+    [value]="bazAnaBilgiList$ | async"
+    *ngIf="(loading$ | async) === false; else loading"
+    styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped mt-4"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>YÜP'e Baz Dosyalar</th>
+        <th>Açıklama</th>
+        <th>Kayıt Tarihi</th>
+        <th class="!text-center" width="60">Excel</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-bazAnaBilgi>
+      <tr>
+        <td>
+          <button
+            pButton
+            type="button"
+            [label]="bazAnaBilgi.dosyaAdi"
+            (click)="showDetail(bazAnaBilgi)"
+            class="p-button-text !py-px"
+          ></button>
+        </td>
+        <td>{{ bazAnaBilgi.dosyaAciklama }}</td>
+        <td>{{ bazAnaBilgi.olusturmaTarihi | date: 'longDate':'tr' }}</td>
+        <td class="!text-center" width="60">
+          <button
+            pButton
+            type="button"
+            icon="pi pi-file-excel"
+            class="p-button-lg p-button-text p-button-success !py-0"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr euysMessageRow></tr>
+    </ng-template>
+  </p-table>
+</p-card>
+
+<p-card *ngIf="detailVisible" styleClass="mt-6">
+  <p-tabView>
+    <p-tabPanel header="Hat Üretim Hedefleri">
+      <euys-hat-duruslar-hedefler
+        *ngIf="(uretimHatlariLoading$ | async) === false; else loading"
+        [rows]="uretimHatlari$ | async"
+        [keys]="uretimHatlariTesisAdlari$ | async"
+        propName="uretimHedefMiktar"
+      ></euys-hat-duruslar-hedefler>
+    </p-tabPanel>
+    <p-tabPanel header="Hat Planlı Duruşları">
+      <euys-hat-duruslar-hedefler
+        *ngIf="(planliDuruslarLoading$ | async) === false; else loading"
+        [rows]="planliDuruslar$ | async"
+        [keys]="planliDuruslarTesisAdlari$ | async"
+        propName="aylikDurusSaati"
+      ></euys-hat-duruslar-hedefler>
+    </p-tabPanel>
+  </p-tabView>
+</p-card>
+
+<ng-template #loading>
+  <div class="bg-white flex items-center justify-center p-8">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</ng-template>

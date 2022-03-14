@@ -1,0 +1,29 @@
+<div class="p-grid">
+  <div class="p-col-12" *ngIf="topTemplate">
+    <ng-container *ngTemplateOutlet="topTemplate"> </ng-container>
+  </div>
+  <div class="p-col-12 p-grid m-0" [style.min-height]="'10rem'">
+    <div class="p-col-4 p-sm-12 p-md-12 p-lg-4">
+      <ng-container *ngIf="centerLeftTemplate">
+        <ng-container *ngTemplateOutlet="centerLeftTemplate"> </ng-container>
+      </ng-container>
+    </div>
+    <div class="p-col-8 p-sm-12 p-md-12 p-lg-8">
+      <ng-container *ngIf="centerRightTemplate">
+        <ng-container *ngTemplateOutlet="centerRightTemplate"> </ng-container>
+      </ng-container>
+    </div>
+  </div>
+  <div class="p-col-12 p-grid m-0" [style.min-height]="'5rem'">
+    <div class="p-col-6">
+      <ng-container *ngIf="bottomLeftTemplate">
+        <ng-container *ngTemplateOutlet="bottomLeftTemplate"> </ng-container>
+      </ng-container>
+    </div>
+    <div class="p-col-6">
+      <ng-container *ngIf="bottomRightTemplate">
+        <ng-container *ngTemplateOutlet="bottomRightTemplate"> </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>

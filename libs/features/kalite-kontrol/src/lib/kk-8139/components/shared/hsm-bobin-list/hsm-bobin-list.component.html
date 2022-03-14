@@ -1,0 +1,295 @@
+<div *ngIf="(hsmBobinListLoaded$ | async) === true; else loading">
+  <p-table
+    #hsmBobinListComponent
+    dataKey="bobinNo"
+    (onRowSelect)="onSelectUnselect()"
+    (onRowUnselect)="onSelectUnselect()"
+    [rowHover]="true"
+    [paginator]="true"
+    [rows]="20"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    [(selection)]="selected"
+    selectionMode="multiple"
+    [value]="hsmBobinList$ | async"
+    responsiveLayout="scroll"
+    styleClass="p-datatable-gridlines p-datatable-striped table-header-text-center"
+  >
+    <ng-template pTemplate="header" let-bobin>
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th class="w-1/16 text-center">Toplu Kayıt</th>
+        <th class="w-2/16 text-center">Bobin No</th>
+        <th class="w-2/16 text-center">Slab No</th>
+        <th class="w-1/16 text-center">Döküm Kalitesi</th>
+        <th class="w-1/16 text-center">Çelik Kalitesi</th>
+        <th class="w-1/16 text-center">MPC NO</th>
+        <th class="w-1/16 text-center whitespace-nowrap">I/Y</th>
+        <th class="w-1/16 text-center">Müşteri</th>
+        <th class="w-1/16 text-center">Kalınlık</th>
+        <th class="w-1/16 text-center">Genişlik</th>
+        <th class="w-1/16 text-center">Ağırlık</th>
+        <th class="w-1/16 text-center">Deneme/Fason</th>
+        <th class="w-1/16 text-center">N</th>
+        <th class="w-1/16 text-center">N Yeri</th>
+        <th class="w-1/16 text-center">BN</th>
+        <th class="w-1/16 text-center">BM</th>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <p-columnFilter
+            field="topluKayit"
+            matchMode="equals"
+            [showMenu]="false"
+            [showClearButton]="false"
+          >
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback"
+            >
+              <p-dropdown
+                [ngModel]="value"
+                [options]="topluKayitOptions"
+                (onChange)="filter($event.value)"
+                placeholder="Seçiniz"
+                [showClear]="true"
+              >
+                <ng-template pTemplate="selectedItem">
+                  <span *ngIf="value">{{ value | euysEnum }}</span>
+                </ng-template>
+                <ng-template pTemplate="item" let-opt>
+                  {{ opt | euysEnum }}
+                </ng-template>
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+            type="text"
+            field="bobinNo"
+            matchMode="startsWith"
+            [showMenu]="false"
+            [showClearButton]="false"
+          ></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+            type="text"
+            field="slabNo"
+            matchMode="startsWith"
+            [showMenu]="false"
+            [showClearButton]="false"
+          ></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+            type="text"
+            field="dokumKalitesi"
+            matchMode="startsWith"
+            [showMenu]="false"
+            [showClearButton]="false"
+          ></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+            type="text"
+            field="celikKalitesi"
+            matchMode="startsWith"
+            [showMenu]="false"
+            [showClearButton]="false"
+          ></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+            type="text"
+            field="mpcNo"
+            matchMode="startsWith"
+            [showMenu]="false"
+            [showClearButton]="false"
+            [showClearButton]="false"
+          ></p-columnFilter>
+        </th>
+        <th colspan="10"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-bobin>
+      <tr [pSelectableRow]="bobin">
+        <td>
+          <p-tableCheckbox
+            [value]="bobin"
+            class="pointer-events-none"
+          ></p-tableCheckbox>
+        </td>
+        <td class="text-center">
+          <span class="p-column-title">Toplu Kayıt</span>
+          <span
+            [class]="
+              'euys-badge status-' + (bobin.topluKayit === 'E' ? 'e' : 'h')
+            "
+            >{{ bobin.topluKayit === 'E' ? 'EVET' : 'HAYIR' }}</span
+          >
+        </td>
+        <td class="text-center">{{ bobin.bobinNo }}</td>
+        <td class="text-center">{{ bobin.slabNo }}</td>
+        <td class="text-center">{{ bobin.dokumKalitesi }}</td>
+        <td class="text-center">{{ bobin.celikKalitesi }}</td>
+        <td class="text-center">{{ bobin.mpcNo }}</td>
+        <td class="text-center">{{ bobin.yerliIhracKodu }}</td>
+        <td class="text-center">{{ bobin.musteri }}</td>
+        <td class="text-center">{{ bobin.kalinlik }}</td>
+        <td class="text-center">{{ bobin.genislik }}</td>
+        <td class="text-center">{{ bobin.agirlik }}</td>
+        <td class="text-center">
+          <span class="p-column-title">Deneme/Fason</span>
+          <span
+            [class]="
+              'euys-badge status-' +
+              (bobin.denemeMi === 'E' ? 'deneme' : 'fason')
+            "
+            >{{ bobin.denemeMi === 'E' ? 'DENEME' : 'FASON' }}</span
+          >
+        </td>
+        <td class="text-center">
+          <span class="p-column-title">N</span>
+          <span
+            [class]="
+              'euys-badge status-' +
+              (bobin.bagimsizNumuneVarMi === 'E' ? 'e' : 'h')
+            "
+            >{{ bobin.bagimsizNumuneVarMi === 'E' ? 'EVET' : 'HAYIR' }}</span
+          >
+        </td>
+        <td class="text-center">{{ bobin.numuneAlimYeri }}</td>
+        <td class="text-center">
+          <euys-column-action-button
+            [icon]="
+              'pi pi-' +
+              (bobin.bagimsizNumuneVarMi === 'E' ? 'plus-circle' : 'circle-off')
+            "
+            [xlIcon]="true"
+            [danger]="bobin.bagimsizNumuneVarMi === 'H'"
+            [success]="bobin.bagimsizNumuneVarMi === 'E'"
+            [disabled]="
+              bobin.bagimsizNumuneVarMi === 'H' ||
+              bobin.bagimsizNumuneVarMi === null
+            "
+            [isReady]="hsmBobinListLoaded$ | async"
+            (columnActionEmitter)="expandBagimsizNumuneDialog(bobin.bobinNo)"
+          >
+          </euys-column-action-button>
+        </td>
+        <td class="text-center">
+          <euys-column-action-button
+            [icon]="
+              'pi pi-' +
+              (bobin.bagimsizMesajVarMi === 'E'
+                ? 'exclamation-circle'
+                : 'circle-off')
+            "
+            [xlIcon]="true"
+            [danger]="bobin.bagimsizMesajVarMi === 'E'"
+            [success]="bobin.bagimsizMesajVarMi === 'H'"
+            [disabled]="
+              bobin.bagimsizMesajVarMi === 'H' ||
+              bobin.bagimsizMesajVarMi === null
+            "
+            [isReady]="hsmBobinListLoaded$ | async"
+            (columnActionEmitter)="expandBagimsizMesajDialog(bobin.bobinNo)"
+          >
+          </euys-column-action-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<ng-template #loading>
+  <p-table
+    styleClass="p-datatable-gridlines p-datatable-striped table-header-text-center"
+    class="skeleton-table"
+    [value]="dummyList"
+    responsiveLayout="scroll"
+    [paginator]="true"
+    [rows]="20"
+    [rowsPerPageOptions]="[10, 25, 50]"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="w-1/16 text-center"></th>
+        <th class="w-1/16 text-center">Toplu Kayıt</th>
+        <th class="w-2/16 text-center">Bobin No</th>
+        <th class="w-2/16 text-center">Slab No</th>
+        <th class="w-1/16 text-center">Döküm Kalitesi</th>
+        <th class="w-1/16 text-center">Çelik Kalitesi</th>
+        <th class="w-1/16 text-center">MPC NO</th>
+        <th class="w-1/16 text-center">I/Y</th>
+        <th class="w-1/16 text-center">Müşteri</th>
+        <th class="w-1/16 text-center">Kalınlık</th>
+        <th class="w-1/16 text-center">Genişlik</th>
+        <th class="w-1/16 text-center">Ağırlık</th>
+        <th class="w-1/16 text-center">Deneme/Fason</th>
+        <th class="w-1/16 text-center">N</th>
+        <th class="w-1/16 text-center">N Yeri</th>
+        <th class="w-1/16 text-center">BN</th>
+        <th class="w-1/16 text-center">BM</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-dummy>
+      <tr>
+        <td class="h-12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-12">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-12">
+          <p-skeleton></p-skeleton>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</ng-template>

@@ -1,0 +1,52 @@
+<p-table
+  [value]="list"
+  [customSort]="true"
+  rowGroupMode="subheader"
+  groupRowsBy="hatGrupUzunTanim"
+  styleClass="p-datatable-sm p-datatable-gridlines"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th class="w-56">Üretim Hattı</th>
+      <th *ngFor="let month of months" class="!text-center">{{ month }}</th>
+      <th class="!text-center">Toplam</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-item let-index="rowIndex">
+    <tr>
+      <td class="w-56 font-bold">
+        {{ item.hatUzunTanim }}
+      </td>
+      <td *ngFor="let month of months; let i = index" class="!text-right">
+        {{
+          getValue(item.yupProjeksiyonHatUretimHedeflerDonusModel, i + 1)
+            | number
+        }}
+      </td>
+      <td class="!text-right">
+        {{ sum(item.yupProjeksiyonHatUretimHedeflerDonusModel) | number }}
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="groupheader" let-item>
+    <tr class="p-rowgroup-footer !bg-gray-100">
+      <td class="text-base font-bold" colspan="14">
+        {{ item.hatGrupUzunTanim }}
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="groupfooter" let-item>
+    <tr class="p-rowgroup-footer !bg-yellow-50">
+      <td class="w-56 font-bold">Toplam</td>
+      <td
+        *ngFor="let month of months; let i = index"
+        class="!text-right font-bold"
+      >
+        {{ spanSum(item.hatGrupUzunTanim, i + 1) | number }}
+      </td>
+      <td class="!text-right font-bold">
+        {{ spanSumAll(item.hatGrupUzunTanim) | number }}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

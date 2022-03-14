@@ -1,0 +1,48 @@
+<form
+  class="p-fluid p-formgrid p-grid p-field p-ml-0 p-mr-0 p-col-12 p-md-12"
+  [formGroup]="minMaxFieldForm"
+>
+  <div class="p-col-12 p-md-12 p-mb-2">
+    <label for="minFormControlName"
+      ><strong>*{{ label }}</strong></label
+    >
+  </div>
+  <div class="p-field p-col-12 p-md-6 p-mb-0">
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon"><b>*Min</b></span>
+      <p-inputNumber
+        id="{{ minFormControlName }}"
+        formControlName="{{ minFormControlName }}"
+        placeholder="{{ minPlaceholder }}"
+        mode="decimal"
+        [minFractionDigits]="minFractionDigits"
+        [maxFractionDigits]="maxFractionDigits"
+        [min]="minmin"
+        [max]="minmax"
+      ></p-inputNumber>
+    </div>
+    <euys-form-field-info
+      [inputHelperControl]="minControl"
+      [helperText]="helperTextMinimum"
+    ></euys-form-field-info>
+  </div>
+  <div class="p-field p-col-12 p-md-6 p-mb-0">
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon"><b>*Max</b></span>
+      <p-inputNumber
+        id="{{ maxFormControlName }}"
+        formControlName="{{ maxFormControlName }}"
+        placeholder="{{ maxPlaceholder }}"
+        [minFractionDigits]="minFractionDigits"
+        [maxFractionDigits]="maxFractionDigits"
+        mode="decimal"
+        [min]="maxmin"
+        [max]="maxmax"
+      ></p-inputNumber>
+    </div>
+    <euys-form-field-info
+      [inputHelperControl]="maxControl"
+      [helperText]="helperTextMaximum"
+    ></euys-form-field-info>
+  </div>
+</form>

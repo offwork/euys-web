@@ -1,0 +1,13 @@
+@import 'index';
+
+@include euys-core-theme();
+
+html,
+body {
+  /* stylelint-disable */
+  font-family: Source Sans Pro !important;
+  /* stylelint-enable */
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}

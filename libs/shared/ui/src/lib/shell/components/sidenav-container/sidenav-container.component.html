@@ -1,0 +1,15 @@
+<div class="euys-sidenav-container">
+
+  <div [@toggle]="toggleSidenav" class="euys-sidenav">
+    <ng-content select="[euys-navs]"></ng-content>
+  </div>
+
+  <div id="profile-sidenav" [@profileToggle]="profileToggle" class="euys-sidenav-profile">
+    <ng-content select="[euys-profile]"></ng-content>
+  </div>
+
+  <div class="euys-feature">
+    <ng-content select="[euys-feature]"></ng-content>
+  </div>
+
+</div>

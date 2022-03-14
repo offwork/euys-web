@@ -1,0 +1,48 @@
+.euys-badge {
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  padding: 0.25em 0.5rem;
+  text-transform: uppercase;
+
+  &.status-e {
+    background: #c8e6c9;
+    color: #256029;
+  }
+
+  &.status-h {
+    background: #ffcdd2;
+    color: #c63737;
+  }
+
+  &.status-i {
+    background: #ffcdff;
+    color: #a537c6;
+  }
+
+  &.status-y {
+    background: #ffefcd;
+    color: #c69437;
+  }
+
+  &.status-var {
+    background: #c8e6c9;
+    color: #256029;
+  }
+
+  &.status-yok {
+    background: #ffcdd2;
+    color: #c63737;
+  }
+
+  &.status-deneme {
+    background: #c2eff5;
+    color: #004b55;
+  }
+
+  &.status-fason {
+    background: #fef0cd;
+    color: #644d12;
+  }
+}

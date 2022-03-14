@@ -1,0 +1,87 @@
+<p-card>
+  <form [formGroup]="backupPlanForm">
+    <div class="flex gap-4 items-center">
+      <label for="yil">Yıl :* </label>
+
+      <euys-year-picker
+        inputId="yil"
+        class="w-48"
+        formControlName="yil"
+      ></euys-year-picker>
+
+      <label class="text-right" for="urunGrubu">Ürün Grubu :*</label>
+      <p-dropdown
+        class="flex"
+        styleClass="flex-1 w-48"
+        [options]="[
+          'Sıcak',
+          'Asitli',
+          'Levha',
+          'Soğuk',
+          'Galvaniz',
+          'Teneke',
+          'Kütük',
+          'Kangal'
+        ]"
+        inputId="urunGrubu"
+        formControlName="urunGrubu"
+      ></p-dropdown>
+
+      <label class="text-right" for="donem" euysValidationMessage>Backup Dönemi :*</label>
+      <input pInputText id="donem" formControlName="donem" />
+
+      <button
+        pButton
+        [disabled]="!this.backupPlanForm"
+        [loading]="progress$ | async"
+        (click)="load()"
+        type="button"
+        label="Devam"
+        class="p-button p-button-raised p-button-rounded w-32"
+      ></button>
+    </div>
+  </form>
+</p-card>
+<p-card
+  *ngIf="
+    backupPlanEditForm && (done$ | async) && (data$ | async).length > 0;
+    else emptyMessage
+  "
+  class="m-8"
+>
+  <form [formGroup]="backupPlanEditForm">
+    <button
+      pButton
+      id="save-button"
+      class="p-button p-button-raised p-button-rounded w-36 !px-8 mb-4"
+      type="button"
+      label="Kaydet"
+      icon="pi pi-save"
+      [loading]="progress$ | async"
+      (click)="save()"
+    ></button>
+    <p-table
+      [value]="formArray"
+      styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>PF Ürün Grubu</th>
+          <th>Plan (Ton)</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item>
+        <tr [formGroup]="item">
+          <td>{{ item.controls.pfUrunGrup.value }}</td>
+          <td>
+            <input pInputText formControlName="planMiktar" />
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </form>
+</p-card>
+
+<ng-template #emptyMessage>
+  <euys-message *ngIf="done$ | async"></euys-message>
+</ng-template>

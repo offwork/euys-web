@@ -1,0 +1,16 @@
+<div [ngClass]="horizontal ? 'h-align-content' : 'v-align-content'">
+  <span>{{ label }}<span>:</span></span>
+  <p-calendar
+    [inputId]="inputId"
+    [view]="view"
+    [dateFormat]="dateFormat"
+    [yearNavigator]="yearNavigator"
+    [formControl]="formControl"
+    [yearRange]="yearRange"
+    [maxDate]="maxDate"
+    [minDate]="minDate"
+    [readonlyInput]="readonlyInput"
+    [selectionMode]="selectionMode"
+    [showIcon]="true" (onClose)="changes.next(this.formControl.value)"></p-calendar>
+  <ng-content></ng-content>
+</div>

@@ -1,0 +1,93 @@
+<euys-styled-panel [toggleable]="false">
+  <!-- HEADER -->
+  <ng-container header>
+    <euys-free-header textToRender="TCR (BEKLEMELİ HADDELEME)">
+    </euys-free-header>
+  </ng-container>
+  <!-- CONTENT -->
+  <ng-container content>
+    <div *ngIf="(qcKayitBilgileriLoaded$ | async) === true; else loading">
+      <p-table
+        [value]="tcrBilgileriList$ | async"
+        responsiveLayout="scroll"
+        styleClass="p-datatable-gridlines p-datatable-striped table-header-text-center"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th></th>
+            <th>Hedef</th>
+            <th>Min</th>
+            <th>Max</th>
+            <th>Ölçülen</th>
+            <th>QC Karar</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td class="p-text-bold">{{ item.ozellikAdi }}</td>
+            <td class="text-center">{{ item.hedef }}</td>
+            <td class="text-center">{{ item.min }}</td>
+            <td class="text-center">{{ item.max }}</td>
+            <td class="text-center">{{ item.olculen }}</td>
+            <td class="text-center">
+              <euys-column-action-button
+                [icon]="
+                  'pi pi-' +
+                  (item.qcKarar === 'ok' ? 'check-circle' : 'times-circle')
+                "
+                [xlIcon]="true"
+                [danger]="item.qcKarar === 'nok'"
+                [success]="item.qcKarar === 'ok'"
+                [badgeIcon]="true"
+                [isReady]="true"
+                (columnActionEmitter)="(undefined)"
+              >
+              </euys-column-action-button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <ng-template #loading>
+      <p-table
+        styleClass="p-datatable-gridlines p-datatable-striped table-header-text-center"
+        class="skeleton-table"
+        [value]="dummyList"
+        responsiveLayout="scroll"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th></th>
+            <th>Hedef</th>
+            <th>Min</th>
+            <th>Max</th>
+            <th>Ölçülen</th>
+            <th>QC Karar</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-dummy>
+          <tr>
+            <td>
+              <p-skeleton></p-skeleton>
+            </td>
+            <td>
+              <p-skeleton></p-skeleton>
+            </td>
+            <td>
+              <p-skeleton></p-skeleton>
+            </td>
+            <td>
+              <p-skeleton></p-skeleton>
+            </td>
+            <td>
+              <p-skeleton></p-skeleton>
+            </td>
+            <td>
+              <p-skeleton></p-skeleton>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </ng-template>
+  </ng-container>
+</euys-styled-panel>

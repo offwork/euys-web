@@ -1,0 +1,40 @@
+<euys-styled-panel [toggleable]="false">
+  <ng-container header>
+    <euys-free-header textToRender="ÖNCEKİ HAT KUSUR BİLGİLERİ">
+    </euys-free-header>
+  </ng-container>
+  <ng-container content>
+    <div *ngIf="(qcKayitBilgileriLoaded$ | async) === true">
+      <p-table
+        [value]="oncekiHatKusurList$ | async"
+        responsiveLayout="scroll"
+        styleClass="p-datatable-gridlines p-datatable-striped table-header-text-center"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Geçtiği Hat</th>
+            <th>Kusur Kodu</th>
+            <th>Derece</th>
+            <th>%</th>
+            <th>Yeri</th>
+            <th>Kusur Hattan Mı?</th>
+            <th>Kusur Hattı</th>
+            <th>Hat Açıklaması</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td class="text-center">{{ item.gectigiHat }}</td>
+            <td class="text-center">{{ item.kusurKodu }}</td>
+            <td class="text-center">{{ item.derece }}</td>
+            <td class="text-center">{{ item.yuzde }}</td>
+            <td class="text-center">{{ item.yeri }}</td>
+            <td class="text-center">{{ item.kusurHattaMi }}</td>
+            <td class="text-center">{{ item.kusurHatti }}</td>
+            <td class="text-center">{{ item.hatAciklamasi }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </ng-container>
+</euys-styled-panel>

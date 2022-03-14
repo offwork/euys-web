@@ -1,0 +1,23 @@
+<euys-filter-bar [formFields]="filterFormFields" [productLines]="productLines$" (startSearching)="submit($event)">
+</euys-filter-bar>
+
+<ng-container *ngIf="filterFormResult && loaded$ | async">
+  <!-- <h3 >{{ filterFormResult?.hatlar?.hatUzunAdi }}</h3> -->
+  <div [style.margin-bottom.rem]="1" class="charts-wrapper">
+    <p-card>
+      <euys-charts-gecikme [data]="chartTee$ | async"></euys-charts-gecikme>
+    </p-card>
+    <p-card>
+      <euys-charts-gecikme [data]="chartNetCalisma$ | async"></euys-charts-gecikme>
+    </p-card>
+  </div>
+
+  <div class="charts-wrapper">
+    <p-card>
+      <euys-charts-gecikme [data]="chartPerformans$ | async"></euys-charts-gecikme>
+    </p-card>
+    <p-card>
+      <euys-charts-gecikme [data]="chartKalite$ | async"></euys-charts-gecikme>
+    </p-card>
+  </div>
+</ng-container>

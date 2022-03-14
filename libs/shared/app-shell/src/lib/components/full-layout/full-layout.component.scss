@@ -1,0 +1,43 @@
+.euys-full-layout {
+  /* TODO: this class must be moved to global styles */
+  .header-separator {
+    border-right: solid 1px;
+    margin: 0 8px;
+    padding: 16px 0;
+  }
+
+  .profile-button {
+    margin-right: -1rem;
+    padding-left: 0;
+    padding-right: 0;
+    width: 298px;
+  }
+
+  .profile-button-content {
+    background-color: transparent;
+    display: contents;
+    pointer-events: none;
+  }
+
+  .p-divider.p-divider-vertical {
+    margin-right: 0;
+  }
+
+  .languages {
+    .p-button {
+      &:focus {
+        box-shadow: unset;
+      }
+
+      &:enabled:active {
+        background: transparent;
+        border-color: transparent;
+      }
+
+      &:enabled:hover {
+        background: transparent;
+        border-color: transparent;
+      }
+    }
+  }
+}

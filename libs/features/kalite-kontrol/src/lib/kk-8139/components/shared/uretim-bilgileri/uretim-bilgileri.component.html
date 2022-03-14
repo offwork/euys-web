@@ -1,0 +1,254 @@
+<div *ngIf="(qcKayitBilgileriLoaded$ | async) === true; else loading">
+  <p-table
+    responsiveLayout="scroll"
+    styleClass="p-datatable-gridlines table-header-text-center"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="text-left">MPC No</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          {{ qcKayitBilgileri?.mpcNo }}
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Deneme Mi?</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          <span
+            [class]="
+              'euys-badge status-' + (qcKayitBilgileri?.denemeMi | lowercase)
+            "
+            >{{ qcKayitBilgileri?.denemeMi | euysEnum }}</span
+          >
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Fason Mu?</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          <span
+            [class]="
+              'euys-badge status-' + (qcKayitBilgileri?.fasonMu | lowercase)
+            "
+            >{{ qcKayitBilgileri?.fasonMu | euysEnum }}</span
+          >
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Müşteri</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          {{ qcKayitBilgileri?.musteriAdi }}
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Müşteri Spec No</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          {{ qcKayitBilgileri?.musteriSpecNo }}
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Prot Lot No</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          {{ qcKayitBilgileri?.protokolLotNo }}
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Sonraki Hat</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          {{ qcKayitBilgileri?.sonrakiHat }}
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Bobin Uzunluğu</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          {{ qcKayitBilgileri?.bobinUzunlugu }}
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Bobin Ağırlığı</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          {{ qcKayitBilgileri?.bobinAgirligi }}
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Üretim Süresi (sn)</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          {{ qcKayitBilgileri?.uretimSuresi }}
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Bobin Açma Kontrol*</th>
+        <td class="border-r border-l border-t border-b">
+          <p-dropdown
+            class="w-full"
+            [disabled]="disabled"
+            styleClass="!flex"
+            [options]="bobinAcmaKontrol"
+            [(ngModel)]="selectedBobinAcmaKontrol"
+            (onChange)="onChangeBobinAcmaKontrol($event.value)"
+          >
+          </p-dropdown>
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Standart Numune No/Yeri/Alınma İşareti</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          {{ qcKayitBilgileri?.standartNumuneNoYeriAlinmaIsareti }}
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Numune Al</th>
+        <td class="border-r border-l border-t border-b">
+          <p-dropdown
+            class="w-full"
+            [disabled]="disabled"
+            styleClass="!flex"
+            [options]="numuneAl"
+            [(ngModel)]="selectedNumuneAl"
+            (onChange)="onChangeNumuneAl($event.value)"
+          >
+          </p-dropdown>
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Yüzey Kusuru Var Mı?*</th>
+        <td class="border-r border-l border-t border-b">
+          <p-dropdown
+            class="w-full"
+            [disabled]="disabled"
+            styleClass="!flex"
+            [options]="yuzeyKusur"
+            [(ngModel)]="selectedYuzeyKusur"
+            (onChange)="onChangeYuzeyKusur($event.value)"
+          >
+          </p-dropdown>
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Önceki Hat Açıklaması</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          {{ qcKayitBilgileri?.oncekiHatYuzeyKusuruAciklama }}
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Açıklama</th>
+        <td class="border-r border-l border-t border-b">
+          <textarea
+            [disabled]="disabled"
+            pInputTextarea
+            type="text"
+            class="p-inputtext-sm"
+            [(ngModel)]="typedAciklama"
+            placeholder="Açıklama Giriniz"
+            (blur)="aciklamaChanged()"
+            [rows]="5"
+          ></textarea>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<ng-template #loading>
+  <p-table
+    responsiveLayout="scroll"
+    class="skeleton-table"
+    styleClass="p-datatable-gridlines table-header-text-center"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="text-left">MPC No</th>
+        <td class="w-7/12 p-2 border-r border-l border-t border-b">
+          <p-skeleton></p-skeleton>
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Deneme Mi?</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          <p-skeleton></p-skeleton>
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Fason Mu?</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          <p-skeleton></p-skeleton>
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Müşteri</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          <p-skeleton></p-skeleton>
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Müşteri Spec No</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          <p-skeleton></p-skeleton>
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Prot Lot No</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          <p-skeleton></p-skeleton>
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Sonraki Hat</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          <p-skeleton></p-skeleton>
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Bobin Uzunluğu</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          <p-skeleton></p-skeleton>
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Bobin Ağırlığı</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          <p-skeleton></p-skeleton>
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Üretim Süresi (sn)</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          <p-skeleton></p-skeleton>
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Bobin Açma Kontrol*</th>
+        <td class="border-r border-l border-t border-b">
+          <p-skeleton></p-skeleton>
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Standart Numune No/Yeri/Alınma İşareti</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          <p-skeleton></p-skeleton>
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Numune Al</th>
+        <td class="border-r border-l border-t border-b">
+          <p-skeleton></p-skeleton>
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Yüzey Kusuru Var Mı?*</th>
+        <td class="border-r border-l border-t border-b">
+          <p-skeleton></p-skeleton>
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Önceki Hat Açıklaması</th>
+        <td class="p-2 border-r border-l border-t border-b">
+          <p-skeleton></p-skeleton>
+        </td>
+      </tr>
+      <tr>
+        <th class="text-left">Açıklama</th>
+        <td class="border-r border-l border-t border-b">
+          <p-skeleton></p-skeleton>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</ng-template>

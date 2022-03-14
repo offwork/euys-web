@@ -1,0 +1,48 @@
+<p-card>
+  <ng-template pTemplate="header">
+    <h2>Hat Hızları</h2>
+    <p-divider></p-divider>
+  </ng-template>
+
+  <ng-template pTemplate="content">
+    <p-dropdown [options]="productLines$ | async"
+      [formControl]="selectedLine"
+      [filter]="true"
+      [showClear]="true"
+      filterBy="hatUzunAdi" optionLabel="hatUzunAdi" placeholder="Hatlar">
+      <ng-template pTemplate="selectedItem">
+        <div class="country-item country-item-value" *ngIf="selectedLine">
+          <div>{{selectedLine.value.hatUzunAdi}}</div>
+        </div>
+      </ng-template>
+      <ng-template let-line pTemplate="item">
+        <div class="country-item">
+          <div>{{line.hatUzunAdi}}</div>
+        </div>
+      </ng-template>
+    </p-dropdown>
+
+    <p-button class="download-button"
+      label="Indir"
+      icon="pi pi-download"
+      iconPos="right"
+      [disabled]="(selectedLine.value$ | async) === null"
+      (click)="filesDownloadHandler()"></p-button>
+
+    <p-fileUpload
+      name="euysFiles[]"
+      [disabled]="(downloaded$ | async) === false"
+      [customUpload]="true"
+      [multiple]="false"
+      [accept]="acceptExtensions"
+      (uploadHandler)="uploadHandler($event)">
+      <ng-template let-file pTemplate="file">
+        <div class="upload-file">
+          <i class="pi pi-file-excel" style="font-size: 2rem"></i>
+          <h2><strong>{{file?.name}}</strong></h2>
+          <span>{{file?.size}}KB</span>
+        </div>
+      </ng-template>
+    </p-fileUpload>
+  </ng-template>
+</p-card>

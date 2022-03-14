@@ -1,0 +1,756 @@
+{
+  "locale": "tr",
+  "application": {
+    "storagePrefix": "kt_specs_",
+    "name": "kt-specs-frontend",
+    "copyright": "© 2021 - 2022 Erdemir Information Technologies, Inc. All Rights Reserved.",
+    "version": "0.0.1"
+  },
+  "sideNav": {
+    "expandedSidenav": false,
+    "preserveState": true
+  },
+  "languages": [
+    { "key": "en", "value": "English" },
+    { "key": "tr", "value": "Turkish" }
+  ],
+  "urls": {
+    "base": "/euys/kalite-tasarim",
+    "dev": "https://apigwtest.erdemir.com.tr/int/dev",
+    "escape":"",
+    "local": "https://kurumsaldevl-was1.erdemir.com.tr/euyskt-be",
+    "local-2": "http://localhost:8080",
+    "resources": {},
+    "root": "/api/v1",
+    "test": "https://apigwtest.erdemir.com.tr/int/test"
+  },
+  "mainNavs": [
+    {
+      "uygulamaKod": "4962d53c-3d90-41af-8db3-b21242c33a84",
+      "modulAd": "Kalite Tasarım",
+      "runModul": "KT",
+      "altModuller": [
+        {
+          "modulAd": "Spesifikasyon Ana Tablo İşlemleri",
+          "runModul": "KT.kt-1200",
+          "altModuller": [
+            {
+              "modulAd": "1. Sıcak Haddehane İkmal Sıcaklığı Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1201",
+              "altModuller": null
+            },
+            {
+              "modulAd": "1. Sıcak Haddehane Sarılma Sıcaklığı Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1202",
+              "altModuller": null
+            },
+            {
+              "modulAd": "2. Sıcak İkmal Sıcaklığı Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1203",
+              "altModuller": null
+            },
+            {
+              "modulAd": "2. Sıcak Haddehane Sarılma Sıcaklığı Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1204",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Ağırlık Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1205",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Alkali Temizleme Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1206",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Ambalaj Paket Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1207",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Asitleme Tank Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1208",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Asitleme Tlv Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1209",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Durulama Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1210",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Numune Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1211",
+              "altModuller": null
+            },
+            {
+              "modulAd": "BAF Hattı Tavlama Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1212",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Bobin Balık Kuyruğu Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1213",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Bobin Dil Ucu Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1214",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Bobin Hazırlama Hattı Temper Yüzde Uzama Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1215",
+              "altModuller": null
+            },
+            {
+              "modulAd": "CAL Hattı Tavlama Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1216",
+              "altModuller": null
+            },
+            {
+              "modulAd": "CAL Hattı Temper Yüzde Uzama Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1217",
+              "altModuller": null
+            },
+            {
+              "modulAd": "CGL 1-2 Hattı Hava ile Soğutma (AJC) Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1218",
+              "altModuller": null
+            },
+            {
+              "modulAd": "CGL 1-2 Hattı Tavlama-1 Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1219",
+              "altModuller": null
+            },
+            {
+              "modulAd": "CGL 1-2 Hattı Tavlama-2 Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1220",
+              "altModuller": null
+            },
+            {
+              "modulAd": "CGL 1-2 Hattı Temizleme Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1221",
+              "altModuller": null
+            },
+            {
+              "modulAd": "CGL 1-2 Hattı Temper Yüzde Uzama Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1222",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Demir Alaşım ve GA Fırını Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1223",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Döküm Çelik Kalitesi Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1224",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Dual Fazlı Kalite Sıcak Haddehane Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1225",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Enine Kalınlık ve İki Kenar Farkları Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1226",
+              "altModuller": null
+            },
+            {
+              "modulAd": "II. Teneke Hattı Asitleme Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1230",
+              "altModuller": null
+            },
+            {
+              "modulAd": "II. Teneke Hattı Kalay Ergitme Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1231",
+              "altModuller": null
+            },
+            {
+              "modulAd": "II. Teneke Hattı Kalay Kaplama Kimyasal İşlem Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1232",
+              "altModuller": null
+            },
+            {
+              "modulAd": "II. Teneke Hattı Kalay Kaplama Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1233",
+              "altModuller": null
+            },
+            {
+              "modulAd": "II. Teneke Hattı Temizleme Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1234",
+              "altModuller": null
+            },
+            {
+              "modulAd": "İç Çap - Dış Çap Toleransları Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1235",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Kalınlık Sapma Aralığı Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1236",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Kenar Eğriliği (CAMBER) Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1237",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Köşe Dikliği Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1238",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Krom Kaplama (TFS) CRO3 Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1239",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Krom Kaplama (TFS) DRAG-OUT Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1240",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Krom Kaplama (TFS) FLOR Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1241",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Krom Kaplama (TFS) SO4 Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1242",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Levha Haddehane İkmal Sıcaklığı Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1243",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Markalama Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1244",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Normalize Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1245",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Özel Ağırlık Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1246",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Slab Yüzey Temizleme Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1247",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Sleeve Kalınlık Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1248",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Teleskopi Toleransı Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1249",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Temper Hadde Temper Yüzde Uzama Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1250",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Tincal Hattı Soğutma ve Yaşlandırma Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1252",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Tincal Hattı Tavlama Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1253",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Tincal Hattı Temizleme Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1254",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Tincal Temper Yüzde Uzama Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1255",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Yağlama Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1256",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Yüzey Düzgünlüğü Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1257",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Yüzey Görünümü Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1258",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Yansıtma Testi Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1259",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Temper Merdane Tipi Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1260",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Yüzey Düzgünlüğü IUnit  Spesifikasyonu Ana Tablo İşlemleri",
+              "runModul": "KT.kt-1261",
+              "altModuller": null
+            }
+          ]
+        },
+        {
+          "modulAd": "Spesifikasyon Spec Tablo İşlemleri",
+          "runModul": "KT.kt-1300",
+          "altModuller": [
+            {
+              "modulAd": "1. Sıcak Haddehane İkmal Sıcaklığı Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1301",
+              "altModuller": null
+            },
+            {
+              "modulAd": "1. Sıcak Haddehane Sarılma Sıcaklığı Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1302",
+              "altModuller": null
+            },
+            {
+              "modulAd": "2. Sıcak Haddehane İkmal Sıcaklığı Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1303",
+              "altModuller": null
+            },
+            {
+              "modulAd": "2. Sıcak Haddehane Sarılma Sıcaklığı Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1304",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Ambalaj Paket Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1307",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Bobin Hazırlama Temper Yüzde Uzama Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1315",
+              "altModuller": null
+            }
+            ,
+            {
+              "modulAd": "CGL 1-2 Hattı Hava ile Soğutma (AJC) Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1318",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Dual Fazlı Kalite Sıcak Haddehane Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1325",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Enine Kalınlık ve İki Kenar Farkları Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1326",
+              "altModuller": null
+            },
+            {
+              "modulAd": "2. Teneke Kalay Ergitme Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1331",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Baf Hattı Tavlamalar Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1312",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Bobin Balık Kuyruğu Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1313",
+              "altModuller": null
+            },
+            {
+              "modulAd": "2. Teneke Kalay Kimyasal Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1332",
+              "altModuller": null
+            }
+            ,
+            {
+              "modulAd": "Yansıtma Testi Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1360",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Markalama Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1344",
+              "altModuller": null
+            },
+            {
+              "modulAd": "2. Teneke Hattı Asitleme Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1330",
+              "altModuller": null
+            },
+            {
+              "modulAd": "II. Teneke Hattı Kalay Kaplama Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1333",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Krom Kaplamna (TFS) CRO3 Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1339",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Krom Kaplama (TFS) Drag-Out Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1340",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Krom Kaplama (TFS) Flor Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1341",
+              "altModuller": null
+            },
+            {
+              "modulAd": "CGL 1-2 Hattı Tavlama-1 Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1319",
+              "altModuller": null
+            },
+            {
+              "modulAd": "CGL 1-2 Hattı Tavlama-2 Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1320",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Bobin Dil Ucu Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1314",
+              "altModuller": null
+            },
+            {
+              "modulAd": "CGL 1-2 Hattı Temizleme Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1321",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Alkalı Temizleme Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1306",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Asitleme Tank Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1362",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Asitleme TLV Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1363",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Durulama Spesifikasyonu Spec Tablo İşlemleri",
+              "runModul": "KT.kt-1364",
+              "altModuller": null
+            }
+          ]
+        },
+        {
+          "modulAd": "Spesifikasyon Ana Tablo Görüntüleme",
+          "runModul": "KT.kt-1500",
+          "altModuller": [
+            {
+              "modulAd": "1. Sıcak Haddehane İkmal Sıcaklığı Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1501",
+              "altModuller": null
+            },
+            {
+              "modulAd": "1. Sıcak Haddehane Sarılma Sıcaklığı Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1502",
+              "altModuller": null
+            },
+            {
+              "modulAd": "2. Sıcak İkmal Sıcaklığı Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1503",
+              "altModuller": null
+            },
+            {
+              "modulAd": "2. Sıcak Haddehane Sarılma Sıcaklığı Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1504",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Ağırlık Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1505",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Alkali Temizleme Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1506",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Ambalaj Paket Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1507",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Asitleme Tank Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1508",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Asitleme Tlv Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1509",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Durulama Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1510",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Numune Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1511",
+              "altModuller": null
+            },
+            {
+              "modulAd": "BAF Hattı Tavlama Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1512",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Bobin Balık Kuyruğu Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1513",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Bobin Dil Ucu Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1514",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Bobin Hazırlama Hattı Temper Yüzde Uzama Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1515",
+              "altModuller": null
+            },
+            {
+              "modulAd": "CAL Hattı Tavlama Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1516",
+              "altModuller": null
+            },
+            {
+              "modulAd": "CAL Hattı Temper Yüzde Uzama Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1517",
+              "altModuller": null
+            },
+            {
+              "modulAd": "CGL 1-2 Hattı Hava ile Soğutma (AJC) Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1518",
+              "altModuller": null
+            },
+            {
+              "modulAd": "CGL 1-2 Hattı Tavlama-1 Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1519",
+              "altModuller": null
+            },
+            {
+              "modulAd": "CGL 1-2 Hattı Tavlama-2 Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1520",
+              "altModuller": null
+            },
+            {
+              "modulAd": "CGL 1-2 Hattı Temizleme Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1521",
+              "altModuller": null
+            },
+            {
+              "modulAd": "CGL 1-2 Hattı Temper Yüzde Uzama Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1522",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Demir Alaşım ve GA Fırını Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1523",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Döküm Çelik Kalitesi Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1524",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Dual Fazlı Kalite Sıcak Haddehane Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1525",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Enine Kalınlık ve İki Kenar Farkları Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1526",
+              "altModuller": null
+            },
+            {
+              "modulAd": "II. Teneke Hattı Asitleme Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1530",
+              "altModuller": null
+            },
+            {
+              "modulAd": "II. Teneke Hattı Kalay Ergitme Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1531",
+              "altModuller": null
+            },
+            {
+              "modulAd": "II. Teneke Hattı Kalay Kaplama Kimyasal İşlem Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1532",
+              "altModuller": null
+            },
+            {
+              "modulAd": "II. Teneke Hattı Kalay Kaplama Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1533",
+              "altModuller": null
+            },
+            {
+              "modulAd": "II. Teneke Hattı Temizleme Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1534",
+              "altModuller": null
+            },
+            {
+              "modulAd": "İç Çap - Dış Çap Toleransları Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1335",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Kalınlık Sapma Aralığı Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1536",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Kenar Eğriliği (CAMBER) Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1537",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Köşe Dikliği Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1538",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Krom Kaplama (TFS) CRO3 Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1539",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Krom Kaplama (TFS) DRAG-OUT Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1540",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Krom Kaplama (TFS) FLOR Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1541",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Krom Kaplama (TFS) SO4 Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1542",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Levha Haddehane İkmal Sıcaklığı Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1543",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Markalama Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1544",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Normalize Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1545",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Özel Ağırlık Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1546",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Slab Yüzey Temizleme Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1547",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Sleeve Kalınlık Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1548",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Teleskopi Toleransı Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1549",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Temper Hadde Temper Yüzde Uzama Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1550",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Tincal Hattı Soğutma ve Yaşlandırma Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1552",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Tincal Hattı Tavlama Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1553",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Tincal Hattı Temizleme Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1554",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Tincal Temper Yüzde Uzama Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1555",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Yağlama Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1556",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Yüzey Düzgünlüğü Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1557",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Yüzey Görünümü Spesifikasyonu Ana Tablo Görüntüleme",
+              "runModul": "KT.kt-1558",
+              "altModuller": null
+            },
+            {
+              "modulAd": "Yağlama Spesifikasyonu",
+              "runModul": "KT.kt-1359",
+              "altModuller": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

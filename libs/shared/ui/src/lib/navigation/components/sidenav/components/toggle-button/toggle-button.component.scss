@@ -1,0 +1,25 @@
+@mixin euys-sidenav-toggle-button-theme() {
+  euys-toggle-button {
+    /* stylelint-disable */
+    .p-button.p-button-text.toggle-button {
+      background-color: rgba(61, 112, 178, 0.1);
+      border: 0;
+      border-radius: 0;
+      flex-shrink: 0;
+      justify-content: end;
+      margin: 0;
+      padding: 0.625rem 0.75rem;
+      width: 100%;
+
+      &.collapsed {
+        justify-content: center;
+        width: 44px;
+      }
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+    /* stylelint-enable */
+  }
+}

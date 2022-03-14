@@ -1,0 +1,26 @@
+@mixin euys-filter-bar-mixin() {
+  .euys-filter-bar {
+    background-color: var(--surface-b);
+    display: block;
+    margin-bottom: 24px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+
+    .p-card-content {
+      align-items: center;
+      display: flex;
+      gap: 24px;
+      padding: 0;
+    }
+
+    .flex-1:first-child(euys-checkbox-input) {
+      flex: unset;
+    }
+
+    .vertical-sperator {
+      border-right: 1px solid rgba(0, 0, 0, 0.07);
+      margin-right: 24px;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+<euys-filter-bar 
+  [isRecord]="true"
+  [formFields]="filterFormFields" 
+  (startSearching)="clickOnContinue($event)">
+</euys-filter-bar>
+
+<ng-container *ngIf="loaded$ | async">
+  <euys-data-table-gecikme [header]="monthDescription" [data]="aylikGecikme$"></euys-data-table-gecikme>
+  <p-divider class="table-divider"></p-divider>
+  <euys-data-table-gecikme [header]="yearDescription" [data]="yillikGecikme$"></euys-data-table-gecikme>
+</ng-container>

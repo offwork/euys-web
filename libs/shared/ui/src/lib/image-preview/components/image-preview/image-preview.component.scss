@@ -1,0 +1,33 @@
+@mixin image-preview-mixin() {
+  .image-preview {
+    display: inline;
+
+    .thumbnail-wrapper {
+      display: flex;
+      padding: 1rem 0;
+      /* stylelint-disable-next-line rule-empty-line-before */
+      .thumbnail {
+        display: flex;
+        flex: 1 1 0%;
+        /* stylelint-disable-next-line selector-max-compound-selectors */
+        .image {
+          margin: auto;
+          /* stylelint-disable-next-line selector-max-compound-selectors */
+          button {
+            margin-left: 7.85rem;
+            margin-top: -20px;
+            position: absolute;
+          }
+          /* stylelint-disable-next-line selector-max-compound-selectors */
+          img {
+            box-shadow: 1px 1px 6px 0 rgba(49, 49, 49, 0.4);
+            cursor: pointer;
+            height: 6rem;
+            object-fit: cover;
+            width: 9rem;
+          }
+        }
+      }
+    }
+  }
+}

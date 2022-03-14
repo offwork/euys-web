@@ -1,0 +1,66 @@
+<p-card>
+  <form
+    [formGroup]="form"
+    class="grid grid-cols-3 w-1/3 gap-3 items-center"
+    style="grid-template-columns: repeat(3, fit-content(100%))"
+  >
+    <label for="tankNo"> *Tank No: </label>
+
+    <p-dropdown
+      formControlName="tankNo"
+      class="col-span-2 flex"
+      styleClass="flex-1"
+      inputId="tankNo"
+      placeholder="Seçiniz"
+      [options]="tankList$ | async"
+      optionLabel="tankNo"
+      optionValue="tankNo"
+      [showClear]="false"
+    >
+    </p-dropdown>
+
+    <label for="hatKodu"> *Hat Kodu: </label>
+
+    <p-dropdown
+      formControlName="hatKodu"
+      class="col-span-2 flex"
+      styleClass="flex-1"
+      inputId="hatKodu"
+      placeholder="Seçiniz"
+      [options]="hatList$ | async"
+      optionLabel="hatKodu"
+      optionValue="hatKodu"
+      [showClear]="false"
+    >
+    </p-dropdown>
+
+    <label></label>
+  <label> Gr/Lt </label>
+  <label> % </label>
+
+  <label> *HCL Konsantrasyonu Gr./Lt (maksimum): </label>
+
+  <input formControlName="hclGrLt" pInputText pKeyFilter="num"/>
+  <input formControlName="hclYuzde" pInputText pKeyFilter="num"/>
+
+  <label> *FE+2 Gr/Lt (maksimum): </label>
+  <input formControlName="fe2GrLt" pInputText pKeyFilter="num"/>
+  <input formControlName="fe2Yuzde" pInputText pKeyFilter="num"/>
+  
+  <label> *Banyo Sıcaklığı C derece (maksimum): </label>
+    <input formControlName="banyoSicakligi" class="col-span-2 flex" pInputText pKeyFilter="int" />
+  </form>
+  
+
+
+  <button
+    (click)="onSubmit()"
+    pButton
+    pRipple
+    type="button"
+    [label]="(isUpdate$ | async) ? 'Güncelle' : 'Kaydet'"
+    icon="pi pi-save"
+    class="p-button-rounded p-button-secondary mb-5 mt-5"
+    [loading]="loading$ | async"
+  ></button>
+</p-card>

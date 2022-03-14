@@ -1,0 +1,41 @@
+<euys-spesifikasyon-toolbar
+  title="Temper Merdane Tipi Spesifikasyonu Ana Tablo"
+  [isFormVisible]="isFormVisible$ | async"
+  [isUpdate]="isUpdate()"
+  [updateDisabled]="!selectedRow || selectedRow.kontrolAktifTaslak === 1"
+  (addClick)="onAddClick()"
+  (updateClick)="onUpdateClick(selectedRow)"
+  (goBackClick)="goBack()"
+  (reloadClick)="reload()"
+>
+</euys-spesifikasyon-toolbar>
+<euys-spesifikasyon-tablo
+  [data]="data$"
+  [loaded]="loaded$"
+  [headers]="tableHeaders"
+  [cols]="cols"
+  [selected]="selectedRow"
+  (selectedChange)="selectedRow = $event"
+  *ngIf="(isFormVisible$ | async) === false"
+>
+</euys-spesifikasyon-tablo>
+
+<p-card *ngIf="isFormVisible$ | async">
+  <euys-dynamic-form
+    [selectedRow]="selectedRow$"
+    [formControls]="formControls"
+    [update]="isUpdate()"
+    (dispatchFormValue)="onSubmit($event)"
+  >
+    <div class="grid grid-cols-3 justify-items-stretch border-b py-4 gap-10">
+      <label class="justify-self-end"
+        >Temper Merdane Tipi Spesifikasyonu Ana Tablo Kodu :</label
+      >
+      <div class="col-span-2">
+        <span class="border-solid border-l border-gray-300 pl-2">{{
+          isUpdate() ? selectedRow.temperMerdaneTipiKodu : '000'
+        }}</span>
+      </div>
+    </div>
+  </euys-dynamic-form>
+</p-card>

@@ -1,0 +1,83 @@
+{
+  "CORE": {
+    "FILE_SIZE": {
+      "BYTES": "Bytes",
+      "KB": "KB",
+      "MB": "MB",
+      "GB": "GB",
+      "TB": "TB"
+    },
+    "PAGINATION": {
+      "ARIA": {
+        "ITEMS_PER_PAGE": "Page size selector",
+        "CURRENT_PAGE": "Current page selector",
+        "PREVIOUS_PAGE": "Previous page button",
+        "NEXT_PAGE": "Next page button"
+      },
+      "ITEMS_RANGE": "Showing {{ range }} of {{ total }}",
+      "ITEMS_PER_PAGE": "Items per page",
+      "CURRENT_PAGE": "Page {{ number }}",
+      "TOTAL_PAGES": "of {{ total }}"
+    },
+    "METADATA": {
+      "BASIC": {
+        "CREATED_DATE": "Created Date",
+        "MODIFIED_DATE": "Modified Date",
+        "CONTENT_TYPE": "Content Type"
+      },
+      "ACTIONS": {
+        "EDIT": "Edit",
+        "SAVE": "Save",
+        "CANCEL": "Cancel",
+        "CLEAR": "Clear",
+        "RESET": "Reset"
+      }
+    }
+  },
+  "primeng": {
+    "startsWith": "Starts with",
+    "contains": "Contains",
+    "notContains": "Not contains",
+    "endsWith": "Ends with",
+    "equals": "Equals",
+    "notEquals": "Not equals",
+    "noFilter": "No Filter",
+    "lt": "Less than",
+    "lte": "Less than or equal to",
+    "gt": "Greater than",
+    "gte": "Greater than or equal to",
+    "is": "Is",
+    "isNot": "Is not",
+    "before": "Before",
+    "after": "After",
+    "dateIs": "Date is",
+    "dateIsNot": "Date is not",
+    "dateBefore": "Date is before",
+    "dateAfter": "Date is after",
+    "clear": "Clear",
+    "apply": "Apply",
+    "matchAll": "Match All",
+    "matchAny": "Match Any",
+    "addRule": "Add Rule",
+    "removeRule": "Remove Rule",
+    "accept": "Yes",
+    "reject": "No",
+    "choose": "Choose",
+    "upload": "Upload",
+    "cancel": "Cancel",
+    "dayNames": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    "dayNamesShort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    "dayNamesMin": ["Su","Mo","Tu","We","Th","Fr","Sa"],
+    "monthNames": ["January","February","March","April","May","June","July","August","September","October","November","December"],
+    "monthNamesShort": ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "dateFormat": "mm/dd/yy",
+    "today": "Today",
+    "weekHeader": "Wk",
+    "weak": "Weak",
+    "medium": "Medium",
+    "strong": "Strong",
+    "passwordPrompt": "Enter a password",
+    "emptyMessage": "No results found",
+    "emptyFilterMessage": "No results found"
+  }
+}

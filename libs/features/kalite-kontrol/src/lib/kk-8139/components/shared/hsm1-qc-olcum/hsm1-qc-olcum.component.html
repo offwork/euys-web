@@ -1,0 +1,510 @@
+<div *ngIf="(qcKayitBilgileriLoaded$ | async) === true; else loading">
+  <form [formGroup]="qcOlcumFormGroup" class="wrapper fix-grd">
+    <p-table
+      [value]="uretimDegerleri"
+      styleClass="p-datatable-gridlines p-datatable-striped  table-header-text-center"
+      responsiveLayout="scroll"
+      #table
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th colspan="4"></th>
+          <th colspan="3">Ölçülen(Actual)</th>
+          <th colspan="1"></th>
+          <th colspan="2">Tolerans Dışı</th>
+          <th colspan="3">L3 Değeri</th>
+        </tr>
+        <tr>
+          <th></th>
+          <th>Hedef</th>
+          <th>Min</th>
+          <th>Max</th>
+          <th>Ort.</th>
+          <th>Min</th>
+          <th>Max</th>
+          <th>Hold</th>
+          <th>Min(%)</th>
+          <th>Max(%)</th>
+          <th>Ort.(Avg)</th>
+          <th>Min</th>
+          <th>Max</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-uretimDegeri>
+        <tr>
+          <td class="w-2/12">
+            {{ uretimDegeri.mpcOzellik }}
+          </td>
+          <td class="w-16 text-right">
+            {{ uretimDegeri.mpcHedef | number: decimalFormat }}
+          </td>
+          <td class="w-16 text-right">
+            {{ uretimDegeri.mpcMin | number: decimalFormat }}
+          </td>
+          <td class="w-16 text-right">
+            {{ uretimDegeri.mpcMax | number: decimalFormat }}
+          </td>
+
+          <!-- * Ölçülen ortalama editable columns -->
+          <td class="w-28 text-right" *ngIf="!disabled">
+            <ng-container [ngSwitch]="uretimDegeri.mpcOzellik">
+              <ng-container *ngSwitchCase="'KALINLIK'">
+                <p-inputNumber
+                  #ortKalinlik
+                  (onBlur)="handleInputBlur(ortKalinlik, [0, 2])"
+                  inputStyleClass="p-inputtext-sm text-right {{
+                    qcOlcumFormGroup.get('ortKalinlik').errors?.outOfBounds
+                      ? 'ng-invalid ng-dirty'
+                      : ''
+                  }}
+                  "
+                  id="ortKalinlik"
+                  formControlName="ortKalinlik"
+                  mode="decimal"
+                  [min]="0.001"
+                  [max]="9999.999"
+                  [minFractionDigits]="0"
+                  [maxFractionDigits]="3"
+                  [locale]="appLocale"
+                ></p-inputNumber>
+              </ng-container>
+              <ng-container *ngSwitchCase="'GENISLIK'">
+                <p-inputNumber
+                  #ortGenislik
+                  (onBlur)="handleInputBlur(ortGenislik, [1, 2])"
+                  inputStyleClass="p-inputtext-sm text-right {{
+                    qcOlcumFormGroup.get('ortGenislik').errors?.outOfBounds
+                      ? 'ng-invalid ng-dirty'
+                      : ''
+                  }}
+                  "
+                  id="ortGenislik"
+                  formControlName="ortGenislik"
+                  mode="decimal"
+                  [min]="1"
+                  [max]="10000"
+                  [minFractionDigits]="0"
+                  [maxFractionDigits]="0"
+                  [locale]="appLocale"
+                ></p-inputNumber>
+              </ng-container>
+              <ng-container *ngSwitchCase="'SHIKMALSICAKLIGI'">
+                <p-inputNumber
+                  #shOrtalamaIkmalSicakligi
+                  (onBlur)="handleInputBlur(shOrtalamaIkmalSicakligi, [11, 2])"
+                  inputStyleClass="p-inputtext-sm text-right {{
+                    qcOlcumFormGroup.get('shOrtalamaIkmalSicakligi').errors
+                      ?.outOfBounds
+                      ? 'ng-invalid ng-dirty'
+                      : ''
+                  }}
+                  "
+                  id="shOrtalamaIkmalSicakligi"
+                  formControlName="shOrtalamaIkmalSicakligi"
+                  mode="decimal"
+                  [min]="0.001"
+                  [max]="9999.999"
+                  [minFractionDigits]="0"
+                  [maxFractionDigits]="3"
+                  [locale]="appLocale"
+                ></p-inputNumber>
+              </ng-container>
+              <ng-container *ngSwitchCase="'SHSARILMASICAKLIGI'">
+                <p-inputNumber
+                  #shOrtalamaSarilmaSicakligi
+                  (onBlur)="
+                    handleInputBlur(shOrtalamaSarilmaSicakligi, [12, 2])
+                  "
+                  inputStyleClass="p-inputtext-sm text-right {{
+                    qcOlcumFormGroup.get('shOrtalamaSarilmaSicakligi').errors
+                      ?.outOfBounds
+                      ? 'ng-invalid ng-dirty'
+                      : ''
+                  }}
+                  "
+                  id="shOrtalamaSarilmaSicakligi"
+                  formControlName="shOrtalamaSarilmaSicakligi"
+                  mode="decimal"
+                  [min]="0.001"
+                  [max]="9999.999"
+                  [minFractionDigits]="0"
+                  [maxFractionDigits]="3"
+                  [locale]="appLocale"
+                ></p-inputNumber>
+              </ng-container>
+              <ng-container *ngSwitchDefault>
+                <span
+                  [class]="
+                    'text-right ' +
+                    (uretimDegeri.olculenOrtalamaIkaz ? 'text-red-500' : '')
+                  "
+                  >{{
+                    uretimDegeri.olculenOrtalama | number: decimalFormat
+                  }}</span
+                >
+              </ng-container>
+            </ng-container>
+          </td>
+
+          <td
+            [class]="
+              'w-28 text-right ' +
+              (uretimDegeri.olculenOrtalamaIkaz ? 'text-red-500' : '')
+            "
+            *ngIf="disabled"
+          >
+            {{ uretimDegeri.olculenOrtalama | number: decimalFormat }}
+          </td>
+
+          <!-- * Ölçülen min editable columns -->
+          <td class="w-28 text-right" *ngIf="!disabled">
+            <ng-container [ngSwitch]="uretimDegeri.mpcOzellik">
+              <ng-container *ngSwitchCase="'KALINLIK'">
+                <p-inputNumber
+                  #minKalinlik
+                  (onBlur)="handleInputBlur(minKalinlik, [0, 3])"
+                  inputStyleClass="p-inputtext-sm text-right {{
+                    qcOlcumFormGroup.get('minKalinlik').errors?.outOfBounds
+                      ? 'ng-invalid ng-dirty'
+                      : ''
+                  }}
+                          "
+                  id="minKalinlik"
+                  formControlName="minKalinlik"
+                  mode="decimal"
+                  [min]="0.001"
+                  [max]="9999.999"
+                  [minFractionDigits]="0"
+                  [maxFractionDigits]="3"
+                  [locale]="appLocale"
+                ></p-inputNumber>
+              </ng-container>
+              <ng-container *ngSwitchCase="'GENISLIK'">
+                <p-inputNumber
+                  #minGenislik
+                  (onBlur)="handleInputBlur(minGenislik, [1, 3])"
+                  inputStyleClass="p-inputtext-sm text-right {{
+                    qcOlcumFormGroup.get('minGenislik').errors?.outOfBounds
+                      ? 'ng-invalid ng-dirty'
+                      : ''
+                  }}
+                          "
+                  id="minGenislik"
+                  formControlName="minGenislik"
+                  mode="decimal"
+                  [min]="1"
+                  [max]="10000"
+                  [minFractionDigits]="0"
+                  [maxFractionDigits]="0"
+                  [locale]="appLocale"
+                ></p-inputNumber>
+              </ng-container>
+              <ng-container *ngSwitchCase="'SHIKMALSICAKLIGI'">
+                <p-inputNumber
+                  #shMinIkmalSicakligi
+                  (onBlur)="handleInputBlur(shMinIkmalSicakligi, [11, 3])"
+                  inputStyleClass="p-inputtext-sm text-right {{
+                    qcOlcumFormGroup.get('shMinIkmalSicakligi').errors
+                      ?.outOfBounds
+                      ? 'ng-invalid ng-dirty'
+                      : ''
+                  }}
+                          "
+                  id="shMinIkmalSicakligi"
+                  formControlName="shMinIkmalSicakligi"
+                  mode="decimal"
+                  [min]="0.001"
+                  [max]="9999.999"
+                  [minFractionDigits]="0"
+                  [maxFractionDigits]="3"
+                  [locale]="appLocale"
+                ></p-inputNumber>
+              </ng-container>
+              <ng-container *ngSwitchCase="'SHSARILMASICAKLIGI'">
+                <p-inputNumber
+                  #shMinSarilmaSicakligi
+                  (onBlur)="handleInputBlur(shMinSarilmaSicakligi, [12, 3])"
+                  inputStyleClass="p-inputtext-sm text-right {{
+                    qcOlcumFormGroup.get('shMinSarilmaSicakligi').errors
+                      ?.outOfBounds
+                      ? 'ng-invalid ng-dirty'
+                      : ''
+                  }}
+                          "
+                  id="shMinSarilmaSicakligi"
+                  formControlName="shMinSarilmaSicakligi"
+                  mode="decimal"
+                  [min]="0.001"
+                  [max]="9999.999"
+                  [minFractionDigits]="0"
+                  [maxFractionDigits]="3"
+                  [locale]="appLocale"
+                ></p-inputNumber>
+              </ng-container>
+              <ng-container *ngSwitchDefault>
+                <span
+                  [class]="
+                    'text-right ' +
+                    (uretimDegeri.olculenMinIkaz ? 'text-red-500' : '')
+                  "
+                  >{{ uretimDegeri.olculenMin | number: decimalFormat }}</span
+                >
+              </ng-container>
+            </ng-container>
+          </td>
+
+          <td
+            [class]="
+              'w-28 text-right ' +
+              (uretimDegeri.olculenMinIkaz ? 'text-red-500' : '')
+            "
+            *ngIf="disabled"
+          >
+            {{ uretimDegeri.olculenMin | number: decimalFormat }}
+          </td>
+
+          <!-- * Ölçülen max editable columns -->
+          <td class="w-28 text-right" *ngIf="!disabled">
+            <ng-container [ngSwitch]="uretimDegeri.mpcOzellik">
+              <ng-container *ngSwitchCase="'KALINLIK'">
+                <p-inputNumber
+                  #maxKalinlik
+                  (onBlur)="handleInputBlur(maxKalinlik, [0, 4])"
+                  inputStyleClass="p-inputtext-sm text-right {{
+                    qcOlcumFormGroup.get('maxKalinlik').errors?.outOfBounds
+                      ? 'ng-invalid ng-dirty'
+                      : ''
+                  }}
+                                  "
+                  id="maxKalinlik"
+                  formControlName="maxKalinlik"
+                  mode="decimal"
+                  [min]="0.001"
+                  [max]="9999.999"
+                  [minFractionDigits]="0"
+                  [maxFractionDigits]="3"
+                  [locale]="appLocale"
+                ></p-inputNumber>
+              </ng-container>
+              <ng-container *ngSwitchCase="'GENISLIK'">
+                <p-inputNumber
+                  #maxGenislik
+                  (onBlur)="handleInputBlur(maxGenislik, [1, 4])"
+                  inputStyleClass="p-inputtext-sm text-right {{
+                    qcOlcumFormGroup.get('maxGenislik').errors?.outOfBounds
+                      ? 'ng-invalid ng-dirty'
+                      : ''
+                  }}
+                                  "
+                  id="maxGenislik"
+                  formControlName="maxGenislik"
+                  mode="decimal"
+                  [min]="1"
+                  [max]="10000"
+                  [minFractionDigits]="0"
+                  [maxFractionDigits]="0"
+                  [locale]="appLocale"
+                ></p-inputNumber>
+              </ng-container>
+              <ng-container *ngSwitchCase="'SHIKMALSICAKLIGI'">
+                <p-inputNumber
+                  #shMaxIkmalSicakligi
+                  (onBlur)="handleInputBlur(shMaxIkmalSicakligi, [11, 4])"
+                  inputStyleClass="p-inputtext-sm text-right {{
+                    qcOlcumFormGroup.get('shMaxIkmalSicakligi').errors
+                      ?.outOfBounds
+                      ? 'ng-invalid ng-dirty'
+                      : ''
+                  }}
+                                  "
+                  id="shMaxIkmalSicakligi"
+                  formControlName="shMaxIkmalSicakligi"
+                  mode="decimal"
+                  [min]="0.001"
+                  [max]="9999.999"
+                  [minFractionDigits]="0"
+                  [maxFractionDigits]="3"
+                  [locale]="appLocale"
+                ></p-inputNumber>
+              </ng-container>
+              <ng-container *ngSwitchCase="'SHSARILMASICAKLIGI'">
+                <p-inputNumber
+                  #shMaxSarilmaSicakligi
+                  (onBlur)="handleInputBlur(shMaxSarilmaSicakligi, [12, 4])"
+                  inputStyleClass="p-inputtext-sm text-right {{
+                    qcOlcumFormGroup.get('shMaxSarilmaSicakligi').errors
+                      ?.outOfBounds
+                      ? 'ng-invalid ng-dirty'
+                      : ''
+                  }}
+                                  "
+                  id="shMaxSarilmaSicakligi"
+                  formControlName="shMaxSarilmaSicakligi"
+                  mode="decimal"
+                  [min]="0.001"
+                  [max]="9999.999"
+                  [minFractionDigits]="0"
+                  [maxFractionDigits]="3"
+                  [locale]="appLocale"
+                ></p-inputNumber>
+              </ng-container>
+              <ng-container *ngSwitchDefault>
+                <span [class.p-error]="uretimDegeri.olculenMaxIkaz">{{
+                  uretimDegeri.olculenMax | number: decimalFormat
+                }}</span>
+              </ng-container>
+            </ng-container>
+          </td>
+
+          <td
+            [class]="
+              'w-28 text-right ' +
+              (uretimDegeri.olculenMaxIkaz ? 'text-red-500' : '')
+            "
+            *ngIf="disabled"
+          >
+            {{ uretimDegeri.olculenMax | number: decimalFormat }}
+          </td>
+
+          <td class="text-center w-10">
+            <euys-column-action-button
+              [icon]="
+                'pi pi-' +
+                (uretimDegeri.holdIkaz ? 'check-circle' : 'exclamation-circle')
+              "
+              [xlIcon]="true"
+              [danger]="uretimDegeri.holdIkaz === false"
+              [success]="uretimDegeri.holdIkaz === true"
+              [badgeIcon]="true"
+              [isReady]="true"
+              (columnActionEmitter)="(undefined)"
+            >
+            </euys-column-action-button>
+          </td>
+
+          <td
+            [class]="
+              'w-16 text-right ' +
+              (uretimDegeri.toleransDisiMinIkaz ? 'text-red-500' : '')
+            "
+          >
+            {{ uretimDegeri.toleransDisiMin | number: decimalFormat }}
+          </td>
+
+          <td
+            [class]="
+              'w-16 text-right ' +
+              (uretimDegeri.toleransDisiMaxIkaz ? 'text-red-500' : '')
+            "
+          >
+            {{ uretimDegeri.toleransDisiMax | number: decimalFormat }}
+          </td>
+
+          <td
+            [class]="
+              'w-16 text-right ' +
+              (uretimDegeri.l3OrtalamaIkaz ? 'text-red-500' : '')
+            "
+          >
+            {{ uretimDegeri.l3Ortalama | number: decimalFormat }}
+          </td>
+
+          <td
+            [class]="
+              'w-16 text-right ' +
+              (uretimDegeri.l3MinIkaz ? 'text-red-500' : '')
+            "
+          >
+            {{ uretimDegeri.l3Min | number: decimalFormat }}
+          </td>
+
+          <td
+            [class]="
+              'w-16 text-right ' +
+              (uretimDegeri.l3MaxIkaz ? 'text-red-500' : '')
+            "
+          >
+            {{ uretimDegeri.l3Max | number: decimalFormat }}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </form>
+</div>
+
+<ng-template #loading>
+  <p-table
+    styleClass="p-datatable-gridlines p-datatable-striped table-header-text-center"
+    class="skeleton-table"
+    responsiveLayout="scroll"
+    [value]="dummyQcOlcumList"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th colspan="4"></th>
+        <th colspan="3">Ölçülen(Actual)</th>
+        <th colspan="1"></th>
+        <th colspan="2">Tolerans Dışı</th>
+        <th colspan="3">L3 Değeri</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th>Hedef</th>
+        <th>Min</th>
+        <th>Max</th>
+        <th>Ort.</th>
+        <th>Min</th>
+        <th>Max</th>
+        <th>Hold</th>
+        <th>Min(%)</th>
+        <th>Max(%)</th>
+        <th>Ort.(Avg)</th>
+        <th>Min</th>
+        <th>Max</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-dummy>
+      <tr>
+        <td class="h-14">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-14">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-14">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-14">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-14">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-14">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-14">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-14">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-14">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-14">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-14">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-14">
+          <p-skeleton></p-skeleton>
+        </td>
+        <td class="h-14">
+          <p-skeleton></p-skeleton>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</ng-template>

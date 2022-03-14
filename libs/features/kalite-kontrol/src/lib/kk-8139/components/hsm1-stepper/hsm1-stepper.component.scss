@@ -1,0 +1,31 @@
+/* stylelint-disable selector-max-compound-selectors */
+euys-hsm1-stepper {
+  background-color: transparent;
+
+  div:nth-child(2) {
+    margin-top: 0;
+  }
+
+  p-steps {
+    .p-steps {
+      padding-bottom: 0.25rem;
+    }
+
+    ul li {
+      &::before {
+        border-top: 0 !important;
+      }
+
+      > a {
+        .p-steps-title {
+          display: none;
+        }
+      }
+
+      .p-menuitem-link .p-steps-number {
+        background-color: #ffcdd2 !important;
+        color: #c63737 !important;
+      }
+    }
+  }
+}

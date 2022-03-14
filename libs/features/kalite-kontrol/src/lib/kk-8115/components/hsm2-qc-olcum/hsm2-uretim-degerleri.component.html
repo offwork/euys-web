@@ -1,0 +1,146 @@
+<form [formGroup]="formGroup" class="wrapper fix-grd">
+  <p-table
+    [value]="uretimDegerleri"
+    responsiveLayout="scroll"
+    styleClass="p-datatable-gridlines table-header-text-center"
+    #table
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th colspan="5"></th>
+        <th colspan="4">Seviye 3 Değerleri</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th>Hedef</th>
+        <th>Min.</th>
+        <th>Max.</th>
+        <th>Ort. (Average)</th>
+        <th>Ort.</th>
+        <th>İçinde</th>
+        <th>Üzerinde</th>
+        <th>Altında</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-uretimDegeri>
+      <tr>
+        <td [style.height]="disabled ? '' : '54px'">
+          {{ uretimDegeri.mpcOzellik }}
+        </td>
+        <td class="text-right">
+          {{ uretimDegeri.mpcHedef | number: decimalFormat }}
+        </td>
+        <td class="text-right">
+          {{ uretimDegeri.mpcMin | number: decimalFormat }}
+        </td>
+        <td class="text-right">
+          {{ uretimDegeri.mpcMax | number: decimalFormat }}
+        </td>
+        <td class="p-fluid text-right" *ngIf="!disabled">
+          <ng-container [ngSwitch]="uretimDegeri.mpcOzellik">
+            <ng-container *ngSwitchCase="'KALINLIK'">
+              <p-inputNumber
+                inputStyleClass="p-inputtext-sm text-right {{
+                  formGroup.get('kalinlik').errors?.outOfBounds
+                    ? 'ng-invalid ng-dirty'
+                    : ''
+                }}
+                "
+                id="kalinlikOlculenOrtalama"
+                formControlName="kalinlik"
+                mode="decimal"
+                [min]="0.001"
+                [max]="9999.999"
+                [minFractionDigits]="0"
+                [maxFractionDigits]="3"
+                [locale]="appLocale"
+                (onBlur)="updateUretimDegeri('KALINLIK')"
+              ></p-inputNumber>
+            </ng-container>
+            <ng-container *ngSwitchCase="'GENISLIK'">
+              <p-inputNumber
+                inputStyleClass="p-inputtext-sm text-right {{
+                  formGroup.get('genislik').errors?.outOfBounds
+                    ? 'ng-invalid ng-dirty'
+                    : ''
+                }}
+                "
+                id="genislikOlculenOrtalama"
+                formControlName="genislik"
+                mode="decimal"
+                [min]="1"
+                [max]="10000"
+                [minFractionDigits]="0"
+                [maxFractionDigits]="0"
+                [locale]="appLocale"
+                (onBlur)="updateUretimDegeri('GENISLIK')"
+              ></p-inputNumber>
+            </ng-container>
+            <ng-container *ngSwitchCase="'BOBINICCAPI'">
+              <p-inputNumber
+                id="bobinIcCapOlculenOrtalama"
+                inputStyleClass="p-inputtext-sm text-right {{
+                  formGroup.get('bobinIcCap').errors?.outOfBounds
+                    ? 'ng-invalid ng-dirty'
+                    : ''
+                }}
+                "
+                formControlName="bobinIcCap"
+                mode="decimal"
+                [min]="1"
+                [max]="10000"
+                [minFractionDigits]="0"
+                [maxFractionDigits]="0"
+                [locale]="appLocale"
+                (onBlur)="updateUretimDegeri('BOBINICCAPI')"
+              ></p-inputNumber>
+            </ng-container>
+            <ng-container *ngSwitchCase="'BOBINDISCAPI'">
+              <p-inputNumber
+                id="bobinDisCapOlculenOrtalama"
+                inputStyleClass="p-inputtext-sm text-right {{
+                  formGroup.get('bobinDisCap').errors?.outOfBounds
+                    ? 'ng-invalid ng-dirty'
+                    : ''
+                }}
+                "
+                formControlName="bobinDisCap"
+                mode="decimal"
+                [min]="1"
+                [max]="10000"
+                [minFractionDigits]="0"
+                [maxFractionDigits]="0"
+                [locale]="appLocale"
+                (onBlur)="updateUretimDegeri('BOBINDISCAPI')"
+              ></p-inputNumber>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+              <span [class.p-error]="uretimDegeri.olculenOrtalamaIkaz">{{
+                uretimDegeri.olculenOrtalama | number: decimalFormat
+              }}</span>
+            </ng-container>
+          </ng-container>
+        </td>
+        <td
+          class="text-right"
+          [class.p-error]="uretimDegeri.olculenOrtalamaIkaz"
+          *ngIf="disabled"
+        >
+          {{ uretimDegeri.olculenOrtalama | number: decimalFormat }}
+        </td>
+        <td class="text-right" [class.p-error]="uretimDegeri.l3OrtalamaIkaz">
+          {{ uretimDegeri.l3Ortalama | number: decimalFormat }}
+        </td>
+        <td class="text-right">
+          {{ uretimDegeri.l3Icinde | number: decimalFormat }}
+        </td>
+        <td class="text-right">
+          {{ uretimDegeri.l3Ustunde | number: decimalFormat }}
+        </td>
+        <td class="text-right">
+          {{ uretimDegeri.l3Altinda | number: decimalFormat }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</form>

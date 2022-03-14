@@ -1,0 +1,54 @@
+<p-table
+  [value]="kapasiteListe"
+  [customSort]="true"
+  rowGroupMode="rowspan"
+  groupRowsBy="rumuzAciklama"
+  styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th class="w-56">Ürün Grubu</th>
+      <th class="w-56">Rapor Grubu</th>
+      <th *ngFor="let month of months" class="!text-center">{{ month }}</th>
+      <th class="!text-center">Toplam</th>
+    </tr>
+  </ng-template>
+  <ng-template
+    pTemplate="body"
+    let-item
+    let-rowgroup="rowgroup"
+    let-rowspan="rowspan"
+  >
+    <tr>
+      <td class="w-56" *ngIf="rowgroup" [attr.rowspan]="rowspan">
+        {{ item.rumuzAciklama }}
+      </td>
+      <td class="w-56">{{ item.raporGrubu }}</td>
+      <td
+        *ngFor="let month of months; let i = index"
+        tooltipPosition="bottom"
+        class="!text-right"
+      >
+        {{ getValue(i + 1, item.raporGrubu) | number }}
+      </td>
+      <td class="!text-right">
+        {{ sum(item.raporGrubu) | number }}
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <tr>
+      <td class="w-56" colspan="2">Toplam</td>
+      <td
+        *ngFor="let month of months; let i = index"
+        tooltipPosition="bottom"
+        class="!text-right"
+      >
+        {{ totalSum(i + 1) | number }}
+      </td>
+      <td class="!text-right">
+        {{ sumAll() | number }}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

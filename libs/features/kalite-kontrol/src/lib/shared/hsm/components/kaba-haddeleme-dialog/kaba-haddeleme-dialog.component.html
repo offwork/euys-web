@@ -1,0 +1,57 @@
+<div class="kaba-haddeleme">
+  <p-table
+    *ngIf="loading$"
+    styleClass="p-datatable-gridlines"
+    responsiveLayout="scroll"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th [attr.colspan]="9">KABA HADDELEME PASO</th>
+      </tr>
+      <tr>
+        <th [attr.rowspan]="2">Descale Box</th>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4</th>
+        <th>5</th>
+        <th>6</th>
+        <th>7</th>
+        <th>8</th>
+      </tr>
+      <tr>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir1Kolon1 }}</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir1Kolon2 }}</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir1Kolon3 }}</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir1Kolon4 }}</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir1Kolon5 }}</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir1Kolon6 }}</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir1Kolon7 }}</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir1Kolon8 }}</td>
+      </tr>
+      <tr>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.descaleBoxStatu }}</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir2Kolon1 }}</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir2Kolon2 }}</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir2Kolon3 }}</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir2Kolon4 }}</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir2Kolon5 }}</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir2Kolon6 }}</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir2Kolon7 }}</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir2Kolon8 }}</td>
+      </tr>
+      <tr>
+        <td>F</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir3Kolon1 }}</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir3Kolon2 }}</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir3Kolon3 }}</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir3Kolon4 }}</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir3Kolon5 }}</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir3Kolon6 }}</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir3Kolon7 }}</td>
+        <td>{{ (kabaHaddelemeBilgisi$ | async)?.satir3Kolon8 }}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body"> </ng-template>
+  </p-table>
+</div>

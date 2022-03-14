@@ -1,0 +1,120 @@
+/* stylelint-disable-next-line alpha-value-notation */
+$table-border-color: rgba(0, 0, 0, 0.07);
+
+:host {
+  display: flex;
+  width: 100%;
+}
+
+.title-wrapper {
+  border-bottom: 1px solid $table-border-color;
+  border-left: 1px solid $table-border-color;
+  margin-top: 152px;
+  min-width: 300px;
+
+  .title-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      border-top: 1px solid $table-border-color;
+      height: 30px;
+      padding: 4px;
+    }
+  }
+}
+
+input[type='text'] {
+  padding: 0;
+}
+
+.collapse-header {
+  div {
+    align-items: center;
+    display: flex;
+
+    span {
+      border-bottom: 1px solid $table-border-color;
+      border-left: 1px solid $table-border-color;
+      height: 48px;
+      line-height: 4;
+      text-align: center;
+      width: 100%;
+    }
+  }
+}
+
+.grid-horizontal-scroll {
+  overflow: hidden;
+  width: 100%;
+
+  .grid-wrapper {
+    border-bottom: 1px solid $table-border-color;
+    border-left: 1px solid $table-border-color;
+    display: flex;
+    overflow-y: auto;
+
+    .grid-container {
+      border-right: 1px solid $table-border-color;
+      flex: 1 1 0%;
+      list-style-position: outside;
+      margin: 0;
+      min-width: 110px;
+      overflow-y: hidden;
+      padding: 16px 0 0;
+      text-align: center;
+
+      /* stylelint-disable-next-line selector-max-compound-selectors */
+      :first-child {
+        margin-top: 16px;
+      }
+
+      /* stylelint-disable-next-line selector-max-compound-selectors */
+      .column-title {
+        padding: 8px;
+      }
+
+      /* stylelint-disable-next-line selector-max-compound-selectors */
+      .grid-cell {
+        border-top: 1px solid $table-border-color;
+        display: flex;
+        height: 30px;
+        text-align: right;
+
+        /* stylelint-disable-next-line selector-max-compound-selectors */
+        input {
+          /* stylelint-disable-next-line alpha-value-notation */
+          background-color: rgba(220, 224, 230, 0.3);
+          border-style: none;
+          flex: 1;
+          height: 30px;
+          margin-top: 0;
+          max-height: 30px;
+          outline: none;
+          padding-right: 8px;
+          text-align: right;
+          text-anchor: end;
+          width: 100%;
+        }
+
+        /* stylelint-disable-next-line selector-max-compound-selectors */
+        input[type='text']:disabled {
+          background-color: rgb(121, 194, 245);
+          color: #607d8b;
+          font-weight: bold;
+        }
+
+        /* stylelint-disable-next-line selector-max-compound-selectors */
+        input[type='text']::placeholder {
+          color: rgb(255, 0, 0);
+          font-style: italic;
+        }
+      }
+    }
+
+    .invalid-total {
+      color: rgb(255, 0, 0) !important;
+    }
+  }
+}

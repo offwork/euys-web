@@ -1,0 +1,94 @@
+<div>
+  <p-table
+    [scrollable]="true"
+    scrollHeight="200px"
+    styleClass="p-datatable-gridlines p-datatable-sm p-datatable-striped table-header-text-center"
+    [value]="formArray.controls"
+    [loading]="loading$ | async"
+  >
+    <ng-template pTemplate="caption">
+      <div class="w-full text-center">BAĞIMSIZ NUMUNE BİLGİSİ</div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let col of bagimsizNumuneColumnDef">
+          {{ col.header }}
+        </th>
+        <th>Numune Açıklama</th>
+        <th>Operatör Açıklama</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-group let-i="rowIndex">
+      <tr [formGroup]="group">
+        <td
+          *ngFor="let col of bagimsizNumuneColumnDef"
+          class="truncate"
+          [title]="group.value[col.field]"
+        >
+          {{ group.value[col.field] }}
+        </td>
+        <td class="p-fluid">
+          <p-dropdown
+            [options]="numuneAlindiMiOptions"
+            inputId="numuneAlindiMi_{{ i }}"
+            id="numuneAlindiMi_{{ i }}_dropdown"
+            formControlName="numuneAlindiMi"
+            placeholder="Seçiniz"
+          >
+            <ng-template pTemplate="item" let-option>
+              {{ option | euysEnum }}
+            </ng-template>
+            <ng-template pTemplate="selectedItem" let-option>
+              {{ option | euysEnum }}
+            </ng-template>
+          </p-dropdown>
+        </td>
+        <td class="p-fluid">
+          <input
+            id="aciklama_input_{{ i }}"
+            type="text"
+            pInputText
+            [maxlength]="120"
+            formControlName="operatorAciklama"
+            placeholder="Not giriniz.."
+          />
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <button
+    [icon]="'pi pi-arrow-circle-right'"
+    [label]="'DEVAM'"
+    (click)="next()"
+    pButton
+    pRipple
+    type="button"
+  ></button>
+  <p-table
+    styleClass="p-datatable-gridlines p-datatable-sm"
+    [columns]="bagimsizMesajColumnDef"
+    [value]="bagimsizMesajBilgileri$ | async"
+    [loading]="loading$ | async"
+    [scrollable]="true"
+    scrollHeight="200px"
+  >
+    <ng-template pTemplate="caption">
+      <div class="w-full text-center">BAĞIMSIZ MESAJLAR</div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr class>
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr>
+        <td *ngFor="let col of columns">
+          {{ rowData[col.field] }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

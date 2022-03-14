@@ -1,0 +1,21 @@
+<p-pickList
+  id="urunlerPicklist"
+  [dragdrop]="true"
+  [responsive]="true"
+  [showSourceControls]="false"
+  [showTargetControls]="false"
+  [sourceStyle]="{ height: '300px' }"
+  [source]="urunler"
+  [targetStyle]="{
+    height: '300px',
+    'border-color': dirty && urunlerTarget?.length === 0 ? 'red' : ''
+  }"
+  [target]="urunlerTarget"
+  filterBy="urunKodu,urunRumuzu"
+>
+  <ng-template let-urun pTemplate="item">
+    <div class="urun-item">
+      <span class="urun-kodu">{{ urun.urunKodu + ' ' + urun.urunRumuzu }}</span>
+    </div>
+  </ng-template>
+</p-pickList>

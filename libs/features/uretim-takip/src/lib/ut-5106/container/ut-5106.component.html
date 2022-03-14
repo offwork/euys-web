@@ -1,0 +1,291 @@
+<p-toolbar styleClass="mb-5">
+  <div class="p-toolbar-group-left">
+    <button
+      (click)="goBack()"
+      *ngIf="(visible$ | async) !== Visible.GORUNTULEME"
+      pButton
+      pRipple
+      type="button"
+      label="Geri"
+      icon="pi pi-arrow-left"
+      class="p-button-rounded p-button-secondary mr-5"
+    ></button>
+
+    <h3 *ngIf="(visible$ | async) === Visible.GORUNTULEME">
+      CPL ve PPPL Asitleme Rejenerasyon Kayıtları Görüntüleme
+    </h3>
+    <h3 *ngIf="(visible$ | async) === Visible.GORUNTULEME_LOG">
+      CPL ve PPPL Asitleme Rejenerasyon Kayıtları Log Görüntüleme
+    </h3>
+    <h3 *ngIf="(visible$ | async) === Visible.GUNCELLEME_KAYIT && !selectedRow">
+      CPL ve PPPL Asitleme Rejenerasyon Kayıtları Kayıt
+    </h3>
+    <h3 *ngIf="(visible$ | async) === Visible.GUNCELLEME_KAYIT && selectedRow">
+      CPL ve PPPL Asitleme Rejenerasyon Kayıtları Güncelleme
+    </h3>
+  </div>
+</p-toolbar>
+
+<p-table
+  [value]="
+    utAsitlemeRejenerasyonModelList$
+      | async
+      | filterVardiyaTarihi: vardiyaTarihi
+  "
+  styleClass="p-datatable-gridlines"
+  responsiveLayout="scroll"
+  [paginator]="true"
+  [rows]="7"
+  *ngIf="(visible$ | async) === Visible.GORUNTULEME"
+  sortField="vardiyaTarihiDate"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th></th>
+      <th></th>
+      <!-- <th>Tarih Baslangıç</th> -->
+      <th pSortableColumn="vardiyaTarihiDate">
+        Tarih Aralığı <p-sortIcon field="vardiyaTarihiDate"></p-sortIcon>
+      </th>
+      <th>Vardiya</th>
+      <th rowspan="2">Gelen Kirli Asit</th>
+      <th rowspan="2">Rejenere Edilen Asit</th>
+      <th rowspan="2">Gönderilen Rejenere Asit</th>
+      <th rowspan="2">Tüketilen Kirli Asit</th>
+      <th rowspan="2">Gelen Saf Asit</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>
+        <p-columnFilter
+          field="vardiyaTarihi"
+          matchMode="dateBefore"
+          [showMenu]="false"
+        >
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <p-calendar
+              dateFormat="dd.mm.yy"
+              appendTo="body"
+              [(ngModel)]="vardiyaTarihi"
+              placeholder="Hepsi"
+              [showButtonBar]="true"
+              selectionMode="range"
+              inputId="range"
+              [readonlyInput]="true"
+            ></p-calendar>
+          </ng-template>
+        </p-columnFilter>
+      </th>
+
+      <th>
+        <p-columnFilter field="vardiyaNo" matchMode="equals" [showMenu]="false">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <p-dropdown
+              [ngModel]="value"
+              [options]="vardiyaNoList$ | async"
+              (onChange)="filter($event.value)"
+              placeholder="Hepsi"
+              [showClear]="true"
+            >
+            </p-dropdown>
+          </ng-template>
+        </p-columnFilter>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-row>
+    <tr>
+      <td class="!text-center" width="60">
+        <button
+          id="guncelle"
+          pButton
+          (click)="goToSave(row)"
+          [disabled]="row.kontrolGuncelleme === 0"
+          type="button"
+          icon="pi pi-pencil"
+          class="p-button-lg p-button-text p-button-success !py-0"
+        ></button>
+      </td>
+      <td class="!text-center" width="60">
+        <button
+          pButton
+          (click)="log(row)"
+          type="button"
+          icon="pi pi-search"
+          class="p-button-lg p-button-text p-button-success !py-0"
+        ></button>
+      </td>
+      <td class="!text-center">
+        {{ row.vardiyaTarihiDate | date: 'dd.MM.yyyy' }}
+      </td>
+      <td class="!text-center">{{ row.vardiyaNo }}</td>
+      <td class="!text-center">{{ row.gelenKirliAsit }}</td>
+      <td class="!text-center">{{ row.rejenereEdilenAsit }}</td>
+      <td class="!text-center">{{ row.gonderilenAsit }}</td>
+      <td class="!text-center">{{ row.tuketilenKirliAsit }}</td>
+      <td class="!text-center">{{ row.gelenSafAsit }}</td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <tr>
+      <td rowspan="4" colspan="2"></td>
+    </tr>
+
+    <ng-container *ngIf="(data$ | async) as data">
+
+    <tr>
+      <td class="!text-center" colspan="2">Günlük Toplam</td>
+      <td class="!text-center">{{ data.gunlukGelenKirliAsit }}</td>
+      <td class="!text-center">
+        {{ data.gunlukRejenereEdilenAsit }}
+      </td>
+      <td class="!text-center">{{ data.gunlukGonderilenAsit }}</td>
+      <td class="!text-center">
+        {{ data.gunlukTuketilenKirliAsit }}
+      </td>
+      <td class="!text-center">{{ data.gunlukGelenSafAsit }}</td>
+    </tr>
+
+    <tr>
+      <td class="!text-center" colspan="2">Aylık Toplam</td>
+      <td class="!text-center">{{ data.aylikGelenKirliAsit }}</td>
+      <td class="!text-center">
+        {{ data.aylikRejenereEdilenAsit }}
+      </td>
+      <td class="!text-center">{{ data.aylikGonderilenAsit }}</td>
+      <td class="!text-center">
+        {{ data.aylikTuketilenKirliAsit }}
+      </td>
+      <td class="!text-center">{{ data.aylikGelenSafAsit }}</td>
+    </tr>
+
+    <tr>
+      <td class="!text-center" colspan="2">Yıllık Toplam</td>
+      <td class="!text-center">{{ data.yillikGelenKirliAsit }}</td>
+      <td class="!text-center">
+        {{ data.yillikRejenereEdilenAsit }}
+      </td>
+      <td class="!text-center">{{ data.yillikGonderilenAsit }}</td>
+      <td class="!text-center">
+        {{ data.yillikTuketilenKirliAsit }}
+      </td>
+      <td class="!text-center">{{ data.yillikGelenSafAsit }}</td>
+    </tr>
+  </ng-container>
+  </ng-template>
+</p-table>
+<p-table
+  [value]="dataLog$ | async"
+  styleClass="p-datatable-gridlines"
+  [paginator]="true"
+  [rows]="10"
+  responsiveLayout="scroll"
+  *ngIf="(visible$ | async) === Visible.GORUNTULEME_LOG"
+>
+  <ng-template pTemplate="caption">
+    <span class="text-lg"
+      >Tarih : {{ (dataLog$ | async)[0]?.vardiyaTarihi }}</span
+    >
+    <hr class="my-2" />
+    <span> Vardiya : {{ (dataLog$ | async)[0]?.vardiyaNo }}</span>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th rowspan="2" class="!text-center">Gelen Kirli Asit</th>
+      <th rowspan="2" class="!text-center">Rejenere Edilen Asit</th>
+      <th rowspan="2" class="!text-center">Gönderilen Rejenere Asit</th>
+      <th rowspan="2" class="!text-center">Tüketile Kirli Asit</th>
+      <th rowspan="2" class="!text-center">Gelen Saf Asit</th>
+      <th colspan="6" class="!text-center">Kayıt Yapan</th>
+    </tr>
+    <tr>
+      <th rowspan="2">Personel</th>
+      <th rowspan="2">Tarih</th>
+      <th rowspan="1">Saat</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-row>
+    <tr>
+      <td class="!text-center">{{ row.gelenKirliAsit }}</td>
+      <td class="!text-center">{{ row.rejenereEdilenAsit }}</td>
+      <td class="!text-center">{{ row.gonderilenAsit }}</td>
+      <td class="!text-center">{{ row.tuketilenKirliAsit }}</td>
+      <td class="!text-center">{{ row.gelenSafAsit }}</td>
+      <td class="!text-center">{{ row.islemYapanKisi }}</td>
+      <td class="!text-center">{{ row.islemTarihiFormat }}</td>
+      <td class="!text-center">{{ formatTime(row.islemSaati) }}</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-card *ngIf="(visible$ | async) === Visible.GUNCELLEME_KAYIT">
+  <form
+    [formGroup]="form"
+    class="grid gap-3 items-center"
+    style="grid-template-columns: repeat(2, fit-content(100%))"
+  >
+    <label for="vardiyaTarihi"> *Tarih: </label>
+
+    <p-calendar
+      dateFormat="dd.mm.yy"
+      formControlName="vardiyaTarihiDate"
+      class="col-span-1 flex"
+      styleClass="flex-1"
+      [minDate]="dateOneAgoWeek"
+      [maxDate]="dateNow"
+      inputId="vardiyaTarihi"
+      [readonlyInput]="true"
+    ></p-calendar>
+
+    <label for="vardiyaNo"> *Vardiya: </label>
+
+    <p-dropdown
+      formControlName="vardiyaNo"
+      class="col-span-1 flex"
+      styleClass="flex-1"
+      inputId="vardiyaNo"
+      [options]="vardiyaNoList$ | async"
+      [showClear]="false"
+    >
+    </p-dropdown>
+
+    <label> *Gelen Kirli Asit: </label>
+    <input formControlName="gelenKirliAsit" pInputText pKeyFilter="num" />
+
+    <label> *Rejenere Edilen Asit: </label>
+    <input formControlName="rejenereEdilenAsit" pInputText pKeyFilter="num" />
+
+    <label> *Gönderilen Rejenere Asit: </label>
+    <input formControlName="gonderilenAsit" pInputText pKeyFilter="num" />
+
+    <label> *Tüketilen Kirli Asit: </label>
+    <input formControlName="tuketilenKirliAsit" pInputText pKeyFilter="num" />
+
+    <label> *Gelen Saf Asit: </label>
+    <input formControlName="gelenSafAsit" pInputText pKeyFilter="num" />
+  </form>
+
+  <button
+    (click)="saveOrUpdate()"
+    pButton
+    pRipple
+    type="button"
+    [label]="this.selectedRow ? 'Güncelle' : 'Kaydet'"
+    icon="pi pi-save"
+    class="p-button-rounded p-button-secondary mb-5 mt-5"
+  ></button>
+</p-card>
+<button
+  (click)="goToSave()"
+  *ngIf="(visible$ | async) === Visible.GORUNTULEME"
+  pButton
+  pRipple
+  type="button"
+  label="Kaydet"
+  icon="pi pi-save"
+  class="p-button-rounded p-button-secondary mt-5 mb-5"
+></button>

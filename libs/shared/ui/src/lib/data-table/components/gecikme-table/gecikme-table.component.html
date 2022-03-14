@@ -1,0 +1,41 @@
+<ng-container *ngIf="data | async as gecikmeTables">
+  <div class="table-wrapper">
+    <p-card [subheader]="header">
+      <ng-template pTemplate="content">
+        <div [style.overflow-x]="'auto'">
+          <table cdk-table [dataSource]="dataSource">
+      
+            <ng-container cdkColumnDef="sira">
+              <th cdk-header-cell *cdkHeaderCellDef rowspan="2">Sıra</th>
+              <td cdk-cell *cdkCellDef="let element; let i = index">{{ i + 1 }}</td>
+            </ng-container>
+      
+            <ng-container *ngFor="let gecikmeTable of gecikmeTables; let i = index">
+      
+              <ng-container cdkColumnDef="baslik-{{ i }}">
+                <th cdk-header-cell *cdkHeaderCellDef colspan="2">
+                  {{ gecikmeTable.baslik }}
+                </th>
+              </ng-container>
+              <ng-container cdkColumnDef="durusNedeni-{{ i }}">
+                <th cdk-header-cell *cdkHeaderCellDef>Duruş Nedeni</th>
+                <td cdk-cell *cdkCellDef="let element">{{ element['durusNedeni-' + i] }}</td>
+              </ng-container>
+              <ng-container cdkColumnDef="saat-{{ i }}">
+                <th cdk-header-cell *cdkHeaderCellDef>Saat</th>
+                <td cdk-cell *cdkCellDef="let element">
+                  {{ element['saat-' + i] | translocoDecimal: { maximumFractionDigits: 2 } }}
+                </td>
+              </ng-container>
+            </ng-container>
+      
+            <tr cdk-header-row *cdkHeaderRowDef="headerColumns1(gecikmeTables)"></tr>
+            <tr class="cdk-header-row-sub" cdk-header-row *cdkHeaderRowDef="headerColumns2(gecikmeTables)"></tr>
+            <tr cdk-row *cdkRowDef="let row; columns: rowColumns(gecikmeTables)"></tr>
+      
+          </table>
+        </div>
+      </ng-template>
+    </p-card>
+  </div>
+</ng-container>

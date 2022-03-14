@@ -1,0 +1,14 @@
+<p-card>
+  <ng-template class="pt-0 pb-0 pl-0 pr-0" pTemplate="content">
+    <euys-hsm1-stepper
+      (refreshBobinList$)="refreshBobinListHandler()"
+      [hsmBobinList$]="hsmBobinList$"
+      [hsmBobinListLoaded$]="hsmBobinListLoaded$"
+    ></euys-hsm1-stepper>
+  </ng-template>
+</p-card>
+
+<!-- ! This section is for testing hsm1 components -->
+<!-- <p-card>
+  <euys-testing-area [toggleable]="true"></euys-testing-area>
+</p-card> -->

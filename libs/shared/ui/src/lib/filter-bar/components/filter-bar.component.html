@@ -1,0 +1,97 @@
+<p-card>
+  <!-- [ngClass]="{'flex-1' : formFields[i].type !== 'boolean'}" -->
+  <div
+    class="flex-1"
+    *ngFor="let field of formFields; index as i">
+    <ng-container [ngSwitch]="formFields[i].type">
+      <ng-container *ngSwitchCase="'year'">
+        <euys-date-input
+          [inputId]="formFields[i].inputId"
+          [view]="formFields[i].view"
+          [dateFormat]="formFields[i].dateFormat"
+          [formControl]="formFields[i].formControl"
+          [horizontal]="formFields[i].horizontal"
+          [label]="formFields[i].label"
+          [yearNavigator]="formFields[i].yearNavigator"
+          [yearRange]="formFields[i].yearRange"></euys-date-input>
+      </ng-container>
+      <ng-container *ngSwitchCase="'month'">
+        <euys-date-input
+          [inputId]="formFields[i].inputId"
+          [view]="formFields[i].view"
+          [dateFormat]="formFields[i].dateFormat"
+          [formControl]="formFields[i].formControl"
+          [horizontal]="formFields[i].horizontal"
+          [label]="formFields[i].label"
+          [yearNavigator]="formFields[i].yearNavigator"
+          [yearRange]="formFields[i].yearRange"></euys-date-input>
+      </ng-container>
+      <ng-container *ngSwitchCase="'year-month'">
+        <euys-date-input
+          [inputId]="formFields[i].inputId"
+          [view]="formFields[i].view"
+          [dateFormat]="formFields[i].dateFormat"
+          [formControl]="formFields[i].formControl"
+          [horizontal]="formFields[i].horizontal"
+          [label]="formFields[i].label"
+          [yearNavigator]="formFields[i].yearNavigator"
+          [yearRange]="formFields[i].yearRange"></euys-date-input>
+      </ng-container>
+      <ng-container *ngSwitchCase="'date'">
+        <euys-date-input
+          [inputId]="formFields[i].inputId"
+          [view]="formFields[i].view"
+          [formControl]="formFields[i].formControl"
+          [horizontal]="formFields[i].horizontal"
+          [label]="formFields[i].label"
+          [yearNavigator]="formFields[i].yearNavigator"
+          [yearRange]="formFields[i].yearRange"></euys-date-input>
+      </ng-container>
+      <ng-container *ngSwitchCase="'range'">
+        <euys-date-input
+          [inputId]="formFields[i].inputId"
+          [view]="formFields[i].view"
+          [formControl]="formFields[i].formControl"
+          [horizontal]="formFields[i].horizontal"
+          [label]="formFields[i].label"
+          [selectionMode]="formFields[i].selectionMode"
+          [readonlyInput]="formFields[i].readonlyInput"
+          [yearNavigator]="formFields[i].yearNavigator"
+          [yearRange]="formFields[i].yearRange"></euys-date-input>
+      </ng-container>
+      <ng-container *ngSwitchCase="'array'">
+        <euys-dropdown-input
+          [inputId]="formFields[i].inputId"
+          [formControl]="formFields[i].formControl"
+          [horizontal]="formFields[i].horizontal"
+          [label]="formFields[i].label"
+          [options]="formFields[i].options | async"
+          [optionLabel]="formFields[i].optionLabel"
+          [placeholder]="formFields[i].placeholder"
+          [showClear]="formFields[i].showClear"></euys-dropdown-input>
+      </ng-container>
+      <ng-container *ngSwitchCase="'boolean'">
+        <euys-checkbox-input
+        [binary]="formFields[i].binary"
+        [inputId]="formFields[i].inputId"
+        [formControl]="formFields[i].formControl"
+        [label]="formFields[i].label"></euys-checkbox-input>
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <button
+    pButton pRipple
+    type="button"
+    label="Devam"
+    class="p-button-rounded"
+    icon="pi pi-check"
+    (click)="sendFormValue()"></button>
+
+  <ng-container *ngIf="isRecord">
+    <div class="flex">
+      <span class="vertical-sperator"></span>
+      <ng-content></ng-content>
+    </div>
+  </ng-container>
+</p-card>

@@ -1,0 +1,196 @@
+<div *ngIf="data; else loading">
+  <p-table
+    (onRowSelect)="onRowSelect($event.data)"
+    (onRowUnselect)="onRowUnselect(null)"
+    [selection]="selected"
+    [value]="dataList"
+    [paginator]="true"
+    [rows]="10"
+    dataKey="id"
+    responsiveLayout="scroll"
+    selectionMode="single"
+    sortField="spDurulamaKodu"
+    styleClass="p-datatable-gridlines p-datatable-striped table-header-text-center"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th rowspan="2" pSortableColumn="spDurulamaKodu">
+          Kodu <p-sortIcon field="spDurulamaKodu"></p-sortIcon>
+        </th>
+        <th rowspan="2">Ürün Kodları</th>
+        <th rowspan="2">Sipariş Çelik Kalitesi</th>
+        <th colspan="2">Anma Kalınlık</th>
+        <th colspan="2">Sipariş Genişlik</th>
+        <th rowspan="2">Durulama Spesifikasyon Ana Tablo</th>
+        <th rowspan="2">Durum</th>
+      </tr>
+      <tr>
+        <th>Min</th>
+        <th>Max</th>
+        <th>Min</th>
+        <th>Max</th>
+      </tr>
+      <tr>
+        <th>
+          <euys-simple-table-filter
+            [type]="'text'"
+            [field]="'spDurulamaKodu'"
+          ></euys-simple-table-filter>
+        </th>
+        <th>
+          <p-columnFilter
+            [showClearButton]="false"
+            [showApplyButton]="false"
+            [showMenu]="false"
+            [showOperator]="false"
+            type="text"
+            field="ktOIUrunListString"
+            matchMode="contains"
+          ></p-columnFilter>
+        </th>
+
+        <th>
+          <p-columnFilter
+            [showClearButton]="false"
+            [showApplyButton]="false"
+            [showMenu]="false"
+            [showOperator]="false"
+            type="text"
+            field="celikListString"
+            matchMode="contains"
+          ></p-columnFilter>
+        </th>
+        <th>
+          <euys-simple-table-filter
+            [type]="'text'"
+            [field]="'minKalinlik'"
+          ></euys-simple-table-filter>
+        </th>
+        <th>
+          <euys-simple-table-filter
+            [type]="'text'"
+            [field]="'maxKalinlik'"
+          ></euys-simple-table-filter>
+        </th>
+        <th>
+          <euys-simple-table-filter
+            [type]="'text'"
+            [field]="'minGenislik'"
+          ></euys-simple-table-filter>
+        </th>
+        <th>
+          <euys-simple-table-filter
+            [type]="'text'"
+            [field]="'maxGenislik'"
+          ></euys-simple-table-filter>
+        </th>
+        <th>
+          <euys-simple-table-filter
+            [type]="'text'"
+            [field]="'durulamaKodu'"
+          ></euys-simple-table-filter>
+        </th>
+        <th>
+          <p-columnFilter field="durum" matchMode="equals" [showMenu]="false">
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback"
+            >
+              <p-dropdown
+                [ngModel]="value"
+                [options]="durumList"
+                optionValue="value"
+                (onChange)="filter($event.value)"
+                placeholder="Seçiniz"
+              >
+                <ng-template let-option pTemplate="item">
+                  <span>{{ option.label }}</span>
+                </ng-template>
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-Item>
+      <tr [pSelectableRow]="Item">
+        <td>{{ Item.spDurulamaKodu }}</td>
+        <td class="text-center">
+          <div class="flex items-center justify-between">
+            <span *ngIf="loaded$ | async">
+              {{ Item.ktOIUrunList[0].urunKodu }}
+              {{ Item.ktOIUrunList[0].urunRumuzu }}
+            </span>
+            <euys-column-action-button
+              [icon]="'pi pi-ellipsis-v'"
+              [isReady]="loaded$ | async"
+              (columnActionEmitter)="expandColumnDataHandlerUrun(Item)"
+            >
+            </euys-column-action-button>
+          </div>
+        </td>
+        <td class="text-center">
+          <div class="flex items-center justify-between">
+            <span *ngIf="loaded$ | async">
+              {{ Item.celikKaliteleri[0] }}
+            </span>
+            <euys-column-action-button
+              [icon]="'pi pi-ellipsis-v'"
+              [isReady]="loaded$ | async"
+              (click)="expandColumnDataHandlerCelik(Item)"
+            >
+            </euys-column-action-button>
+          </div>
+        </td>
+        <td>{{ Item.minKalinlik }}</td>
+        <td>{{ Item.maxKalinlik }}</td>
+        <td>{{ Item.minGenislik }}</td>
+        <td>{{ Item.maxGenislik }}</td>
+        <td>{{ Item.codeAndText }}</td>
+        <td>{{ Item.durum === 'A' ? 'Aktif' : 'Taslak' }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<ng-template #loading>LOADING</ng-template>
+
+<p-dialog [modal]="true" [(visible)]="urunListesiVisible">
+  <p-table
+    styleClass="w-96 p-datatable-striped p-datatable-gridlines"
+    [value]="selectedUrunList"
+    responsiveLayout="scroll"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Ürün Kodu</th>
+        <th>Ürün Rumuzu</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-urun>
+      <tr>
+        <td>{{ urun.urunKodu }}</td>
+        <td>{{ urun.urunRumuzu }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-dialog>
+
+<p-dialog [modal]="true" [(visible)]="celikListesiVisible">
+  <p-table
+    styleClass="w-96 p-datatable-striped p-datatable-gridlines"
+    [value]="selectedCelikList"
+    responsiveLayout="scroll"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Celik Kalitesi</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-celik>
+      <tr>
+        <td>{{ celik }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-dialog>

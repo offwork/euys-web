@@ -1,0 +1,151 @@
+<p-table
+  [value]="list"
+  styleClass="p-datatable-gridlines p-datatable-sm"
+  [scrollable]="true"
+  scrollHeight="390px"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Kusur Şiddeti</th>
+      <th>Kusur Yoğunluğu</th>
+      <th>Ürün</th>
+      <th>Mühendis</th>
+      <th>Operatör</th>
+      <th></th>
+    </tr>
+
+    <tr [formGroup]="form">
+      <th class="p-fluid">
+        <p-dropdown
+          id="kusurSiddetiInput_{{idKusurHat}}"
+          [options]="kusurSiddetleri"
+          optionLabel="adi"
+          optionValue="kodu"
+          dataKey="kodu"
+          placeholder="Seçiniz..."
+          formControlName="kusurSiddetNo"
+          appendTo="body"
+        >
+        </p-dropdown>
+      </th>
+      <th class="p-fluid">
+        <p-dropdown
+          id="kusurYogunlukInput_{{idKusurHat}}"
+          [options]="kusurYogunluklari"
+          optionLabel="adi"
+          optionValue="kodu"
+          dataKey="kodu"
+          placeholder="Seçiniz..."
+          formControlName="kusurYogunlukNo"
+          appendTo="body"
+        >
+        </p-dropdown>
+      </th>
+      <th class="p-fluid">
+        <p-dropdown
+          id="urunKoduInput_{{idKusurHat}}"
+          [options]="urunList"
+          optionLabel="adi"
+          optionValue="kodu"
+          formControlName="urunKodu"
+          dataKey="kodu"
+          placeholder="TÜMÜ"
+          [showClear]="true"
+          appendTo="body"
+        >
+        </p-dropdown>
+      </th>
+      <th class="p-fluid">
+        <input
+          type="text"
+          pInputText
+          #muhendisYorumInput
+          id="kusurMuhendisYorumInput_{{idKusurHat}}"
+          formControlName="kusurMuhendisYorum"
+        />
+      </th>
+      <th class="p-fluid">
+        <input
+          type="text"
+          pInputText
+          #operatorYorumInput
+          id="kusurOperatorYorumInput_{{idKusurHat}}"
+          formControlName="kusurOperatorYorum"
+        />
+      </th>
+      <th [style.width]="'50px'">
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-plus"
+          class="p-button-rounded p-button-success p-button-text"
+          (click)="add()"
+          [disabled]="disabled"
+        ></button>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-danger p-button-text"
+          (click)="resetForm()"
+          [disabled]="disabled"
+        ></button>
+      </th>
+    </tr>
+
+    <tr *ngIf="form.hasErrorAndTouched('siddetYogunlukRequired')">
+      <th colspan="6">
+        <span class="mt-1 p-error">
+          Kusur Şiddet ve Yoğunluk seçimi zorunludur
+        </span>
+      </th>
+    </tr>
+    <tr *ngIf="form.hasErrorAndTouched('matchExists')">
+      <th colspan="6">
+        <span class="mt-1 p-error">
+          Bu değerlerle uyuşan bir kayıt zaten bulunmaktadır
+        </span>
+      </th>
+    </tr>
+    <tr *ngIf="form.hasErrorAndTouched('yorumRequired')">
+      <th colspan="6">
+        <span class="mt-1 p-error">
+          Mühendis ya da Operatör Yorumu zorunludur
+        </span>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-item let-index="rowIndex">
+    <tr>
+      <td>
+        {{kusurSiddeti[item.kusurSiddetNo]}}
+      </td>
+      <td>
+        {{kusurYogunlugu[item.kusurYogunlukNo]}}
+      </td>
+      <td>
+        {{item.urunKodu ? (urunMap[item.urunKodu] || item.urunKodu) : 'TÜMÜ'}}
+      </td>
+      <td>
+        {{item.kusurMuhendisYorum}}
+      </td>
+      <td>
+        {{item.kusurOperatorYorum}}
+      </td>
+      <td [style.width]="'50px'">
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-minus"
+          class="p-button-rounded p-button-danger p-button-text"
+          (click)="removeAt(index)"
+          [disabled]="disabled"
+        ></button>
+      </td>
+
+    </tr>
+  </ng-template>
+</p-table>

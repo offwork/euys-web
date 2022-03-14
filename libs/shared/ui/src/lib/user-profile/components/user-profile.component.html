@@ -1,0 +1,47 @@
+<div class="profile-content">
+
+  <div class="profile-avatar">
+    <div class="overflow-hidden rounded-full border-gray-300 border-2 w-16 h-16">
+      <img src="{{ photo }}">
+    </div>
+    <p class="text-center pt-4">
+      <span>{{ name + ' ' + lastName }}</span>
+      <br />
+      <span>Direktör</span>
+      <br />
+    </p>
+    <button pButton pRipple type="button" icon="pi pi-cog" class="p-button-rounded p-button-text"></button>
+    <p-divider></p-divider>
+    <button pButton pRipple type="button" icon="pi pi-power-off" iconPos="left" label="Çıkış Yap" class="p-button-text"></button>
+  </div>
+
+
+  <div class="profile-calender">
+    <h3>Takvim</h3>
+    <!-- [monthNavigator]="true" [yearNavigator]="true" Deprecated: Navigator is always on. -->
+    <!-- please see at https://primefaces.org/primeng/showcase/#/calendar -->
+    <p-calendar [(ngModel)]="selectedDate" [inline]="true"></p-calendar>
+  </div>
+
+  <p-divider></p-divider>
+
+  <h3>Yapılacaklar</h3>
+  <div class="profile-todo divide-y divide-gray-400">
+    <div class="profile-todo-item">
+      <h2>Single line item</h2>
+      <i class="pi pi-chart-bar"></i>
+    </div>
+    <div class="profile-todo-item">
+      <h2>Single line item</h2>
+      <i class="pi pi-chart-bar"></i>
+    </div>
+    <div class="profile-todo-item">
+      <h2>Single line item</h2>
+      <i class="pi pi-chart-bar"></i>
+    </div>
+    <div class="profile-todo-item">
+      <h2>Single line item</h2>
+      <i class="pi pi-chart-bar"></i>
+    </div>
+  </div>
+</div>

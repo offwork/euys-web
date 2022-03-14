@@ -1,0 +1,21 @@
+<euys-filter-bar 
+  [isRecord]="true" 
+  [formFields]="filterFormFields" 
+  (startSearching)="sendCriteria($event)">
+  <button pButton pRipple 
+    type="button" 
+    label="Kaydet" 
+    class="p-button-rounded p-button-secondary" 
+    icon="pi pi-save" 
+    [disabled]="(valid$ | async) === false || null"
+    (click)="clickOnSave()"></button>
+</euys-filter-bar>
+
+<ng-container *ngIf="loaded$ | async">
+  <div class="p-card">
+    <euys-manpower-grid-input 
+      [year]="yil$ | async" [data]="isGucleri$ | async" 
+      (inputValue)="onInputValue($event)">
+    </euys-manpower-grid-input>
+  </div>
+</ng-container>

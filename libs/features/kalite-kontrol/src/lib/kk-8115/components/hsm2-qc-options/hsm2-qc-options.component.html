@@ -1,0 +1,51 @@
+<div class="p-grid">
+  <div class="p-col-8">
+    <form [formGroup]="form" class="p-4 border rounded">
+      <div class="p-fluid p-formgrid p-grid">
+        <label for="bobinAcmaKontrolInput" class="p-col-8">Bobin Açma Kontrol</label>
+        <div class="p-field p-col-4">
+          <p-dropdown
+            inputId="bobinAcmaKontrolInput"
+            id="bobinAcmaKontrolDropdown"
+            [options]="comboOptions"
+            optionLabel="adi"
+            optionValue="kodu"
+            formControlName="bobinAcmaKontrol"
+            (onChange)="onFormUpdated()"
+          ></p-dropdown>
+        </div>
+        <label class="p-col-8">Standart Numune No/Yeri/Alınma İşareti</label>
+        <label class="p-col-4 p-field">&nbsp;{{numuneAlmaIsareti}}&nbsp;</label>
+        <label for="numuneAlInput" class="p-col-8">Numune Al *</label>
+        <div class="p-field p-col-4" *ngIf="showNumuneAlCombo">
+          <p-dropdown
+            inputId="numuneAlInput"
+            id="numuneAlDropdown"
+            [options]="comboOptions"
+            optionLabel="adi"
+            optionValue="kodu"
+            formControlName="numuneAl"
+            (onChange)="onFormUpdated()"
+          ></p-dropdown>
+        </div>
+        <label for="yuzeyKusuruVarMiInput" class="p-col-8">Yüzey Kusuru Var mı? *</label>
+        <div class="p-field p-col-4">
+          <p-dropdown
+            inputId="yuzeyKusuruVarMiInput"
+            id="yuzeyKusuruVarMiDropdown"
+            [options]="comboOptions"
+            optionLabel="adi"
+            optionValue="kodu"
+            formControlName="yuzeyKusuruVarMi"
+            (onChange)="onFormUpdated()"
+          ></p-dropdown>
+        </div>
+    </div>
+    </form>
+  </div>
+  <div class="p-col-4">
+    <div class="p-col-12 h-full p-4 border rounded">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

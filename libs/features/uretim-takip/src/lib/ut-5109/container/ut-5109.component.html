@@ -1,0 +1,305 @@
+<p-toolbar styleClass="mb-5">
+  <div class="p-toolbar-group-left">
+    <button (click)="goBack()" *ngIf="(visible$ | async) !== Visible.GORUNTULEME" pButton pRipple type="button"
+      label="Geri" icon="pi pi-arrow-left" class="p-button-rounded p-button-secondary mr-5"></button>
+
+    <h3 *ngIf="(visible$ | async) === Visible.GORUNTULEME">
+      Tandem Merkez Laboratuvar Hadde Yağ Emülsiyon Görüntüleme
+    </h3>
+    <h3 *ngIf="(visible$ | async) === Visible.GORUNTULEME_LOG">
+      Tandem Merkez Laboratuvar Hadde Yağ Emülsiyon Log Görüntüleme
+    </h3>
+    <h3 *ngIf="(visible$ | async) === Visible.GUNCELLEME_KAYIT && !selectedRow">
+      Tandem Merkez Laboratuvar Hadde Yağ Emülsiyon Kayıt
+    </h3>
+    <h3 *ngIf="(visible$ | async) === Visible.GUNCELLEME_KAYIT && selectedRow">
+      Tandem Merkez Laboratuvar Hadde Yağ Emülsiyon Güncelleme
+    </h3>
+  </div>
+</p-toolbar>
+
+<euys-message message="Herhangi Bir Kayıt Bulunamadı."
+  *ngIf="(visible$ | async) === Visible.GORUNTULEME_LOG && ((loglar$ | async) && (loglar$ | async).length === 0)"></euys-message>
+  
+<!-- Liste Goruntuleme-->
+<p-table [value]="data$ | async | filterOlcumTarihi:olcumTarihi" styleClass="p-datatable-gridlines"
+  responsiveLayout="scroll" [paginator]="true" [rows]="7" *ngIf="(visible$ | async) === Visible.GORUNTULEME"
+  sortField="olcumTarihiDate">
+
+  <ng-template pTemplate="header">
+    
+    <tr>
+      <th rowspan="2"></th>
+      <th rowspan="2"></th>
+      <th pSortableColumn="olcumTarihiDate">
+        Tarih Aralığı <p-sortIcon field="olcumTarihiDate"></p-sortIcon>
+      </th>
+      <th rowspan="2">Solüsyon Tankları</th>
+      <th rowspan="2" class="!text-center">Demir (mg/kg)</th>
+      <th rowspan="2" class="!text-center">Sab. No. (mg KOH/g)</th>
+      <th rowspan="2" class="!text-center">Ser. Asit. (% Oleik Asit)</th>
+      <th rowspan="2" class="!text-center">Stabilite (T8)(%)</th>
+      <th rowspan="2" class="!text-center">Stabilite (T20)(%)</th>
+
+
+    </tr>
+    <tr>
+      <th>
+        <p-columnFilter field="olcumTarihi" matchMode="dateBefore" [showMenu]="false">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <p-calendar dateFormat="dd.mm.yy" appendTo="body" [(ngModel)]="olcumTarihi" placeholder="Hepsi"
+              [showButtonBar]="true" selectionMode="range" inputId="range" [readonlyInput]="true"></p-calendar>
+          </ng-template>
+        </p-columnFilter>
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-row>
+
+    <tr>
+      <td class="!text-center" width="60" rowspan="5"> 
+        <button id="guncelle" pButton (click)="goToSave(row)" type="button" icon="pi pi-pencil"
+          class="p-button-lg p-button-text p-button-success !py-0"></button>
+      </td>
+      <td class="!text-center" width="60" rowspan="5">
+        <button pButton (click)="loglar(row)" type="button" icon="pi pi-search"
+          class="p-button-lg p-button-text p-button-success !py-0"></button>
+      </td>
+      <td class="!text-center" rowspan="5">
+        {{ row.olcumTarihi | date: 'dd.MM.yyyy' }}
+      </td>
+    </tr>
+
+    <tr>
+      <td class="!text-center">S1</td>
+      <td class="!text-center">{{ row.s1DemirMgKg }}</td>
+      <td class="!text-center">{{ row.s1SabNoMgKohG }}</td>
+      <td class="!text-center">{{ row.s1SerAsitYuzdeOleikAsit }}</td>
+      <td class="!text-center">{{ row.s1StabiliteT8Yuzde }}</td>
+      <td class="!text-center">{{ row.s1StabiliteT20Yuzde }}</td>
+    </tr>
+    
+    <tr>
+      <td class="!text-center">S3</td>
+      <td class="!text-center">{{ row.s3DemirMgKg }}</td>
+      <td class="!text-center">{{ row.s3SabNoMgKohG }}</td>
+      <td class="!text-center">{{ row.s3SerAsitYuzdeOleikAsit }}</td>
+      <td class="!text-center">{{ row.s3StabiliteT8Yuzde }}</td>
+      <td class="!text-center">{{ row.s3StabiliteT20Yuzde }}</td>
+    </tr>
+
+    <tr>
+      <td class="!text-center">T</td>
+      <td class="!text-center">{{ row.tdemirMgKg }}</td>
+      <td class="!text-center">{{ row.tsabNoMgKohG }}</td>
+      <td class="!text-center">{{ row.tserAsitYuzdeOleikAsit }}</td>
+      <td class="!text-center">{{ row.tstabiliteT8Yuzde }}</td>
+      <td class="!text-center">{{ row.tstabiliteT20Yuzde }}</td>
+    </tr>
+    <tr>
+
+  </ng-template>
+</p-table>
+
+<!-- Log Goruntuleme-->
+<p-table [value]="loglar$ | async" styleClass="p-datatable-gridlines" responsiveLayout="scroll" [paginator]="true"
+  [rows]="10" *ngIf=" (visible$ | async) === Visible.GORUNTULEME_LOG && ((loglar$ | async) && (loglar$ | async).length !== 0)">
+
+  <ng-template pTemplate="caption">
+    Tarih: {{olcumTarihiGoruntuleme | date: 'dd.MM.yyyy'}}
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th colspan="6" class=""></th>
+      <th colspan="3" class="!text-center">Kayıt Yapan</th>
+    </tr>
+    <tr>
+      <th colspan="1" class="!text-center">Solüsyon Tankları</th>
+      <th colspan="1" class="!text-center">Demir (mg/kg)</th>
+      <th colspan="1" class="!text-center">Sab. No. (mg KOH/g)</th>
+      <th colspan="1" class="!text-center">Ser. Asit. (% Oleik Asit)</th>
+      <th colspan="1" class="!text-center">Stabilite (T8)(%)</th>
+      <th colspan="1" class="!text-center">Stabilite (T20)(%)</th>
+      <th colspan="1" class="!text-center">Personel</th>
+      <th colspan="1" class="!text-center">İşlem Tarihi</th>
+      <th colspan="1" class="!text-center">İşlem Saati</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-row>
+    <tr>
+      <td>
+        <table>
+          <tr>
+            <td>S1</td>
+          </tr>
+          <tr>
+            <td>S3</td>
+          </tr>
+          <tr>
+            <td>T</td>
+          </tr>
+        </table>
+      </td>
+      <td>
+        <table>
+          <tr>
+            <td>{{ row.s1DemirMgKg }}</td>
+          </tr>
+          <tr>
+            <td>{{ row.s3DemirMgKg }}</td>
+          </tr>
+          <tr>
+            <td>{{ row.tdemirMgKg }}</td>
+          </tr>
+        </table>
+      </td>
+
+      <td>
+        <table>
+          <tr>
+            <td>{{ row.s1SabNoMgKohG }}</td>
+          </tr>
+          <tr>
+            <td>{{ row.s3SabNoMgKohG }}</td>
+          </tr>
+          <tr>
+            <td>{{ row.tsabNoMgKohG }}</td>
+          </tr>
+        </table>
+      </td>
+
+      <td>
+        <table>
+          <tr>
+            <td>{{ row.s1SerAsitYuzdeOleikAsit }}</td>
+          </tr>
+          <tr>
+            <td>{{ row.s3SerAsitYuzdeOleikAsit }}</td>
+          </tr>
+          <tr>
+            <td>{{ row.tserAsitYuzdeOleikAsit }}</td>
+          </tr>
+        </table>
+      </td>
+
+      <td>
+        <table>
+          <tr>
+            <td>{{ row.s1StabiliteT8Yuzde }}</td>
+          </tr>
+          <tr>
+            <td>{{ row.s3StabiliteT8Yuzde }}</td>
+          </tr>
+          <tr>
+            <td>{{ row.tstabiliteT8Yuzde }}</td>
+          </tr>
+        </table>
+      </td>
+
+      <td>
+        <table>
+          <tr>
+            <td>{{ row.s1StabiliteT20Yuzde }}</td>
+          </tr>
+          <tr>
+            <td>{{ row.s3StabiliteT20Yuzde }}</td>
+          </tr>
+          <tr>
+            <td>{{ row.tstabiliteT20Yuzde }}</td>
+          </tr>
+        </table>
+      </td>
+      <td>
+        {{ row.islemYapanKisi }}
+      </td>
+      <td>
+        {{ row.islemTarihiFormat | date: 'dd.MM.yyyy' }}
+      </td>
+      <td>
+        {{ row.islemSaati }}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<!-- KAYIT-GUNCELLEME FORM -->
+<p-card *ngIf="(visible$ | async) === Visible.GUNCELLEME_KAYIT">
+
+  <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
+
+
+  <form [formGroup]="form" class="grid grid-cols-4 w-1/4 gap-4 items-center">
+    <label for="olcumTarihi"> *Tarih: </label>
+
+    <p-calendar
+      dateFormat="dd.mm.yy"
+      formControlName="olcumTarihiDate"
+      class="col-span-2 flex"
+      styleClass="flex-1"
+      [minDate]="dateOneAgoWeek"
+      [maxDate]="dateNow"
+      inputId="olcumTarihiDate"
+      [readonlyInput]="true"
+    ></p-calendar>
+    
+    <label></label>
+    <label></label>
+    <label> S1 </label>
+    <label> S3 </label>
+    <label> T </label>
+    
+    
+
+   
+    <label> Demir(mg/kg): </label>
+    <input formControlName="s1DemirMgKg" pInputText pKeyFilter="num"/>
+    <input formControlName="s3DemirMgKg" pInputText pKeyFilter="num"/>
+    <input formControlName="tdemirMgKg" pInputText pKeyFilter="num"/>  
+
+    <label> Sab. No. (mg KOH/g) </label>
+    <input formControlName="s1SabNoMgKohG" pInputText pKeyFilter="num"/>
+    <input formControlName="s3SabNoMgKohG" pInputText pKeyFilter="num"/>
+    <input formControlName="tsabNoMgKohG" pInputText pKeyFilter="num"/>  
+
+    <label> Ser Asit (% Oleik Asit) </label>
+    <input formControlName="s1SerAsitYuzdeOleikAsit" pInputText pKeyFilter="num"/>
+    <input formControlName="s3SerAsitYuzdeOleikAsit" pInputText pKeyFilter="num"/>
+    <input formControlName="tserAsitYuzdeOleikAsit" pInputText pKeyFilter="num"/>  
+
+    <label> Stabilite (T8) (%) </label>
+    <input formControlName="s1StabiliteT8Yuzde" pInputText pKeyFilter="num"/>
+    <input formControlName="s3StabiliteT8Yuzde" pInputText pKeyFilter="num"/>
+    <input formControlName="tstabiliteT8Yuzde" pInputText pKeyFilter="num"/>  
+
+    <label> Stabilite (T20) (%) </label>
+    <input formControlName="s1StabiliteT20Yuzde" pInputText pKeyFilter="num"/>
+    <input formControlName="s3StabiliteT20Yuzde" pInputText pKeyFilter="num"/>
+    <input formControlName="tstabiliteT20Yuzde" pInputText pKeyFilter="num"/>  
+
+  </form>
+
+  <button
+    (click)="saveOrUpdate()"
+    pButton
+    pRipple
+    type="button"
+    [label]="this.selectedRow ? 'Güncelle' : 'Kaydet'"
+    icon="pi pi-save"
+    class="p-button-rounded p-button-secondary mb-5 mt-5"
+  ></button>
+</p-card>
+
+<p>
+  <button
+    (click)="goToSave()"
+    *ngIf="(visible$ | async) === Visible.GORUNTULEME"
+    pButton
+    pRipple
+    type="button"
+    label="Yeni Kayıt"
+    icon="pi pi-save"
+    class="p-button-rounded p-button-secondary mt-5 mb-5"
+  ></button>
+</p>

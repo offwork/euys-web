@@ -1,0 +1,104 @@
+import { CommonModule } from '@angular/common';
+import { moduleMetadata } from '@storybook/angular';
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import { withKnobs, text, boolean, select, optionsKnob } from "@storybook/addon-knobs";
+import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputtextComponent } from '../inputtext/inputtext.component';
+
+export const Postions = { Left: 'Left', Right: 'Right' };
+export const defultPos = 'Left';
+export const display = { display: 'inline-radio' };
+export const inputSizes = {
+  'Small': 'p-inputtext-sm',
+  'Normal': '',
+  'Large': 'p-inputtext-lg'
+};
+export const defaultSize = inputSizes['Normal'];
+
+# InputTex Module
+
+**InputText**, veri girmek için bir metin alanı oluşturur.
+
+> InputText, **`pInputText`** yönergesi ile bir `<input>` etiketine uygulanır. 
+
+<br />
+
+<Meta 
+  title="Euys/UI/InputTextModule"
+  decorators={[
+    withKnobs,
+    moduleMetadata({
+      imports: [CommonModule, FormsModule, InputTextModule],
+      declarations: [InputtextComponent],
+    }),
+  ]}
+/>
+
+
+## Basic Inputtext
+
+> Bir model, standart `ngModel` yönergesi kullanılarak bağlanabilir. `<input>` alanları iki stilde gelir, varsayılan olarak alanın etrafındaki çizgilerle **`outlined`** iken, **`filled`** alternatifi ise alana bir arka plan rengi ekler.
+
+<br />
+
+<Canvas>
+  <Story name="Basic">
+    {{
+      template: `
+        <div [class.p-input-filled]="filled">
+          <input type="text" pInputText [(ngModel)]="text">
+        </div>
+      `,
+      props: {
+        text: text('text', 'Merhaba'),
+        filled: boolean('filled', false),
+      }
+    }}
+  </Story>
+</Canvas>
+
+
+## With Icon
+
+> Bir **icon**, `<input>` ve simgeyi, simge konumuna bağlı olarak **`p-input-icon-right`** veya **`p-input-icon-left`** sınıfına sahip bir öğeyle sarmak suretiyle bir `<input>` alanına entegre edilebilir. 
+
+<br />
+
+<Canvas>
+  <Story name="With Icon">
+    {{
+      template: `
+        <span [ngClass]="iconPos === 'Left' ? 'p-input-icon-left' : 'p-input-icon-right'">
+          <i class="pi pi-search"></i>
+          <input type="text" pInputText placeholder="Search" [(ngModel)]="text" />
+        </span>
+      `,
+      props: {
+        text: text('text', 'Merhaba'),
+        iconPos: optionsKnob('iconPos', Postions, defultPos, display),
+      }
+    }}
+  </Story>
+</Canvas>
+
+
+## Sizes
+
+> Normal bir `<input>` a ek olarak 2 boyut daha mevcuttur, daha küçük bir giriş için **`p-inputtext-sm`** ekleyin ve daha büyük bir giriş için **`p-inputtext-lg`** kullanın. 
+
+<br />
+
+<Canvas>
+  <Story name="Sizes">
+    {{
+      template: `
+        <input type="text" pInputText placeholder="Search" [class]="size" [(ngModel)]="text" />
+      `,
+      props: {
+        text: text('text', 'Merhaba'),
+        size: select('Sizes of input', inputSizes, defaultSize),
+      }
+    }}
+  </Story>
+</Canvas>

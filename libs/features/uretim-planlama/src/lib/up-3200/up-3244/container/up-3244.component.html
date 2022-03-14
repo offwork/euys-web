@@ -1,0 +1,64 @@
+<p-card styleClass="!mb-4">
+  <form [formGroup]="imalatLotunHikayesiForm" class="flex gap-4 items-center">
+    <label>İmalat Lot No: * </label>
+    <input type="text" pInputText formControlName="imalatLotNo" />
+
+    <label>İşlem Tipi: * </label>
+    <p-dropdown
+      formControlName="islemTipi"
+      [options]="['Tümü', 'ST', 'TO', 'TE']"
+    ></p-dropdown>
+
+    <button
+      pButton
+      type="button"
+      label="Devam"
+      class="p-button p-button-raised p-button-rounded w-32"
+      [disabled]="imalatLotunHikayesiForm.invalid"
+      (click)="load()"
+    ></button>
+  </form>
+</p-card>
+
+<p-card *ngIf="imalatLotunHikayesiList$ | async">
+  <p-table
+    [value]="imalatLotunHikayesiList$ | async"
+    responsiveLayout="scroll"
+    styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+    rowGroupMode="rowspan"
+    groupRowsBy="urunGrubu"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Tarih</th>
+        <th>Saat</th>
+        <th>Menü/Batch Adı</th>
+        <th>Kullanıcı Kodu-Adı Soyadı</th>
+        <th>Brüt Ton</th>
+        <th>Önceki Kalan Ton</th>
+        <th>Sonraki Kalan Ton</th>
+        <th>Önceki MLN Statü</th>
+        <th>Sonraki MLN Statü</th>
+        <th>Önceki Tedarik Tipi</th>
+        <th>Sonraki Tedarik Tipi</th>
+        <th>İşlem Açıklama</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-imalatLotHikaye>
+      <tr>
+        <td>{{ imalatLotHikaye.tarih }}</td>
+        <td>{{ imalatLotHikaye.saat }}</td>
+        <td>{{ imalatLotHikaye.menuBatchAdi }}</td>
+        <td>{{ imalatLotHikaye.kullaniciBilgileri }}</td>
+        <td>{{ imalatLotHikaye.brutTon }}</td>
+        <td>{{ imalatLotHikaye.oncekiKalanTon }}</td>
+        <td>{{ imalatLotHikaye.sonrakiKalanTon }}</td>
+        <td>{{ imalatLotHikaye.oncekiMlnStatu }}</td>
+        <td>{{ imalatLotHikaye.sonrakiMlnStatu }}</td>
+        <td>{{ imalatLotHikaye.oncekiTedarikTipi }}</td>
+        <td>{{ imalatLotHikaye.sonrakiTedarikTipi }}</td>
+        <td>{{ imalatLotHikaye.islemAciklama }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>

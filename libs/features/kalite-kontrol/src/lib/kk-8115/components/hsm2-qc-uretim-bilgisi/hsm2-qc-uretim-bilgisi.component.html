@@ -1,0 +1,203 @@
+<div class="p-grid">
+  <div class="p-col-6 border rounded text-center">
+    MPC No
+  </div>
+  <div class="p-col-6 border rounded text-center">
+    {{qcKayitBilgileri?.mpcNo}}
+  </div>
+
+  <div class="p-col-6 border rounded text-center">
+    Deneme Mi?
+  </div>
+  <div class="p-col-6 border rounded text-center">
+
+    <span
+      [class]="
+        'euys-badge status-' + (qcKayitBilgileri?.denemeMi | lowercase)
+      "
+      >{{qcKayitBilgileri?.denemeMi | euysEnum}}</span
+    >
+  </div>
+
+  <div class="p-col-6 border rounded text-center">
+    Fason Mu?
+  </div>
+  <div class="p-col-6 border rounded text-center">
+    <span
+      [class]="
+        'euys-badge status-' + (qcKayitBilgileri?.fasonMu | lowercase)
+      "
+      >{{qcKayitBilgileri?.fasonMu | euysEnum}}</span
+    >
+  </div>
+
+  <div class="p-col-6 border rounded text-center">
+    Müşteri
+  </div>
+  <div class="p-col-6 border rounded text-center truncate" [title]="qcKayitBilgileri.musteriAdi">
+    {{qcKayitBilgileri.musteriAdi}}
+  </div>
+
+  <div class="p-col-6 border rounded text-center">
+    Müşteri Spec No
+  </div>
+  <div class="p-col-6 border rounded text-center">
+    {{qcKayitBilgileri.musteriSpecNo}}
+  </div>
+
+  <div class="p-col-6 border rounded text-center">
+    Protokol Lot No
+  </div>
+  <div class="p-col-6 border rounded text-center">
+    {{qcKayitBilgileri.protokolLotNo}}
+  </div>
+
+  <div class="p-col-6 border rounded text-center">
+    Sonraki Hat
+  </div>
+  <div class="p-col-6 border rounded text-center">
+    {{qcKayitBilgileri.sonrakiHat}}
+  </div>
+
+  <div class="p-col-6 border rounded text-center">
+    Sendback
+  </div>
+  <div class="p-col-6 border rounded text-center">
+    <span
+      [class]="
+        'euys-badge status-' + ('h' | lowercase)
+      "
+      >{{'H' | euysEnum}}</span
+    >
+  </div>
+
+  <div class="p-col-6 border rounded text-center">
+    C Box Kul.
+  </div>
+  <div class="p-col-6 border rounded text-center">
+    <span
+      [class]="
+        'euys-badge status-' + (qcKayitBilgileri.cBoxKul| lowercase)
+      "
+      >{{ qcKayitBilgileri.cBoxKul | euysEnum}}</span
+    >
+  </div>
+
+  <div class="p-col-6 border rounded text-center">
+    Bobin Uzunluğu
+  </div>
+  <div class="p-col-6 border rounded text-center">
+    {{qcKayitBilgileri.bobinUzunlugu}}
+  </div>
+
+  <div class="p-col-6 border rounded text-center">
+    Bobin Ağırlığı
+  </div>
+  <div class="p-col-6 border rounded text-center">
+    {{qcKayitBilgileri.bobinAgirligi }}
+  </div>
+
+  <div class="p-col-6 border rounded text-center">
+    Sarıcı No
+  </div>
+  <div class="p-col-6 border rounded text-center">
+    {{qcKayitBilgileri.sariciNo}}
+  </div>
+
+  <div class="p-col-6 border rounded text-center">
+    Üretim Süresi (sn)
+  </div>
+  <div class="p-col-6 border rounded text-center">
+    {{qcKayitBilgileri.uretimSuresi}}
+  </div>
+
+  <div class="p-col-6 border rounded flex items-center justify-center">
+    <span>Alternatif Kalınlık</span>
+  </div>
+  <div class="p-col-6 border rounded p-grid p-nogutter">
+    <div class="p-col-1">1.</div>
+    <div
+      class="p-col-10 border rounded text-center"
+    >
+      {{qcKayitBilgileri.alternatifKalinlik1 | number: decimalFormat}}
+    </div>
+    <div class="p-col-1"></div>
+    <div class="p-col-1 my-1">2.</div>
+    <div
+      class="p-col-10 border rounded text-center my-1"
+    >
+      {{qcKayitBilgileri.alternatifKalinlik2 | number: decimalFormat}}
+    </div>
+    <div class="p-col-1"></div>
+    <div class="p-col-1">3.</div>
+    <div
+      class="p-col-10 border rounded text-center"
+    >
+      {{qcKayitBilgileri.alternatifKalinlik3 | number: decimalFormat}}
+    </div>
+
+  </div>
+
+  <div class="p-col-6 border rounded flex items-center justify-center">
+    <span>DIVIDE CUT</span>
+  </div>
+  <div class="p-col-6 border rounded p-grid p-nogutter">
+    <div
+      class="p-col-12 border rounded text-center my-1"
+      [style.padding-block]="'0.25rem !important'"
+    >
+      <span
+        [class]="
+          'euys-badge status-' + ((qcKayitBilgileri.divideCut || 'H') | lowercase)
+        "
+      >
+        {{ (qcKayitBilgileri.divideCut || 'H') | euysEnum}}
+      </span>
+    </div>
+    <div
+      class="p-col-12 border rounded text-center my-1"
+      [style.padding-block]="'0.25rem !important'"
+    >
+      <span
+        [class]="
+          'euys-badge status-' + (qcKayitBilgileri.divideCutBolumeDurumu | lowercase)
+        "
+      >
+        {{ qcKayitBilgileri.divideCutBolumeDurumu === 'H' ? 'BÖLÜNMEDİ' : 'BÖLÜNDÜ'}}
+      </span>
+    </div>
+
+  </div>
+
+  <div class="p-col-6 border rounded text-center">
+    Önceki Hat Kusuru
+  </div>
+  <div class="p-col-6 border rounded text-center">
+    {{qcKayitBilgileri.oncekiHatYuzeyKusuruKodu}} - {{qcKayitBilgileri.oncekiHatMesaji}}
+  </div>
+
+  <div class="p-col-6 border rounded text-center">
+    Hata Derecesi
+  </div>
+  <div class="p-col-6 border rounded text-center">
+    {{qcKayitBilgileri.oncekiHatYuzeyKusuruDerecesi}}
+  </div>
+
+  <div class="p-col-6 border rounded text-center">
+    Önceki Hat Açıklama
+  </div>
+  <div class="p-col-6 border rounded text-center">
+    {{qcKayitBilgileri.oncekiHatYuzeyKusuruAciklama}}
+  </div>
+
+  <div class="p-col-6 border rounded text-center">
+    Açıklama
+  </div>
+  <div class="p-col-6 border rounded p-fluid">
+    <textarea
+      pInputTextarea
+      [formControl]="formControl"
+      (change)="onChangeAciklama()"
+    ></textarea>
+  </div>
+</div>

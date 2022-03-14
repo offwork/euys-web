@@ -1,0 +1,10 @@
+<div class="app-shell">
+  <ng-container *ngTemplateOutlet="appHeaderTemplate; context: templateContext;"></ng-container>
+  <euys-sidenav-container [expanded]="expandedSinenav" [expandedProfile]="expandedProfile">
+    <ng-container ngProjectAs="[euys-navs]" *ngTemplateOutlet="appNavsTemplate; context: templateContext;"></ng-container>
+    <ng-container ngProjectAs="[euys-profile]" *ngTemplateOutlet="appProfileTemplate; context: templateContext;"></ng-container>
+    <ng-container ngProjectAs="[euys-feature]" *ngTemplateOutlet="featureContainerTemplate; context: templateContext;"></ng-container>
+  </euys-sidenav-container>
+
+  <ng-template #emptyTemplate></ng-template>
+</div>

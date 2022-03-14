@@ -1,0 +1,30 @@
+<div class="">
+  <p-carousel
+    [style.height]="'100%'"
+    [value]="imageList"
+    [numVisible]="3"
+    [numScroll]="3"
+    [circular]="false">
+    <ng-template let-gorsel pTemplate="item">
+      <div class="thumbnail-wrapper">
+        <div class="thumbnail">
+          <div class="image">
+            <button
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-times"
+              class="p-button-rounded p-button-danger p-button-text remove-btn"
+              euysConfirmMessage="İmajı silmek istediğinizden emin misiniz?"
+              euysConfirmHeader="İmaj silmeyi onayla"
+              (confirm)="deleteThumb.next({gorsel, $event})"
+            ></button>
+            <img
+              [src]="gorsel.thumbnailBase64 | bypassSanitizer: 'url'" alt="none"
+              (click)="onClick(gorsel)">
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+</div>

@@ -1,0 +1,29 @@
+<div
+  *ngIf="
+    inputHelperControl && inputHelperControl.status !== 'DISABLED';
+    else elseBlock
+  "
+>
+  <div
+    [ngStyle]="{
+      color:
+        inputHelperControl.invalid &&
+        (inputHelperControl.dirty || inputHelperControl.touched)
+          ? 'red'
+          : 'inherit'
+    }"
+    style="margin-top: 0.15rem"
+  >
+    <small id="`${formControl.id}-help`"
+      ><i
+        [ngStyle]="{
+          color: inputHelperControl.valid ? 'inherit' : 'red'
+        }"
+        style="font-size: inherit; color: red; margin-right: 0.1rem"
+        class="pi pi-exclamation-circle"
+      ></i>
+      {{ helperText }}</small
+    >
+  </div>
+</div>
+<ng-template #elseBlock><span></span></ng-template>

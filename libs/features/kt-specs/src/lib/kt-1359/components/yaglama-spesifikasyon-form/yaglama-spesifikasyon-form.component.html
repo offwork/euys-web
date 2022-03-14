@@ -1,0 +1,190 @@
+<p-card [hidden]="!isFormVisible" #yaglamaSpesifikasyonCard>
+  <form [formGroup]="yaglamaSpesifikasyonForm">
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-fluid p-formgrid p-grid p-col-12 p-md-12">
+        <div class="p-field p-col-12 p-md-6">
+          <label for="urunlerPicklist">Ürün kodu</label>
+          <euys-urunler-pick-list
+            #urunlerPickList
+            [urunlerLoaded]="configLoaded$ | async"
+            [urunler]="urunler"
+          ></euys-urunler-pick-list>
+        </div>
+        <div class="p-field p-col-12 p-md-6">
+          <label for="kalitelerPickList">Sipariş çelik kalitesi</label>
+          <euys-kaliteler-pick-list
+            #kalitelerPickList
+            [kalitelerLoaded]="configLoaded$ | async"
+            [kaliteler]="kaliteler"
+          ></euys-kaliteler-pick-list>
+        </div>
+        <euys-min-max-fieldset
+          #siparisKalinlikMinMaxFieldset
+          [label]="'Sipariş Kalınlık'"
+          [maxDefaultValue]="24.12"
+          [maxFormControlName]="'maxKalinlik'"
+          [maxFractionDigits]="4"
+          [maxPlaceholder]="'Maximum sipariş kalınlığı giriniz'"
+          [minDefaultValue]="12.48"
+          [minFormControlName]="'minKalinlik'"
+          [minFractionDigits]="3"
+          [minPlaceholder]="'Minimum sipariş kalınlığı giriniz'"
+          [helperTextMaximum]="'Maximum sipariş kalınlığı giriniz.'"
+          [helperTextMinimum]="'Minimum sipariş kalınlığı giriniz.'"
+          [pCol12]="true"
+          [pMD6]="true"
+        ></euys-min-max-fieldset>
+        <div class="p-field p-col-12 p-md-6">
+          <label for="yaglamaDurumuAnaTabloKodu"
+            >Yağlama markası ana tablo kodu</label
+          >
+          <p-dropdown
+            id="yagMarkasiAnaTabloKodu"
+            [filter]="true"
+            [options]="markalar"
+            [showClear]="true"
+            [virtualScroll]="true"
+            emptyFilterMessage="Yağlama markası bulunamadı."
+            filterBy="yagMarkasiAnaTabloKodu,marka,kodMarka"
+            filterPlaceholder="Ana tablo kodu veya marka ile sorgulayınız..."
+            formControlName="yagMarkasiAnaTabloKodu"
+            inputId="yagMarkasiAnaTabloKodu"
+            optionLabel="kodMarka"
+            optionValue="yagMarkasiAnaTabloKodu"
+            placeholder="Yağlama markası ana tablo kodu seçiniz"
+            [required]="true"
+          >
+          </p-dropdown>
+          <euys-form-field-info
+            [inputHelperControl]="yagMarkasiAnaTabloKodu"
+            [helperText]="'Yağlama markası ana tablo kodu seçimi zorunludur.'"
+          ></euys-form-field-info>
+        </div>
+        <div class="p-field p-col-12 p-md-6">
+          <label for="yaglamaDurumuAnaTabloKodu"
+            >Yağlama durumu ana tablo kodu</label
+          >
+          <p-dropdown
+            id="yaglamaDurumuAnaTabloKodu"
+            [filter]="true"
+            [options]="durumlar"
+            [showClear]="true"
+            [virtualScroll]="true"
+            emptyFilterMessage="Yağlama durumu bulunamadı."
+            filterBy="yaglamaDurumuAnaTabloKodu,durum,kodDurum"
+            filterPlaceholder="Yağlama durumu ana tablo kodu veya durumu ile sorgulayınız..."
+            formControlName="yaglamaDurumuAnaTabloKodu"
+            inputId="yaglamaDurumuAnaTabloKodu"
+            optionLabel="kodDurum"
+            optionValue="yaglamaDurumuAnaTabloKodu"
+            placeholder="Yağlama durumu ana tablo kodu seçiniz"
+            [required]="true"
+          ></p-dropdown>
+          <euys-form-field-info
+            [inputHelperControl]="yaglamaDurumuAnaTabloKodu"
+            [helperText]="'Yağlama durumu ana tablo kodu seçimi zorunludur.'"
+          ></euys-form-field-info>
+        </div>
+        <div class="p-field p-col-12 p-md-6">
+          <label for="yaglamaYuzeyiAnaTabloKodu"
+            >Yağlama yüzeyi ana tablo kodu</label
+          >
+          <p-dropdown
+            id="yaglamaYuzeyiAnaTabloKodu"
+            [filter]="true"
+            [options]="yuzeyler"
+            [showClear]="true"
+            [virtualScroll]="true"
+            emptyFilterMessage="Yağlama yüzeyi bulunamadı."
+            filterBy="yaglamaYuzeyiKodu,yaglamaYuzeyi,kodYuzey"
+            filterPlaceholder="Yağlama yüzeyi ana tablo kodu veya adı ile sorgulayınız..."
+            formControlName="yaglamaYuzeyiAnaTabloKodu"
+            inputId="yaglamaYuzeyiAnaTabloKodu"
+            optionLabel="kodYuzey"
+            optionValue="yaglamaYuzeyiKodu"
+            placeholder="Yağlama yüzeyi ana tablo kodu seçiniz"
+            [required]="true"
+          ></p-dropdown>
+          <euys-form-field-info
+            [inputHelperControl]="yaglamaYuzeyiAnaTabloKodu"
+            [helperText]="'Yağlama yüzeyi ana tablo kodu seçimi zorunludur.'"
+          ></euys-form-field-info>
+        </div>
+        <div class="p-field p-col-12 p-md-6">
+          <label for="ustHatTanimKodu">Üst hat tanım kodu</label>
+          <p-dropdown
+            id="ustHatTanimKodu"
+            [filter]="true"
+            [options]="hatlar"
+            [showClear]="true"
+            [virtualScroll]="true"
+            emptyFilterMessage="Üst hat tanım kodu bulunamadı."
+            filterBy="hatKodu,hatUzunTanim"
+            filterPlaceholder="Hat kodu veya hat tanım kodu kullanarak filtreleme yapınız..."
+            formControlName="ustHatTanimKodu"
+            inputId="ustHatTanimKodu"
+            optionLabel="kodTanim"
+            optionValue="hatKodu"
+            placeholder="Üst hat tanım kodu seçiniz."
+            [required]="true"
+          ></p-dropdown>
+          <euys-form-field-info
+            [inputHelperControl]="ustHatTanimKodu"
+            [helperText]="'Üst hat tanım kodu seçimi zorunludur.'"
+          ></euys-form-field-info>
+        </div>
+        <div class="p-field p-col-12 p-md-6">
+          <label for="yaglamaAnaTabloKodu"
+            >Yağlama spesifikasyonu ana tablo</label
+          >
+          <p-dropdown
+            id="yaglamaAnaTabloKodu"
+            [filter]="true"
+            [options]="yaglamalar"
+            [showClear]="true"
+            [virtualScroll]="true"
+            emptyFilterMessage="Yağlama spesifikasyonu ana tablo kodu bulunamadı."
+            filterBy="yaglamaText"
+            filterPlaceholder="Yağlama ana tablo özelliklerine göre arama yapınız..."
+            formControlName="yaglamaAnaTabloKodu"
+            inputId="yaglamaAnaTabloKodu"
+            optionLabel="yaglamaText"
+            optionValue="yaglamaKodu"
+            placeholder="Yağlama spesifikasyonu ana tablo kodu seçiniz"
+            [required]="true"
+          ></p-dropdown>
+          <euys-form-field-info
+            [inputHelperControl]="yaglamaAnaTabloKodu"
+            [helperText]="'Yağlama ana tablo kodu seçimi zorunludur.'"
+          ></euys-form-field-info>
+        </div>
+      </div>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      [icon]="'pi pi-arrow-circle-left'"
+      [label]="'JSON ME!'"
+      class="p-button-secondary p-tool p-mr-2"
+      type="button"
+      (click)="jsonMe()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      [icon]="'pi pi-arrow-circle-left'"
+      [label]="'CLEAR VALIDATION!'"
+      class="p-button-secondary p-tool p-mr-2"
+      type="button"
+      (click)="clearValidation()"
+    ></button>
+  </ng-template>
+</p-card>
+
+<!-- <p-card>
+  <pre>
+    {{ config | async | json }}
+  </pre>
+</p-card> -->

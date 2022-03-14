@@ -1,0 +1,37 @@
+table {
+  border: 1px solid #090909;
+  border-collapse: collapse;
+  font-size: small;
+
+  td {
+    border: 1px solid #090909;
+  }
+
+  th {
+    border: 1px solid #090909;
+  }
+
+  .vertical {
+    max-inline-size: 8em;
+    overflow: hidden;
+    padding-inline: 0.25rem;
+    text-overflow: ellipsis;
+    transform: rotate(180deg);
+    white-space: nowrap;
+    writing-mode: vertical-lr;
+  }
+}
+
+.borderless {
+  border-style: none;
+
+  td,
+  th {
+    border-style: none;
+  }
+}
+
+.scroll-container {
+  max-width: 100%;
+  overflow-x: scroll;
+}

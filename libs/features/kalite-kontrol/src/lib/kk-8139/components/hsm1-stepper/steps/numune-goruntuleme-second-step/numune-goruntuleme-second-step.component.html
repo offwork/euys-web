@@ -1,0 +1,59 @@
+<euys-styled-panel [toggleable]="false">
+  <!-- ACTION MENU -->
+  <ng-container icons>
+    <button
+      (click)="menu.toggle($event)"
+      class="p-panel-header-icon p-link"
+      icon="pi pi-cog"
+      pButton
+    ></button>
+    <p-menu #menu id="config_menu" [model]="items" [popup]="true"></p-menu>
+  </ng-container>
+
+  <!-- HEADER -->
+  <ng-container header>
+    <euys-free-header textToRender="Numune Görüntüleme ve Güncelleme Formu">
+    </euys-free-header>
+  </ng-container>
+
+  <!-- CONTENT -->
+  <ng-container content>
+    <euys-bagimsiz-numune-list
+      [bagimsizNumuneLoaded$]="bagimsizNumuneLoaded$"
+      [bagimsizNumune$]="bagimsizNumune$"
+      [updateForm]="true"
+      (updated)="updateHandler($event)"
+    ></euys-bagimsiz-numune-list>
+    <euys-bagimsiz-mesajlar-list
+      [bagimsizMesaj$]="bagimsizMesaj$"
+      [bagimsizMesajLoaded$]="bagimsizMesajLoaded$"
+    ></euys-bagimsiz-mesajlar-list>
+    <euys-urun-fotograflari-sayfasina-git-button></euys-urun-fotograflari-sayfasina-git-button>
+  </ng-container>
+
+  <!-- FOOTER -->
+  <ng-container footer>
+    <div class="flex flex-row align-middle justify-end">
+      <button
+        (click)="goToFirstPage()"
+        [disabled]="false"
+        [icon]="'pi pi-arrow-circle-left'"
+        [label]="'GERİ'"
+        class="p-mr-2 bg-blue-600 border border-transparent rounded-md py-1 px-2 font-medium text-white hover:bg-blue-700"
+        pButton
+        pRipple
+        type="button"
+      ></button>
+      <button
+        (click)="goToThirdPage()"
+        [disabled]="false"
+        [icon]="'pi pi-arrow-circle-right'"
+        [label]="'DEVAM'"
+        class="p-mr-2 bg-red-600 border border-transparent rounded-md py-1 px-2 font-medium text-white hover:bg-red-700"
+        pButton
+        pRipple
+        type="button"
+      ></button>
+    </div>
+  </ng-container>
+</euys-styled-panel>

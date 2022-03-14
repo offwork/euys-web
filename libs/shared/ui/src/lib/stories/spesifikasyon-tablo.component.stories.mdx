@@ -1,0 +1,156 @@
+import { moduleMetadata } from '@storybook/angular';
+import { CommonModule } from '@angular/common';
+import { Meta, Story, Canvas, Source } from '@storybook/addon-docs';
+import { withKnobs, select, boolean } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
+import { of, BehaviorSubject } from 'rxjs';
+import { SpecsTableCol } from '@euys/shared/ui';
+import { DesignSystemModule } from '../design-system/design-system.module';
+import { SpesifikasyonTabloComponent } from '../spesifikasyon-tablo/spesifikasyon-tablo/spesifikasyon-tablo.component';
+
+export const exampleData = [...Array(5).keys()].map((index) => ({
+  id: index,
+  kod: '100' + index,
+  girisMinSicaklik: 5 * (index + 1),
+  girisMaxSicaklik: 8 * (index + 1),
+  cikisMinSicaklik: 10 * (index + 1),
+  cikisMaxSicaklik: 20 * (index + 1),
+}));
+
+export const dataOptions = {
+  '5 Satırlı Örnek Veri': exampleData,
+  'Boş Veri': [],
+};
+
+export const headers = [
+  [
+    { title: 'Kod', rowspan: 2, sort: 'kod' },
+    { title: 'Giriş Sıcaklık', colspan: 2 },
+    { title: 'Çıkış Sıcaklık', colspan: 2 },
+  ],
+  ['Min.', 'Max.', 'Min.', 'Max.'],
+];
+
+export const cols = [
+  new SpecsTableCol('kod'),
+  new SpecsTableCol('girisMinSicaklik'),
+  new SpecsTableCol('girisMaxSicaklik'),
+  new SpecsTableCol('cikisMinSicaklik'),
+  new SpecsTableCol('cikisMaxSicaklik'),
+];
+
+export const dataSub = new BehaviorSubject(exampleData);
+export const data$ = dataSub.asObservable();
+
+export const getSpesifikasyonTabloProps = (overrides = {}) => {
+  dataSub.next(select('Data', dataOptions, exampleData));
+  return Object.assign(
+    {},
+    {
+      data$: data$,
+      loaded$: of(boolean('Loaded', true)),
+      headers: headers,
+      cols: cols,
+      selectedRow: null,
+      selectedChange: action('selectedChange'),
+    },
+    overrides
+  );
+};
+
+<Meta
+  title="Euys/UI/SpesifikasyonTabloModule"
+  decorators={[
+    withKnobs,
+    moduleMetadata({
+      imports: [CommonModule, DesignSystemModule],
+      declarations: [SpesifikasyonTabloComponent],
+    }),
+  ]}
+/>
+
+# Spesifikasyon Tablo Module
+
+Spesifikasyon Tablo Modülü, Kalite Tasarım Spesifikasyon listesinin görüntülemek için kullanılır.
+
+> **`<euys-spesifikasyon-tablo>`** bileşenini kullanabilmek için modülünüze, SharedUiModule dahil etmelisiniz.
+
+<Source
+  language="typescript"
+  dark
+  code={`import { SharedUiModule } from '@euys/shared/ui';
+@NgModule({
+  declarations: [Kt1201Component],
+  imports: [
+    // ...
+    SharedUiModule,
+  ]
+})
+export class Kt1201Module {}`}
+/>
+
+### TableHeaders
+
+Tablo başlıklarının tanımı için **_TableHeaders_** nesnesini kullanılır.
+
+<Source
+  language="typescript"
+  dark
+  code={`
+import { TableHeaders } from '@euys/shared/ui';
+tableHeaders: TableHeaders = [
+  [
+    { title: 'Kod', rowspan: 2, sort: 'kod' },
+    { title: 'Giriş Sıcaklığı', colspan: 2 },
+    { title: 'Çıkış Sıcaklığı', colspan: 2 },
+  ],
+  ['Min.', 'Max.', 'Min.', 'Max.'],
+];`}
+/>
+
+|          Prop | Açıklama                                                          | Tür      |
+| ------------: | ----------------------------------------------------------------- | -------- |
+|   **`title`** | kolon başlığında görünecek değerdir                               | `string` |
+| **`colspan`** | kolon genişliğinini belirler                                      | `number` |
+| **`rowspan`** | satır genişliğini belirler                                        | `number` |
+|    **`sort`** | hücrenin sıralama işleminde hangi alanı kullanacağını temsil eder | `string` |
+
+> colspan, rowspan ve sort alanları belirtilmeyecekse string değer verilebilir.
+
+### SpecsTableCol
+
+Tablo satırların tanımı için **_SpecsTableCol_** nesnelerinden oluşan bir array kullanılır.  
+SpecsTableCol sınıfının kurucu metot'u aldığını string parametre değerine göre satırda ilgili alanı gösterir.
+
+<Source
+  language="typescript"
+  dark
+  code={`
+import { SpecsTableCol } from '@euys/shared/ui';
+cols = [
+  new SpecsTableCol('kod'),
+  new SpecsTableCol('girisMinSicaklik'),
+  new SpecsTableCol('girisMaxSicaklik'),
+  new SpecsTableCol('cikisMinSicaklik'),
+  new SpecsTableCol('cikisMaxSicaklik'),
+];`}
+/>
+
+<Canvas>
+  <Story name="Temel">
+    {{
+      template: `
+        <euys-spesifikasyon-tablo
+            [data]="data$"
+            [loaded]="loaded$"
+            [headers]="headers"
+            [cols]="cols"
+            [selected]="selectedRow"
+            (selectedChange)="selectedChange($event)"
+        >
+        </euys-spesifikasyon-tablo>
+      `,
+      props: getSpesifikasyonTabloProps(),
+    }}
+  </Story>
+</Canvas>

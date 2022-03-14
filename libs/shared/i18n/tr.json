@@ -1,0 +1,83 @@
+{
+  "CORE": {
+    "FILE_SIZE": {
+      "BYTES": "Bayt",
+      "KB": "KB",
+      "MB": "MB",
+      "GB": "GB",
+      "TB": "TB"
+    },
+    "PAGINATION": {
+      "ARIA": {
+        "ITEMS_PER_PAGE": "Sayfa uzunluğu seçici",
+        "CURRENT_PAGE": "Mevcut sayfa seçici",
+        "PREVIOUS_PAGE": "Önceki sayfa düğmesi",
+        "NEXT_PAGE": "Sonraki sayfa düğmesi"
+      },
+      "ITEMS_RANGE": "{{range}} / {{total}} gösteriliyor",
+      "ITEMS_PER_PAGE": "Sayfa başına öğe",
+      "CURRENT_PAGE": "Sayfa {{ number }}",
+      "TOTAL_PAGES": "/ {{ total }}"
+    },
+    "METADATA": {
+      "BASIC": {
+        "CREATED_DATE": "Oluşturulma Tarihi",
+        "MODIFIED_DATE": "Değiştirilme Tarihi",
+        "CONTENT_TYPE": "İçerik Türü"
+      },
+      "ACTIONS": {
+        "EDIT": "Düzenle",
+        "SAVE": "Kaydet",
+        "CANCEL": "İptal",
+        "CLEAR": "Temizle",
+        "RESET": "Sıfırla"
+      }
+    }
+  },
+  "primeng": {
+    "startsWith": "ile başlar",
+    "contains": "İçerir",
+    "notContains": "İçermez",
+    "endsWith": "İle biter",
+    "equals": "Eşittir",
+    "notEquals": "Eşit değil",
+    "noFilter": "Filtre yok",
+    "lt": "Daha az",
+    "lte": "Daha az ya da eşit",
+    "gt": "Daha büyük",
+    "gte": "Daha büyük ya da eşit",
+    "is": "Is",
+    "isNot": "Değil",
+    "before": "Önce",
+    "after": "Sonra",
+    "dateIs": "Tarih",
+    "dateIsNot": "Tarih değil",
+    "dateBefore": "Önceki Tarih",
+    "dateAfter": "Sonraki Tarih",
+    "clear": "Temizle",
+    "apply": "Uygula",
+    "matchAll": "Hepsini eşleştir",
+    "matchAny": "Herhangi biriyle eşleştir",
+    "addRule": "Kural Ekle",
+    "removeRule": "Kural Kaldır",
+    "accept": "Evet",
+    "reject": "Hayır",
+    "choose": "Seç",
+    "upload": "Yükle",
+    "cancel": "Vazgeç",
+    "dayNames": ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"],
+    "dayNamesShort": ["Paz", "Pzt", "Sal", "Çar", "Per", "Cum", "Cmt"],
+    "dayNamesMin": ["Paz", "Pzt", "Sal", "Çar", "Per", "Cum", "Cmt"],
+    "monthNames": ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"],
+    "monthNamesShort": ["Oca", "Şub", "Mar", "Nis", "May", "Haz","Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"],
+    "dateFormat": "dd.mm.yy",
+    "today": "Bugün",
+    "weekHeader": "Hft",
+    "weak": "Hafta",
+    "medium": "Orta",
+    "strong": "Güçlü",
+    "passwordPrompt": "Parola gir",
+    "emptyMessage": "Sonuç bulunamadı",
+    "emptyFilterMessage": "Sonuç bulunamadı"
+  }
+}

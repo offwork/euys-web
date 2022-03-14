@@ -1,0 +1,179 @@
+<form [formGroup]="oprBilgiForm" (ngSubmit)="submitForm()">
+  <div class="grid grid-cols-1 gap-2">
+    <div class="grid grid-cols-12">
+      <label>Müşteri:</label>
+      <div class="p-fluid col-span-4">
+        <div></div>
+        <p-dropdown
+          id="musteriNoAdDropdown"
+          inputId="musteriNoAdInput"
+          [options]="musteriList"
+          optionLabel="musteriNoAd"
+          [filter]="true"
+          filterBy="musteriNoAd"
+          optionValue="id"
+          formControlName="idUretimMusteri"
+          [virtualScroll]="true"
+          [itemSize]="30"
+          dataKey="musteriNo"
+          placeholder="Seçiniz"
+          [showClear]="true"
+        >
+        </p-dropdown>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-12">
+      <label>MPC:</label>
+      <div class="p-fluid col-span-4">
+        <input
+          id="Mpc"
+          inputId="mpcInput"
+          type="text"
+          pInputText
+          placeholder="MPC"
+          formControlName="mpc"
+        />
+        <ng-container
+          *ngIf="
+            oprBilgiForm.get('mpc').errors && oprBilgiForm.get('mpc').touched
+          "
+        >
+          <small
+            *ngIf="
+              oprBilgiForm.get('mpc').hasError('minlength') ||
+              oprBilgiForm.get('mpc').hasError('maxlength')
+            "
+            class="p-error"
+          >
+            MPC 10 Karakter olmalıdır</small
+          >
+          <small
+            *ngIf="oprBilgiForm.get('mpc').hasError('aktifMpcBulunamadi')"
+            class="p-error"
+          >
+            MPC Bulunamadı</small
+          >
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-12">
+      <label>Kalite:</label>
+      <div class="p-fluid col-span-4">
+        <p-dropdown
+          id="celikKalitesiDropdown"
+          inputId="celikKalitesiInput"
+          [filter]="true"
+          filterBy="erdGrupKalitesi"
+          [options]="kaliteList"
+          optionLabel="erdGrupKalitesi"
+          optionValue="erdGrupKalitesi"
+          formControlName="celikKalitesi"
+          [virtualScroll]="true"
+          [itemSize]="30"
+          dataKey="erdGrupKalitesi"
+          placeholder="Seçiniz"
+          [showClear]="true"
+        >
+        </p-dropdown>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-12">
+      <label>Ürün:</label>
+      <div class="p-fluid col-span-4">
+        <p-dropdown
+          id="urunKoduDropdown"
+          inputId="urunKoduInput"
+          [options]="urunList"
+          filterBy="urunRumuzu"
+          optionLabel="urunRumuzu"
+          optionValue="urunKodu"
+          [filter]="true"
+          formControlName="urunKodu"
+          [virtualScroll]="true"
+          [itemSize]="30"
+          dataKey="urunKodu"
+          placeholder="Seçiniz"
+          [showClear]="true"
+        >
+        </p-dropdown>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-12">
+      <label>Uyarı Metni:</label>
+      <div class="p-fluid col-span-8">
+        <textarea
+          name=""
+          cols="30"
+          rows="3"
+          id="UyariMetni"
+          inputId="uyariMetniInput"
+          type="text"
+          pInputText
+          placeholder="Uyarı Metni "
+          formControlName="operatorBilgilendirme"
+          class="col-span-4"
+        ></textarea>
+      </div>
+    </div>
+    <div>
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Kaydet "
+        icon="pi pi-save"
+        iconPos="left"
+        class="p-button-raised p-button-rounded"
+        [disabled]="oprBilgiForm.invalid"
+        (click)="submitForm()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Temizle"
+        icon="pi pi-trash"
+        iconPos="left"
+        class="p-button-raised p-button-rounded p-button-danger p-button-text"
+        (click)="clearForm()"
+      ></button>
+    </div>
+  </div>
+
+  <div>
+    <div>
+      <euys-image-preview
+        [imageList]="oprGorselList$ | async"
+        [originalSource]="originalSource$ | async"
+        (deleteThumb)="deleteImage($event)"
+        (clickOnThumb)="showImage($event)"
+      ></euys-image-preview>
+    </div>
+
+    <div class="flex gap-4">
+      <p-fileUpload
+        name="myfile[]"
+        chooseLabel="Fotoğraf Ekle"
+        [customUpload]="true"
+        mode="basic"
+        accept="image/*"
+        (uploadHandler)="uploadImage($event)"
+        #uploader
+        [disabled]="!oprBilgiKayit"
+      ></p-fileUpload>
+
+      <p-button
+        type="button"
+        icon="pi pi-trash"
+        class="p-button-raised p-button-rounded p-button-danger p-button-text"
+        [disabled]="!uploader._files?.length"
+        (click)="uploader.clear()"
+        iconPos="left"
+      ></p-button>
+    </div>
+  </div>
+</form>

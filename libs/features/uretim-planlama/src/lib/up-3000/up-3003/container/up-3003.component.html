@@ -1,0 +1,79 @@
+<p-card>
+  <form [formGroup]="form" class="flex flex-col">
+    <div
+      class="grid items-center gap-x-4 gap-y-9 mt-8 mb-1"
+      style="grid-template-columns: repeat(4, fit-content(100%))"
+    >
+      <label class="text-right" for="yil">Yıl :</label>
+      <euys-year-picker
+        class="w-48"
+        inputId="yil"
+        formControlName="yil"
+      ></euys-year-picker>
+
+      <label class="text-right ml-2" for="yupBazAnaBilgileriModel">
+        YÜP'e Baz Kayıtlı Dosyalar :
+      </label>
+      <p-dropdown
+        class="flex"
+        styleClass="flex-1 w-64"
+        [placeholder]= "'Seçiniz'" 
+        [options]="bazAnaBilgiList$ | async"
+        optionLabel="dosyaAdi"
+        inputId="yupBazAnaBilgileriModel"
+        formControlName="yupBazAnaBilgileriModel"
+      ></p-dropdown>
+
+      <label class="text-right" for="yupTaslakIsmi" euysValidationMessage
+        >YÜP Taslak İsmi :</label
+      >
+      <textarea
+        pInputTextarea
+        [rows]="2"
+        class="resize-none"
+        id="yupTaslakIsmi"
+        formControlName="yupTaslakIsmi"
+      ></textarea>
+
+      <label class="text-right" for="yupTaslakAciklama">YÜP Taslak Açıklama :</label>
+      <textarea
+        pInputTextarea
+        [rows]="2"
+        class="resize-none"
+        id="yupTaslakAciklama"
+        formControlName="yupTaslakAciklama"
+      ></textarea>
+
+      <label class="text-right" for="dosyaExcel">BPC Dosya :</label>
+      <p-fileUpload
+        mode="basic"
+        styleClass="w-full"
+        chooseLabel="Dosya Seç"
+        [auto]="true"
+        [customUpload]="true"
+        (uploadHandler)="onFileChange($event)"
+      ></p-fileUpload>
+
+      <p-chip
+        *ngIf="file"
+        [label]="file?.name"
+        class="col-span-2"
+        styleClass="!px-4 !py-px shadow-inner"
+        icon="pi pi-file-excel"
+      ></p-chip>
+    </div>
+  </form>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      id="save-button"
+      class="p-button p-button-raised p-button-rounded w-36 !px-8"
+      type="button"
+      label="Kaydet"
+      icon="pi pi-save"
+      [loading]="progress$ | async"
+      (click)="save()"
+    ></button>
+  </ng-template>
+</p-card>

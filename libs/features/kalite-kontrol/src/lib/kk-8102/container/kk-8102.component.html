@@ -1,0 +1,114 @@
+<div class="card" >
+  <div>
+  <p-toolbar styleClass="mb-4">
+    <ng-template pTemplate="left">
+      <button 
+      *ngIf="isFilterMod$ | async" 
+      pButton 
+      label="Seçimi Temizle" 
+      icon="pi pi-refresh" 
+      (click)="filterTemizle()"></button>
+    </ng-template>
+</p-toolbar>
+  <p-table [value]="kusurGoruntulemeList$ | async" 
+          [paginator]="true" 
+          [rows]="10"
+          [showCurrentPageReport]="true" 
+          [rowsPerPageOptions]="[10,25,50]" 
+          currentPageReportTemplate="{totalRecords} kayıttan {first} ile {last} arası gösteriliyor"
+          scrollDirection="both" 
+          scrollHeight="flex"
+          responsiveLayout="scroll"
+          styleClass="p-datatable-gridlines"
+          [loading]="isLoading$ | async"
+          selectionMode="single"
+          >
+    <ng-template pTemplate="caption">
+      <div class="flex">
+          Kusur Tanımı:
+          {{hoverKusurTanimBaslik$ | async}}
+          <button type="button" pButton pRipple icon="pi pi-file-excel"  class="p-button-success ml-auto"  pTooltip="Excel" tooltipPosition="bottom"></button>
+      </div>
+      <!--flex align-items-center justify-content-between-->
+  </ng-template>
+  <ng-template pTemplate="header" >
+    <tr>
+        <th colspan="1"  *ngFor="let col of (tabloBaslik$ | async)">
+          <div class="vertical flex h-full" *ngIf="!col['isPinnedDown']; else first_header">
+            <span>{{col['hatAdi']}}</span>
+          </div>
+          <ng-template #first_header>
+           
+          </ng-template>
+        </th>
+    </tr>
+    
+    <tr 
+    style=
+    "height:5em;
+    white-space:nowrap !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;"
+   >
+      <th *ngFor="let col of (tabloBaslik$ | async)">
+        <div class="h-full flex flex-col justify-end" *ngIf="!col['isPinnedDown']; else header">
+          <div>
+            {{col['hatKodu']}}
+          </div>
+        </div>
+        <ng-template #header>
+          <div class="">
+            {{col['hatAdi']}}
+          </div>
+          
+         <p-columnFilter  
+          display="menu" 
+          [showMatchModes]="false" 
+          [showOperator]="false" 
+          [showAddButton]="false">
+            <ng-template pTemplate="header">
+                <div class="px-3 pt-3 pb-0">
+                    <span class="font-bold">{{col['hatAdi']}}</span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback" >
+                <p-multiSelect 
+                (onChange)="customFilterEventListener($event.value,col['hatAdi'])" 
+                [options]="filterSecici(col['hatAdi']) | async" 
+                [placeholder]="col['hatAdi']" 
+                >
+                    <ng-template let-option pTemplate="item">
+                        <div class="p-multiselect-representative-option">
+                            <span class="ml-1">{{option.label}}</span>
+                        </div>
+                    </ng-template>
+                </p-multiSelect>
+            </ng-template>
+        </p-columnFilter>
+          
+        </ng-template>
+      </th>
+  </tr>
+  
+  </ng-template>
+  <ng-template pTemplate="body" let-kusurGoruntuleme>
+    <tr (mouseenter) ="mouseEnter(kusurGoruntuleme)" (mouseleave) ="mouseLeave()">
+      <td>{{kusurGoruntuleme.kusurSinifiTanim}}</td>
+      <td>{{kusurGoruntuleme.kkKusur.anaKusurKodu}}</td>
+      <td>{{kusurGoruntuleme.kkKusurAna}}</td>
+      <td >{{kusurGoruntuleme.kkKusur.kusurKodu}}</td>
+      <td>{{kusurGoruntuleme.kkKusur.kusurAciklama}}</td>
+      <td>{{kusurGoruntuleme.kkKusur.aktifPasif}}</td>
+      <td>{{kusurGoruntuleme.kkKusur.hurdaMi}}</td>
+      <td *ngFor="let col of (utHatList$ | async)">
+        <i *ngIf="kusurHattiIcerirMi(kusurGoruntuleme,col.hatKodu)" class="pi pi-exclamation-circle" style="background-color: red;"></i>
+        <i *ngIf="!kusurHattiIcerirMi(kusurGoruntuleme,col.hatKodu)" class="pi pi-exclamation-circle" style="background-color:green"></i>
+      </td>
+  </tr>
+  </ng-template>
+  </p-table>
+
+</div>
+  
+</div>

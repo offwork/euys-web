@@ -1,0 +1,33 @@
+<euys-kusur-kodu-kayit
+  [kusurListLoaded]="kusurListLoaded$ | async"
+  [kusurAnaListLoaded]="kusurAnaListLoaded$ | async"
+  [kusurSinifiListLoaded]="kusurSinifiListLoaded$ | async"
+  [kusurList]="kusurList$ | async"
+  [kusurAnaList]="kusurAnaList$ | async"
+  [kusurSinifiList]="kusurSinifiList$ | async"
+  [hatList]="utHatList$ | async"
+  [defaultKusur$]="facade.defaultKusur$"
+>
+</euys-kusur-kodu-kayit>
+
+<p-divider></p-divider>
+
+<euys-kusur-kodu-katalog
+  *ngIf="(facade.defaultKusur$ | async) as kusur"
+  [kusurKatalogViewList]="katalogViewList$ | async"
+  [listLoaded]="katalogViewListLoaded$ | async"
+  [kusurKodu]="kusur?.kkKusur?.kusurKodu"
+  [newKatalog]="newKatalog$ | async"
+  [hatComboListLoaded]="facade.katalogHatComboListLoaded$ | async"
+  [hatComboList]="facade.katalogHatComboList$ | async"
+  [kaliteList]="kaliteList$ | async"
+  [kaliteListLoaded]="kaliteListLoaded$ | async"
+  [urunList]="ktUrunList$ | async"
+  [urunListLoaded]="ktUrunListLoaded$ | async"
+  (resetGorselList)="onResetGorselList()"
+  (loadGorselList)="onLoadGorselList($event)"
+  (add)="onAddNewKatalog($event)"
+  (remove)="onRemoveKatalog($event)"
+>
+
+</euys-kusur-kodu-katalog>

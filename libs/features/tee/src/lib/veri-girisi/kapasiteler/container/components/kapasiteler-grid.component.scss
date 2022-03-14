@@ -1,0 +1,52 @@
+/* stylelint-disable-next-line alpha-value-notation */
+$table-border-color: rgba(0, 0, 0, 0.07);
+
+.grid-wrapper {
+  border-bottom: 1px solid $table-border-color;
+  border-left: 1px solid $table-border-color;
+
+  .grid-container {
+    border-right: 1px solid $table-border-color;
+    list-style-position: outside;
+    margin: 0;
+    min-width: 160px;
+    overflow-y: hidden;
+    padding: 16px 0 0;
+    text-align: center;
+
+    :first-child {
+      margin-top: 16px;
+    }
+
+    .column-title {
+      padding: 8px;
+    }
+
+    .grid-cell {
+      border-top: 1px solid $table-border-color;
+      padding: 4px;
+
+      /* stylelint-disable */
+      input {
+        background-color: transparent;
+        border-style: none;
+        margin-top: 0;
+        outline: none;
+        text-align: right;
+      }
+      /* stylelint-enable */
+    }
+
+    .total-bg {
+      background-color: rgb(108, 156, 247);
+    }
+
+    .left-align {
+      text-align: left !important;
+    }
+
+    .value-bg {
+      background-color: rgb(214, 219, 226);
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<div>
+  {{toastRef.data.message}}
+  <p-panel *ngIf="toastRef.data.detail"
+    header="Daha Fazla..."
+    [toggleable]="true"
+    [collapsed]="true"
+    expandIcon="pi pi-chevron-left"
+    collapseIcon="pi pi-chevron-down"
+  >
+    <p>{{toastRef.data.detail}}</p>
+  </p-panel>
+</div>

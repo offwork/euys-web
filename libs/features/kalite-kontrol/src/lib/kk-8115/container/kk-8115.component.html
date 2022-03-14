@@ -1,0 +1,380 @@
+<p-card>
+  <p-steps [model]="steps" [(activeIndex)]="activeIndex"></p-steps>
+  <div class="p-fluid p-grid mt-2">
+    <euys-styled-panel
+      *ngIf="activeIndex === 0"
+      [toggleable]="false"
+      class="p-col-12"
+    >
+      <!-- HEADER -->
+      <ng-container header>
+        <euys-free-header
+          textToRender="2. Sıcak Haddehane QC Kayıt Görüntüleme"
+        >
+        </euys-free-header>
+      </ng-container>
+
+      <!-- CONTENT -->
+      <ng-container content>
+        <euys-hsm2-bobin-list
+          *ngIf="bobinListLoaded$ | async"
+          (selectionChange)="onSelectionChange($event)"
+        ></euys-hsm2-bobin-list>
+      </ng-container>
+
+      <!-- FOOTER -->
+      <ng-container footer>
+        <div class="flex flex-row align-middle justify-end">
+          <button
+            [icon]="'pi pi-save'"
+            [label]="'TOPLU KAYIT'"
+            (click)="topluKayit()"
+            [class]="navigationButtonClass"
+            pButton
+            pRipple
+            type="button"
+            [disabled]="
+              !this.selectedBobinList?.length ||
+              this.selectedBobinList?.length < 2
+            "
+          ></button>
+          <button
+            [icon]="'pi pi-arrow-circle-right'"
+            [label]="'DEVAM'"
+            (click)="next()"
+            [class]="navigationButtonClass"
+            pButton
+            pRipple
+            type="button"
+            [disabled]="this.selectedBobinList?.length !== 1"
+          ></button>
+        </div>
+      </ng-container>
+    </euys-styled-panel>
+
+    <euys-styled-panel
+      *ngIf="activeIndex === 1"
+      [toggleable]="false"
+      class="p-col-12"
+    >
+      <ng-container header>
+        <euys-free-header
+          class="w-full"
+          textToRender="Bağımsız Numune Görüntüleme Ekranı"
+          textAlign="center"
+        >
+        </euys-free-header>
+      </ng-container>
+      <ng-container content>
+        <div class="w-full flex flex-col space-y-20">
+          <euys-bagimsiz-numune-list
+            [bagimsizNumuneLoaded$]="bagimsizNumuneListLoaded$"
+            [bagimsizNumune$]="bagimsizNumuneList$"
+            [showHeader]="false"
+          ></euys-bagimsiz-numune-list>
+          <euys-bagimsiz-mesajlar-list
+            [bagimsizMesajLoaded$]="bagimsizMesajListLoaded$"
+            [bagimsizMesaj$]="bagimsizMesajList$"
+          ></euys-bagimsiz-mesajlar-list>
+        </div>
+      </ng-container>
+
+      <!-- FOOTER -->
+      <ng-container footer>
+        <div class="flex align-middle justify-between">
+          <button
+            [label]="'ÜRÜN FOTOĞRAFLARINA GİT'"
+            class="p-button-secondary p-button-link p-tool p-mr-2"
+            pButton
+            pRipple
+            type="button"
+          ></button>
+          <div class="flex flex-row align-middle justify-start">
+            <button
+              [icon]="'pi pi-arrow-circle-left'"
+              [label]="'GERİ'"
+              (click)="prev()"
+              [class]="navigationButtonClass"
+              pButton
+              pRipple
+              type="button"
+            ></button>
+            <button
+              [icon]="'pi pi-arrow-circle-right'"
+              [label]="'DEVAM'"
+              (click)="next()"
+              [class]="navigationButtonClass"
+              pButton
+              pRipple
+              type="button"
+            ></button>
+          </div>
+        </div>
+      </ng-container>
+    </euys-styled-panel>
+
+    <euys-styled-panel
+      *ngIf="activeIndex === 2"
+      [toggleable]="false"
+      class="p-col-12"
+    >
+      <ng-container header>
+        <euys-free-header textToRender="2. Sıcak Haddehane QC Kayıt">
+        </euys-free-header>
+      </ng-container>
+      <ng-container content>
+        <euys-qc-kayit-karar>
+          <ng-template pTemplate="top">
+            <euys-sicak-haddeleme
+              [qcKayitBilgileri]="qcKayitBilgileri$ | async"
+              [qcKayitBilgileriLoaded$]="qcKayitBilgileriLoaded$"
+            ></euys-sicak-haddeleme>
+          </ng-template>
+
+          <ng-template pTemplate="centerLeft">
+            <euys-hsm2-qc-uretim-bilgisi
+              [qcKayitBilgileri]="qcKayitBilgileri$ | async"
+              [disabled]="dispozeBobin$ | async"
+              (changeAciklama)="onChangeAciklama($event)"
+            ></euys-hsm2-qc-uretim-bilgisi>
+          </ng-template>
+
+          <ng-template pTemplate="centerRight">
+            <euys-hsm2-uretim-degerleri
+              [uretimDegerleri]="uretimDegerleri$ | async"
+              [disabled]="dispozeBobin$ | async"
+              (update)="onChangeUretimDegeri($event)"
+            ></euys-hsm2-uretim-degerleri>
+          </ng-template>
+
+          <ng-template pTemplate="bottomLeft">
+            <div [style.height]="'300px'">
+              <euys-hsm-bobin-kalinlik-degerleri
+                [bobinKalinlikDegerleri]="bobinKalinlikDegerleri$ | async"
+                [disabled]="dispozeBobin$ | async"
+                (updated)="onBobinKalinlikUpdate($event)"
+              ></euys-hsm-bobin-kalinlik-degerleri>
+            </div>
+          </ng-template>
+
+          <ng-template pTemplate="bottomRight">
+            <euys-hsm2-qc-options
+              [bobinAcmaKontrol]="bobinAcmaKontrol$ | async"
+              [disableYuzeyKusuru]="disableYuzeyKusuru$ | async"
+              [showNumuneAlCombo]="showNumuneAlCombo$ | async"
+              [numuneAlmaIsareti]="numuneAlmaIsareti$ | async"
+              [numuneAl]="numuneAl$ | async"
+              [yuzeyKusuruVarMi]="yuzeyKusuruVarMi$ | async"
+              (update)="onChangeOptions($event)"
+            >
+              <div class="p-grid">
+                <div class="p-col-12">
+                  <button
+                    pButton
+                    pRipple
+                    [icon]="'pi pi-ellipsis-v'"
+                    [label]="'KABA HADDELEME PASO'"
+                    [class]="dialogButtonClass"
+                    type="button"
+                    (click)="openKabaHaddeleme()"
+                  ></button>
+                </div>
+                <div class="p-col-12">
+                  <button
+                    pButton
+                    pRipple
+                    [icon]="'pi pi-ellipsis-v'"
+                    [label]="'FM PRATİGİ BİLGİLERİ'"
+                    [class]="dialogButtonClass"
+                    type="button"
+                    (click)="openFmPratigiBilgileri()"
+                  ></button>
+                </div>
+                <div class="p-col-12">
+                  <button
+                    pButton
+                    pRipple
+                    [icon]="'pi pi-ellipsis-v'"
+                    [label]="'SLAB Bilgisi'"
+                    [class]="dialogButtonClass"
+                    type="button"
+                    (click)="openSlabBilgisiDialog()"
+                  ></button>
+                </div>
+              </div>
+            </euys-hsm2-qc-options>
+          </ng-template>
+        </euys-qc-kayit-karar>
+      </ng-container>
+
+      <!-- FOOTER -->
+      <ng-container footer *ngTemplateOutlet="prevNext"></ng-container>
+    </euys-styled-panel>
+
+    <euys-styled-panel
+      *ngIf="activeIndex === 3"
+      [toggleable]="false"
+      class="p-col-12"
+    >
+      <ng-container header>
+        <euys-free-header textToRender="Yüzey Kusur Kaydı"> </euys-free-header>
+      </ng-container>
+      <ng-container content>
+        <euys-yuzey-kusur-kaydi
+          hatKodu="332"
+          [yuzeyKusurKaydiList$]="yuzeyKusurKaydiList$"
+          [yuzeyKusurKaydiListLoaded$]="yuzeyKusurKaydiListLoaded$"
+          [aktifKusur$]="aktifKusurList$"
+          [defaultYuzeyKusurKodu]="defaultYuzeyKusurKodu$ | async"
+          (updated)="onYuzeyKusurUpdate($event)"
+          [dispoze]="dispoze$ | async"
+          [minDerece]="minDerece$ | async"
+        ></euys-yuzey-kusur-kaydi>
+      </ng-container>
+
+      <!-- FOOTER -->
+      <ng-container footer *ngTemplateOutlet="prevNext"></ng-container>
+    </euys-styled-panel>
+
+    <euys-styled-panel
+      *ngIf="activeIndex === 4"
+      [toggleable]="false"
+      class="p-col-12"
+    >
+      <ng-container header>
+        <euys-free-header textToRender="2. Sıcak Haddehane QC Kayıt/Karar">
+        </euys-free-header>
+      </ng-container>
+      <ng-container content>
+        <euys-qc-kayit-karar>
+          <ng-template pTemplate="top">
+            <euys-sicak-haddeleme
+              [qcKayitBilgileri]="qcKayitBilgileri$ | async"
+              [qcKayitBilgileriLoaded$]="qcKayitBilgileriLoaded$"
+            ></euys-sicak-haddeleme>
+          </ng-template>
+
+          <ng-template pTemplate="centerLeft">
+            <euys-hsm2-qc-uretim-bilgisi
+              [qcKayitBilgileri]="qcKayitBilgileri$ | async"
+              [disabled]="true"
+            ></euys-hsm2-qc-uretim-bilgisi>
+          </ng-template>
+
+          <ng-template pTemplate="centerRight">
+            <euys-hsm2-uretim-degerleri
+              [uretimDegerleri]="
+                (qcKayitBilgileri$ | async)?.hsm2UretimDegerleri
+              "
+              [disabled]="true"
+            ></euys-hsm2-uretim-degerleri>
+          </ng-template>
+
+          <ng-template pTemplate="bottomLeft">
+            <div [style.height]="'300px'">
+              <euys-hsm-bobin-kalinlik-degerleri
+                [bobinKalinlikDegerleri]="bobinKalinlikDegerleri$ | async"
+                [disabled]="true"
+              ></euys-hsm-bobin-kalinlik-degerleri>
+            </div>
+          </ng-template>
+
+          <ng-template pTemplate="bottomRight">
+            <euys-hsm2-qc-options
+              [bobinAcmaKontrol]="bobinAcmaKontrol$ | async"
+              [showNumuneAlCombo]="showNumuneAlCombo$ | async"
+              [numuneAlmaIsareti]="numuneAlmaIsareti$ | async"
+              [numuneAl]="numuneAl$ | async"
+              [yuzeyKusuruVarMi]="yuzeyKusuruVarMi$ | async"
+              [disabled]="true"
+            >
+              <div class="p-grid">
+                <div class="p-col-12">
+                  <button
+                    pButton
+                    pRipple
+                    [icon]="'pi pi-ellipsis-v'"
+                    [label]="'KABA HADDELEME PASO'"
+                    [class]="dialogButtonClass"
+                    type="button"
+                    (click)="openKabaHaddeleme()"
+                  ></button>
+                </div>
+                <div class="p-col-12">
+                  <button
+                    pButton
+                    pRipple
+                    [icon]="'pi pi-ellipsis-v'"
+                    [label]="'FM PRATİGİ BİLGİLERİ'"
+                    [class]="dialogButtonClass"
+                    type="button"
+                    (click)="openFmPratigiBilgileri()"
+                  ></button>
+                </div>
+                <div class="p-col-12">
+                  <button
+                    pButton
+                    pRipple
+                    [icon]="'pi pi-ellipsis-v'"
+                    [label]="'SLAB Bilgisi'"
+                    [class]="dialogButtonClass"
+                    type="button"
+                    (click)="openSlabBilgisiDialog()"
+                  ></button>
+                </div>
+              </div>
+            </euys-hsm2-qc-options>
+          </ng-template>
+        </euys-qc-kayit-karar>
+      </ng-container>
+
+      <!-- FOOTER -->
+      <ng-container footer>
+        <div class="flex flex-row align-middle justify-end">
+          <button
+            [icon]="'pi pi-arrow-circle-left'"
+            [label]="'GERİ'"
+            (click)="prev()"
+            [class]="navigationButtonClass"
+            pButton
+            pRipple
+            type="button"
+          ></button>
+          <button
+            *ngIf="qcOnay$ | async as qcOnay"
+            [icon]="'pi pi-check'"
+            [label]="'ONAY'"
+            (click)="qcKayit(qcOnay)"
+            [class]="navigationButtonClass"
+            pButton
+            pRipple
+            type="button"
+          ></button>
+        </div>
+      </ng-container>
+    </euys-styled-panel>
+  </div>
+</p-card>
+
+<ng-template #prevNext>
+  <div class="flex flex-row align-middle justify-end">
+    <button
+      [icon]="'pi pi-arrow-circle-left'"
+      [label]="'GERİ'"
+      (click)="prev()"
+      [class]="navigationButtonClass"
+      pButton
+      pRipple
+      type="button"
+    ></button>
+    <button
+      [icon]="'pi pi-arrow-circle-right'"
+      [label]="'DEVAM'"
+      (click)="next()"
+      [class]="navigationButtonClass"
+      pButton
+      pRipple
+      type="button"
+    ></button>
+  </div>
+</ng-template>

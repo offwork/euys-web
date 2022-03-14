@@ -1,0 +1,50 @@
+<p-card>
+  <form
+    class="grid items-center gap-y-8 gap-x-4"
+    style="grid-template-columns: repeat(3, fit-content(100%))"
+  >
+    <label class="text-right">Ay / Yıl : </label>
+    <p-calendar
+      view="month"
+      dateFormat="mm/yy"
+      inputId="yilAy"
+      [formControl]="yilAy"
+    ></p-calendar>
+    <div></div>
+
+    <label class="text-right">Excel Dosya Yükleme : </label>
+    <p-fileUpload
+      mode="basic"
+      styleClass="w-full"
+      chooseLabel="Dosya Seç"
+      [auto]="true"
+      [customUpload]="true"
+      (uploadHandler)="onFileChange($event)"
+    ></p-fileUpload>
+
+    <p-chip
+      *ngIf="file"
+      [label]="file?.name"
+      styleClass="!px-4 !py-px shadow-inner"
+      icon="pi pi-file-excel"
+    >
+    </p-chip>
+  </form>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      [loading]="progress$ | async"
+      (click)="save()"
+      type="button"
+      label="Kaydet"
+      class="p-button p-button-raised p-button-rounded w-36 !px-8"
+      icon="pi pi-save"
+    ></button>
+  </ng-template>
+</p-card>
+
+<p-confirmDialog
+  header="Onay"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>

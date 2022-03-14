@@ -1,0 +1,131 @@
+{
+  "npmScope": "euys",
+  "affected": {
+    "defaultBase": "master"
+  },
+  "implicitDependencies": {
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    ".eslintrc.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e",
+          "build-storybook"
+        ]
+      }
+    }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
+  },
+  "projects": {
+    "api": {
+      "tags": []
+    },
+    "api-interfaces": {
+      "tags": []
+    },
+    "core": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "erdemir-demo": {
+      "tags": []
+    },
+    "erdemir-demo-e2e": {
+      "tags": [],
+      "implicitDependencies": ["erdemir-demo"]
+    },
+    "erdemir-demo-feature": {
+      "tags": []
+    },
+    "features-kalite-kontrol": {
+      "tags": []
+    },
+    "features-kt-specs": {
+      "tags": ["scope:kt-specs", "type:feature"]
+    },
+    "features-pfdm": {
+      "tags": ["scope:pfdm", "type:feature"]
+    },
+    "features-tee": {
+      "tags": ["scope:tee", "type:feature"]
+    },
+    "features-uretim-planlama": {
+      "tags": ["scope:uretim-planlama", "type:feature"]
+    },
+    "features-uretim-takip": {
+      "tags": ["scope:uretim-takip", "type:feature"]
+    },
+    "kalite-kontrol": {
+      "tags": []
+    },
+    "kalite-kontrol-e2e": {
+      "tags": [],
+      "implicitDependencies": ["kalite-kontrol"]
+    },
+    "kt-specs": {
+      "tags": []
+    },
+    "kt-specs-e2e": {
+      "tags": [],
+      "implicitDependencies": ["kt-specs"]
+    },
+    "pfdm": {
+      "tags": []
+    },
+    "pfdm-e2e": {
+      "tags": [],
+      "implicitDependencies": ["pfdm"]
+    },
+    "shared-app-shell": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-euys-design": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-styles": {
+      "tags": ["scope:shared", "type:styles"]
+    },
+    "shared-ui": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-utility": {
+      "tags": ["scope:shared", "type:utility"]
+    },
+    "tee": {
+      "tags": []
+    },
+    "tee-e2e": {
+      "tags": [],
+      "implicitDependencies": ["tee"]
+    },
+    "uretim-planlama": {
+      "tags": []
+    },
+    "uretim-planlama-e2e": {
+      "tags": [],
+      "implicitDependencies": ["uretim-planlama"]
+    },
+    "uretim-takip": {
+      "tags": []
+    },
+    "uretim-takip-e2e": {
+      "tags": [],
+      "implicitDependencies": ["uretim-takip"]
+    }
+  }
+}
